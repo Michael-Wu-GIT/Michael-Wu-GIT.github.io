@@ -9,9 +9,9 @@
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-            color: #333;
-            background: #fff;
-            line-height: 1.7;
+            color: #e8e8e8;
+            background: #040404;
+            line-height: 1.75;
             -webkit-font-smoothing: antialiased;
         }
         a { text-decoration: none; color: inherit; }
@@ -19,255 +19,264 @@
 
         .navbar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            background: rgba(26, 35, 126, 0.97);
-            backdrop-filter: blur(12px);
-            padding: 0 40px;
-            height: 64px;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(16px);
+            padding: 0 36px;
+            height: 70px;
             display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 600; font-size: 15px; letter-spacing: 0.5px; }
+        .nav-logo { display: flex; align-items: center; gap: 12px; color: #fff; font-weight: 700; font-size: 15px; letter-spacing: 0.6px; }
         .nav-logo .logo-dot {
-            width: 28px; height: 28px; border-radius: 8px;
-            background: linear-gradient(135deg, #1565c0, #00bcd4);
+            width: 30px; height: 30px; border-radius: 10px;
+            background: linear-gradient(135deg, #f0b429, #ffca28);
             display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 14px; font-weight: 700;
+            color: #111; font-size: 14px; font-weight: 700;
         }
-        .nav-links { display: flex; gap: 28px; list-style: none; }
-        .nav-links a { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: #fff; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.75); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #f0b429; }
         .nav-cta {
-            background: #1565c0; color: #fff; border: none;
-            padding: 8px 20px; border-radius: 8px; font-size: 13px;
-            font-weight: 600; cursor: pointer; transition: background 0.2s; text-decoration: none;
+            background: #f0b429; color: #111; border: none;
+            padding: 10px 24px; border-radius: 999px; font-size: 13px;
+            font-weight: 700; cursor: pointer; transition: transform 0.2s, background 0.2s; text-decoration: none;
         }
-        .nav-cta:hover { background: #0d47a1; }
+        .nav-cta:hover { background: #ffc107; transform: translateY(-1px); }
         .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
-        .nav-toggle span { width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+        .nav-toggle span { width: 26px; height: 2px; background: #fff; border-radius: 2px; }
 
         .hero {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0d1b2a 0%, #1a237e 50%, #0d47a1 100%);
+            background: linear-gradient(135deg, #020202 0%, #080808 40%, #121212 100%);
             display: flex; align-items: center; justify-content: center;
             text-align: center;
-            padding: 120px 24px 80px;
+            padding: 130px 24px 80px;
             position: relative; overflow: hidden;
         }
         .hero::before {
             content: '';
             position: absolute; inset: 0;
             background:
-                radial-gradient(circle at 20% 50%, rgba(0,188,212,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 30%, rgba(21,101,192,0.12) 0%, transparent 50%),
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 3px);
+                radial-gradient(circle at 20% 50%, rgba(240,180,41,0.12) 0%, transparent 38%),
+                radial-gradient(circle at 80% 30%, rgba(0,229,255,0.12) 0%, transparent 35%),
+                linear-gradient(180deg, rgba(255,255,255,0.02), transparent 60%);
             pointer-events: none;
         }
-        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero-content { position: relative; z-index: 1; max-width: 860px; }
         .hero-badge {
             display: inline-block;
-            background: rgba(0,188,212,0.15); border: 1px solid rgba(0,188,212,0.3);
-            color: #80deea; padding: 6px 18px; border-radius: 20px;
-            font-size: 13px; font-weight: 500; margin-bottom: 24px;
+            background: rgba(240,180,41,0.12); border: 1px solid rgba(240,180,41,0.25);
+            color: #f7d47d; padding: 8px 20px; border-radius: 999px;
+            font-size: 13px; font-weight: 600; margin-bottom: 26px;
         }
-        .hero h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2; }
-        .hero h1 .highlight { background: linear-gradient(135deg, #00bcd4, #4fc3f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-subtitle { font-size: clamp(16px, 2vw, 20px); color: rgba(255,255,255,0.7); margin-bottom: 8px; font-weight: 400; }
-        .hero-position { font-size: clamp(14px, 1.5vw, 17px); color: rgba(255,255,255,0.55); margin-bottom: 40px; }
-        .hero-highlights { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 40px; }
+        .hero h1 { font-size: clamp(34px, 5vw, 58px); font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.05; }
+        .hero h1 .highlight { background: linear-gradient(135deg, #f0b429, #00e5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: clamp(16px, 2vw, 20px); color: rgba(255,255,255,0.75); margin-bottom: 10px; font-weight: 400; }
+        .hero-position { font-size: clamp(14px, 1.5vw, 17px); color: rgba(255,255,255,0.6); margin-bottom: 44px; }
+        .hero-highlights { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 36px; }
         .hero-highlight {
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px 18px; border-radius: 10px;
-            color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 400;
-            backdrop-filter: blur(4px);
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+            padding: 12px 20px; border-radius: 14px;
+            color: rgba(255,255,255,0.88); font-size: 13px; font-weight: 400;
+            backdrop-filter: blur(6px);
         }
-        .hero-highlight strong { color: #4fc3f7; }
+        .hero-highlight strong { color: #f0b429; }
         .hero-stats {
             display: grid;
             grid-template-columns: repeat(4, minmax(140px, 1fr));
-            gap: 16px;
+            gap: 18px;
             justify-items: center;
-            margin: 28px auto 40px;
-            max-width: 820px;
+            margin: 28px auto 42px;
+            max-width: 860px;
         }
         .hero-stat {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 16px;
-            padding: 16px 18px;
-            min-height: 96px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+            border-radius: 18px;
+            padding: 18px 20px;
+            min-height: 104px;
+            width: 100%;
         }
         .hero-stat strong {
             display: block;
-            font-size: 24px;
+            font-size: 26px;
             color: #fff;
-            font-weight: 700;
-            margin-bottom: 6px;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
         .hero-stat span {
             color: rgba(255,255,255,0.72);
             font-size: 13px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .btn-primary {
-            background: #1565c0; color: #fff; border: none;
-            padding: 14px 36px; border-radius: 10px; font-size: 15px;
-            font-weight: 600; cursor: pointer; transition: all 0.3s; display: inline-block; text-decoration: none;
+            background: #f0b429; color: #111; border: none;
+            padding: 14px 38px; border-radius: 999px; font-size: 15px;
+            font-weight: 700; cursor: pointer; transition: transform 0.25s, background 0.25s; display: inline-block; text-decoration: none;
         }
-        .btn-primary:hover { background: #0d47a1; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(21,101,192,0.3); }
+        .btn-primary:hover { background: #ffca28; transform: translateY(-2px); box-shadow: 0 16px 36px rgba(240,180,41,0.22); }
         .btn-outline {
-            background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3);
-            padding: 14px 36px; border-radius: 10px; font-size: 15px;
-            font-weight: 500; cursor: pointer; transition: all 0.3s; display: inline-block; text-decoration: none;
+            background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.18);
+            padding: 14px 38px; border-radius: 999px; font-size: 15px;
+            font-weight: 500; cursor: pointer; transition: all 0.25s; display: inline-block; text-decoration: none;
         }
-        .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+        .btn-outline:hover { border-color: #f0b429; background: rgba(240,180,41,0.12); }
 
         .section { padding: 90px 24px; }
         .section-inner { max-width: 1100px; margin: 0 auto; }
-        .section { scroll-margin-top: 90px; }
+        .section { scroll-margin-top: 92px; }
         .section-label {
-            display: inline-block; color: #1565c0; font-size: 13px; font-weight: 600;
-            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+            display: inline-block; color: #00e5ff; font-size: 13px; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
         }
-        .section-title { font-size: clamp(26px, 3vw, 36px); font-weight: 700; color: #1a237e; margin-bottom: 16px; }
-        .section-desc { color: #666; font-size: 16px; max-width: 600px; margin-bottom: 48px; }
-        .section-alt { background: #f5f7fa; }
+        .section-title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; color: #fff; margin-bottom: 18px; }
+        .section-desc { color: #b8c2cc; font-size: 16px; max-width: 600px; margin-bottom: 48px; }
+        .section-alt { background: #080808; }
 
         .about-grid { display: grid; grid-template-columns: minmax(320px, 1.2fr) minmax(260px, 0.8fr); gap: 48px; align-items: start; }
-        .about-left h2 { font-size: 26px; font-weight: 700; color: #1a237e; margin-bottom: 16px; }
-        .about-left p { color: #555; margin-bottom: 12px; font-size: 15px; }
-        .about-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .about-info-item { background: #f5f7fa; border-radius: 10px; padding: 14px 18px; }
-        .about-info-item .label { font-size: 12px; color: #888; font-weight: 500; }
-        .about-info-item .value { font-size: 14px; color: #333; font-weight: 600; margin-top: 2px; }
+        .about-left h2 { font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 16px; }
+        .about-left p { color: #ccc; margin-bottom: 14px; font-size: 15px; }
+        .about-info { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+        .about-info-item { background: #101010; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px 20px; }
+        .about-info-item .label { font-size: 12px; color: #8a9ca7; font-weight: 600; }
+        .about-info-item .value { font-size: 14px; color: #fff; font-weight: 700; margin-top: 4px; }
 
         .career-timeline { position: relative; padding-left: 28px; }
         .career-timeline::before {
             content: ''; position: absolute; left: 8px; top: 12px; bottom: 12px;
-            width: 2px; background: linear-gradient(to bottom, #1565c0, #00bcd4);
+            width: 2px; background: linear-gradient(to bottom, #00e5ff, #f0b429);
         }
         .career-item { position: relative; margin-bottom: 24px; padding-left: 16px; }
         .career-item::before {
             content: ''; position: absolute; left: -24px; top: 6px;
             width: 12px; height: 12px; border-radius: 50%;
-            background: #1565c0; border: 3px solid #e8eaf6;
+            background: #00e5ff; border: 3px solid #090909;
         }
-        .career-item .company { font-weight: 700; color: #1a237e; font-size: 15px; }
-        .career-item .role { font-size: 13px; color: #1565c0; font-weight: 600; }
-        .career-item .period { font-size: 12px; color: #999; }
-        .career-item .detail { font-size: 13px; color: #666; margin-top: 4px; }
+        .career-item .company { font-weight: 700; color: #fff; font-size: 15px; }
+        .career-item .role { font-size: 13px; color: #f0b429; font-weight: 700; }
+        .career-item .period { font-size: 12px; color: #8a9ca7; }
+        .career-item .detail { font-size: 13px; color: #c6cdd4; margin-top: 6px; }
 
         .ability-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .ability-card {
-            background: #fff; border: 1px solid #e8eaf6; border-radius: 14px;
-            padding: 28px 24px; transition: all 0.3s;
+            background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
+            padding: 30px 26px; transition: all 0.3s;
         }
-        .ability-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,35,126,0.08); border-color: #1565c0; }
-        .ability-icon { font-size: 32px; margin-bottom: 12px; }
-        .ability-card h3 { font-size: 16px; font-weight: 700; color: #1a237e; margin-bottom: 6px; }
-        .ability-card .ability-skills { font-size: 13px; color: #666; margin-bottom: 8px; line-height: 1.6; }
-        .ability-card .ability-meta { font-size: 12px; color: #999; }
-        .ability-card .ability-meta strong { color: #1565c0; }
+        .ability-card:hover { transform: translateY(-4px); box-shadow: 0 18px 45px rgba(0,0,0,0.32); border-color: rgba(240,180,41,0.3); }
+        .ability-icon { font-size: 34px; margin-bottom: 14px; }
+        .ability-card h3 { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+        .ability-card .ability-skills { font-size: 13px; color: #c4ccd4; margin-bottom: 10px; line-height: 1.7; }
+        .ability-card .ability-meta { font-size: 12px; color: #9ab0c7; }
+        .ability-card .ability-meta strong { color: #f0b429; }
 
         .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .case-card {
-            background: #fff; border: 1px solid #e8eaf6; border-radius: 18px;
-            padding: 32px; transition: all 0.3s;
-            min-height: 320px;
+            background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 22px;
+            padding: 34px; transition: all 0.3s;
+            min-height: 336px;
             display: flex; flex-direction: column;
         }
         .case-card .case-item { flex: 1; }
-        .case-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(26,35,126,0.06); }
-        .case-card .case-client { font-size: 12px; color: #1565c0; font-weight: 600; letter-spacing: 1px; }
-        .case-card h3 { font-size: 18px; font-weight: 700; color: #1a237e; margin: 4px 0 16px; }
-        .case-card .case-item { margin-bottom: 10px; }
+        .case-card:hover { transform: translateY(-3px); box-shadow: 0 16px 42px rgba(0,0,0,0.26); }
+        .case-card .case-client { font-size: 12px; color: #00e5ff; font-weight: 700; letter-spacing: 1px; }
+        .case-card h3 { font-size: 20px; font-weight: 800; color: #fff; margin: 6px 0 18px; }
+        .case-card .case-item { margin-bottom: 12px; }
         .case-card .case-item .case-label {
-            font-size: 12px; font-weight: 600; color: #1565c0;
-            background: #e3f2fd; padding: 2px 10px; border-radius: 4px;
-            display: inline-block; margin-bottom: 3px;
+            font-size: 12px; font-weight: 700; color: #f0b429;
+            background: rgba(240,180,41,0.12); padding: 4px 12px; border-radius: 999px;
+            display: inline-block; margin-bottom: 5px;
         }
-        .case-card .case-item p { font-size: 14px; color: #555; line-height: 1.6; }
+        .case-card .case-item p { font-size: 14px; color: #c8d1db; line-height: 1.7; }
 
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .service-card {
-            background: #fff; border: 1px solid #e8eaf6; border-radius: 18px;
-            padding: 28px 24px; transition: all 0.3s;
-            min-height: 240px;
+            background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 22px;
+            padding: 30px 26px; transition: all 0.3s;
+            min-height: 260px;
             display: flex; flex-direction: column;
         }
-        .service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(26,35,126,0.06); }
-        .service-card .service-icon { font-size: 28px; margin-bottom: 12px; }
-        .service-card h3 { font-size: 17px; font-weight: 700; color: #1a237e; margin-bottom: 4px; }
-        .service-card .service-desc { font-size: 13px; color: #666; margin-bottom: 10px; }
-        .service-card .service-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .service-card:hover { transform: translateY(-3px); box-shadow: 0 16px 38px rgba(0,0,0,0.22); }
+        .service-card .service-icon { font-size: 30px; margin-bottom: 14px; }
+        .service-card h3 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+        .service-card .service-desc { font-size: 14px; color: #c8d1db; margin-bottom: 14px; }
+        .service-card .service-tags { display: flex; flex-wrap: wrap; gap: 8px; }
         .service-card .service-tags span {
-            font-size: 11px; background: #e3f2fd; color: #1565c0;
-            padding: 3px 10px; border-radius: 6px; font-weight: 500;
+            font-size: 11px; background: rgba(0,229,255,0.12); color: #00e5ff;
+            padding: 4px 12px; border-radius: 999px; font-weight: 600;
+        }
+        .service-card .service-tags span[style] {
+            background: rgba(240,180,41,0.12); color: #f0b429;
         }
 
         .hobby-section { text-align: center; }
         .hobby-tagline {
             font-size: clamp(18px, 2.5vw, 24px);
-            color: #1a237e; font-style: italic; font-weight: 500;
-            margin-bottom: 40px; line-height: 1.5;
+            color: #d6dce3; font-style: italic; font-weight: 500;
+            margin-bottom: 36px; line-height: 1.5;
         }
         .hobby-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .hobby-card {
-            background: #fff; border: 1px solid #e8eaf6; border-radius: 14px;
-            padding: 28px 20px;
+            background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
+            padding: 28px 22px;
         }
-        .hobby-card .hobby-icon { font-size: 40px; margin-bottom: 12px; }
-        .hobby-card h3 { font-size: 15px; font-weight: 700; color: #1a237e; }
-        .hobby-card p { font-size: 13px; color: #666; margin-top: 6px; line-height: 1.6; }
+        .hobby-card .hobby-icon { font-size: 42px; margin-bottom: 12px; }
+        .hobby-card h3 { font-size: 16px; font-weight: 800; color: #fff; }
+        .hobby-card p { font-size: 13px; color: #b8c2cc; margin-top: 6px; line-height: 1.75; }
         .hobby-quote {
             margin-top: 40px;
-            padding: 28px 24px; border-radius: 14px;
-            background: linear-gradient(135deg, #e3f2fd, #e0f7fa);
-            font-size: 17px; color: #1565c0; font-weight: 500;
-            max-width: 600px; margin-left: auto; margin-right: auto;
+            padding: 30px 26px; border-radius: 18px;
+            background: rgba(240,180,41,0.12);
+            font-size: 17px; color: #f0b429; font-weight: 600;
+            max-width: 620px; margin-left: auto; margin-right: auto;
         }
 
         .coop-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         .coop-mode { display: flex; flex-direction: column; gap: 16px; }
         .coop-mode-item {
-            background: #fff; border: 1px solid #e8eaf6; border-radius: 12px;
-            padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start;
+            background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+            padding: 24px 26px; display: flex; gap: 16px; align-items: flex-start;
         }
-        .coop-mode-item .icon { font-size: 24px; flex-shrink: 0; }
-        .coop-mode-item h4 { font-size: 15px; font-weight: 700; color: #1a237e; }
-        .coop-mode-item p { font-size: 13px; color: #666; margin-top: 2px; }
+        .coop-mode-item .icon { font-size: 26px; flex-shrink: 0; }
+        .coop-mode-item h4 { font-size: 16px; font-weight: 800; color: #fff; }
+        .coop-mode-item p { font-size: 13px; color: #c4ccd4; margin-top: 2px; }
         .coop-process { counter-reset: step; }
         .coop-step {
             display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px;
-            padding: 16px 20px; background: #f5f7fa; border-radius: 10px;
+            padding: 18px 22px; background: #080808; border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.08);
         }
         .coop-step .num {
-            width: 32px; height: 32px; border-radius: 50%; background: #1565c0;
-            color: #fff; display: flex; align-items: center; justify-content: center;
-            font-size: 14px; font-weight: 700; flex-shrink: 0;
+            width: 34px; height: 34px; border-radius: 50%; background: #f0b429;
+            color: #111; display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 800; flex-shrink: 0;
         }
-        .coop-step h4 { font-size: 14px; font-weight: 700; color: #1a237e; }
-        .coop-step p { font-size: 13px; color: #666; }
+        .coop-step h4 { font-size: 15px; font-weight: 700; color: #fff; }
+        .coop-step p { font-size: 13px; color: #c4ccd4; }
 
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
         .contact-info-list { display: flex; flex-direction: column; gap: 16px; }
         .contact-item {
             display: flex; align-items: center; gap: 16px;
-            padding: 16px 20px; background: #f5f7fa; border-radius: 10px;
+            padding: 18px 22px; background: #0a0a0a; border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
         }
         .contact-item .icon { font-size: 24px; }
-        .contact-item .value { font-size: 15px; font-weight: 600; color: #1a237e; }
-        .contact-item .sub { font-size: 12px; color: #888; }
+        .contact-item .value { font-size: 15px; font-weight: 700; color: #fff; }
+        .contact-item .sub { font-size: 12px; color: #8a9ca7; }
 
         .contact-form input, .contact-form textarea {
-            width: 100%; padding: 12px 16px; border: 1px solid #ddd;
-            border-radius: 10px; font-size: 14px; font-family: inherit;
-            margin-bottom: 12px; transition: border-color 0.2s;
+            width: 100%; padding: 14px 18px; border: 1px solid rgba(255,255,255,0.12);
+            background: #080808; color: #e8e8e8; border-radius: 14px; font-size: 14px; font-family: inherit;
+            margin-bottom: 14px; transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #1565c0; }
-        .contact-form textarea { min-height: 100px; resize: vertical; }
+        .contact-form input::placeholder, .contact-form textarea::placeholder { color: #7a8a9d; }
+        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #00e5ff; box-shadow: 0 0 0 4px rgba(0,229,255,0.14); }
+        .contact-form textarea { min-height: 120px; resize: vertical; }
 
         .footer {
-            background: #0d1b2a; color: rgba(255,255,255,0.72);
+            background: #020202; color: rgba(255,255,255,0.68);
             text-align: center; padding: 34px 24px 28px; font-size: 13px;
         }
         .footer a { color: #4fc3f7; text-decoration: none; }
@@ -312,8 +321,8 @@
 
 <nav class="navbar" id="navbar">
     <div class="nav-logo">
-        <div class="logo-dot">W</div>
-        <span>吴永毅 · IT咨询</span>
+        <div class="logo-dot">永</div>
+        <span>永毅顾问</span>
     </div>
     <ul class="nav-links" id="navLinks">
         <li><a href="#hero">首页</a></li>
@@ -323,7 +332,7 @@
         <li><a href="#hobby">跑步之外</a></li>
         <li><a href="#contact">联系</a></li>
     </ul>
-    <a href="#contact" class="nav-cta" style="color:#fff">立即咨询 →</a>
+    <a href="#contact" class="nav-cta">1对1咨询</a>
     <button class="nav-toggle" id="navToggle" aria-label="菜单">
         <span></span><span></span><span></span>
     </button>
@@ -331,10 +340,10 @@
 
 <section class="hero" id="hero">
     <div class="hero-content">
-        <div class="hero-badge">✨ 24年IT行业 · 数字化转型实战派</div>
-        <h1>用专业技术<br>解决企业<span class="highlight">IT核心痛点</span></h1>
-        <p class="hero-subtitle">从华为、金蝶、航天信息到元毅数智</p>
-        <p class="hero-position">吴永毅 | 元毅数智科技 · 解决方案总监</p>
+        <div class="hero-badge">✨ 个人品牌 · 数字化咨询</div>
+        <h1>我是吴永毅<br>打造企业<span class="highlight">数字化品牌势能</span></h1>
+        <p class="hero-subtitle">前华为实战顾问 · 24年企业转型与AI落地经验</p>
+        <p class="hero-position">吴永毅 | 个人场景咨询顾问</p>
         <div class="hero-highlights">
             <span class="hero-highlight">🏆 <strong>6家</strong> 行业龙头经历</span>
             <span class="hero-highlight">🏆 <strong>6项</strong> 软件发明专利</span>
@@ -361,7 +370,7 @@
         <p class="section-desc">24年完整IT履历，从技术到业务、从大厂到创业的完整蜕变。</p>
         <div class="about-grid">
             <div class="about-left">
-                <h2>吴永毅 <span style="font-size:16px;font-weight:400;color:#666;">（毅力的毅）</span></h2>
+                <h2>吴永毅 <span style="font-size:16px;font-weight:400;color:#b8c2cc;">（毅力的毅）</span></h2>
                 <p>48岁，四川仁寿人，中南大学管理信息系统本科（1997-2001）。现居深圳龙华。</p>
                 <p>从富士康的ERP技术员起步，历经金蝶的产品规划、华为的IT项目管理、中兴的智慧城市方案、航天信息的国企数字化转型，到如今立足元毅数智，专注AI+数字化前沿。</p>
                 <p>24年最大的感悟：技术只是手段，帮企业解决问题才是目的。</p>
@@ -552,7 +561,7 @@
                 <div class="service-desc">现状诊断 → 路径规划 → 方案输出 → 落地指导</div>
                 <div class="service-tags">
                     <span>制造业</span><span>国企</span><span>民企</span>
-                    <span style="background:#e0f2fe;color:#0369a1;">百万级试错成本省掉</span>
+                    <span style="background: rgba(240,180,41,0.12); color: #f0b429;">百万级试错成本省掉</span>
                 </div>
             </div>
             <div class="service-card">
@@ -561,7 +570,7 @@
                 <div class="service-desc">系统选型评估 → 流程重塑 → 数据治理</div>
                 <div class="service-tags">
                     <span>金蝶</span><span>SAP</span><span>鼎捷</span>
-                    <span style="background:#e0f2fe;color:#0369a1;">让ERP真正用起来</span>
+                    <span style="background: rgba(0,229,255,0.12); color: #00e5ff;">让ERP真正用起来</span>
                 </div>
             </div>
             <div class="service-card">
@@ -570,7 +579,7 @@
                 <div class="service-desc">数据质量评估 → 数据治理 → AI场景匹配</div>
                 <div class="service-tags">
                     <span>数据血缘</span><span>数据标准</span><span>大模型</span>
-                    <span style="background:#e0f2fe;color:#0369a1;">先治数再上AI</span>
+                    <span style="background: rgba(0,229,255,0.12); color: #00e5ff;">先治数再上AI</span>
                 </div>
             </div>
             <div class="service-card">
@@ -579,7 +588,7 @@
                 <div class="service-desc">多项目管控 → IPD流程 → 资源协调</div>
                 <div class="service-tags">
                     <span>IPD</span><span>PMO</span><span>大型项目</span>
-                    <span style="background:#e0f2fe;color:#0369a1;">100+人团队管控经验</span>
+                    <span style="background: rgba(240,180,41,0.12); color: #f0b429;">100+人团队管控经验</span>
                 </div>
             </div>
         </div>
@@ -629,33 +638,33 @@
         <p class="section-desc">三种合作模式，灵活适配不同需求。</p>
         <div class="coop-layout">
             <div>
-                <h3 style="font-size:18px;font-weight:700;color:#1a237e;margin-bottom:16px;">合作模式</h3>
+                <h3 style="font-size:18px;font-weight:700;color:#fff;margin-bottom:16px;">合作模式</h3>
                 <div class="coop-mode">
                     <div class="coop-mode-item">
                         <div class="icon">🎯</div>
                         <div>
                             <h4>单次诊断咨询</h4>
-                            <p>针对具体IT问题，提供一次性方案输出<br><small style="color:#999;">适合：企业IT痛点诊断、方案选型评估</small></p>
+                            <p>针对具体IT问题，提供一次性方案输出<br><small style="color:#8a9ca7;">适合：企业IT痛点诊断、方案选型评估</small></p>
                         </div>
                     </div>
                     <div class="coop-mode-item">
                         <div class="icon">🤝</div>
                         <div>
                             <h4>长期顾问合作</h4>
-                            <p>按季度/年度为企业提供持续IT咨询支撑<br><small style="color:#999;">适合：数字化转型长期陪跑、PMO咨询</small></p>
+                            <p>按季度/年度为企业提供持续IT咨询支撑<br><small style="color:#8a9ca7;">适合：数字化转型长期陪跑、PMO咨询</small></p>
                         </div>
                     </div>
                     <div class="coop-mode-item">
                         <div class="icon">📋</div>
                         <div>
                             <h4>项目全流程</h4>
-                            <p>从需求对接到落地指导，全流程跟进<br><small style="color:#999;">适合：ERP上线、智能制造项目等大型实施</small></p>
+                            <p>从需求对接到落地指导，全流程跟进<br><small style="color:#8a9ca7;">适合：ERP上线、智能制造项目等大型实施</small></p>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                <h3 style="font-size:18px;font-weight:700;color:#1a237e;margin-bottom:16px;">合作流程</h3>
+                <h3 style="font-size:18px;font-weight:700;color:#fff;margin-bottom:16px;">合作流程</h3>
                 <div class="coop-process">
                     <div class="coop-step">
                         <div class="num">1</div>
@@ -708,16 +717,16 @@
                             <div class="sub">深圳龙华区</div>
                         </div>
                     </div>
-                    <div class="contact-item" style="background:#e3f2fd;">
+                    <div class="contact-item" style="background: rgba(240,180,41,0.12);">
                         <div class="icon">⏰</div>
                         <div>
-                            <div class="value" style="font-weight:400;font-size:13px;">周一至周五 9:00-18:00 · 周末可预约</div>
+                            <div class="value" style="font-weight:400;font-size:13px;color:#fff;">周一至周五 9:00-18:00 · 周末可预约</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                <h3 style="font-size:16px;font-weight:700;color:#1a237e;margin-bottom:12px;">快捷留言</h3>
+                <h3 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:12px;">快捷留言</h3>
                 <form class="contact-form" onsubmit="handleForm(event)">
                     <input type="text" placeholder="您的姓名" required>
                     <input type="text" placeholder="公司名称">
