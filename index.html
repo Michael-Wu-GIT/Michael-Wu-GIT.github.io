@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>吴永毅 · IT咨询 | 数字化转型专家</title>
+<meta name="description" content="24年IT行业经验，专注企业数字化转型、ERP实施、数据治理、智能制造、AI应用。华为/金蝶/富士康/中兴/航天信息履历。">
+<meta name="keywords" content="吴永毅,IT咨询,数字化转型,ERP咨询,数据治理,智能制造,AI咨询">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -11,7 +15,8 @@ html{scroll-behavior:smooth}
 body{
   font-family:'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
   background:#080808;color:#e0e0e0;line-height:1.7;
-  -webkit-font-smoothing:antialiased
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden
 }
 ::selection{background:rgba(0,188,212,0.3)}
 
@@ -21,8 +26,10 @@ body{
   background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,0.04);
   padding:0 32px;height:60px;
-  display:flex;align-items:center;justify-content:space-between
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all 0.2s ease
 }
+.nav.scrolled{height:52px;background:rgba(5,5,5,0.97)}
 .nav-l{display:flex;align-items:center;gap:10px}
 .nav-dot{
   width:30px;height:30px;border-radius:6px;
@@ -36,10 +43,12 @@ body{
 .nav-r a:hover{color:#fff}
 .nav-btn{
   background:linear-gradient(135deg,#00bcd4,#7c4dff);color:#000;border:none;
-  padding:7px 20px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none
+  padding:7px 20px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;
+  transition:all 0.2s
 }
-.nav-toggle{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer}
-.nav-toggle span{width:22px;height:2px;background:#fff;border-radius:2px}
+.nav-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,188,212,0.15)}
+.nav-toggle{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-toggle span{width:22px;height:2px;background:#fff;border-radius:2px;transition:all 0.2s}
 
 /* Hero */
 .hero{
@@ -55,17 +64,20 @@ body{
     repeating-linear-gradient(90deg,transparent 0,transparent 39px,rgba(255,255,255,0.012) 39px,rgba(255,255,255,0.012) 40px);
   pointer-events:none
 }
-.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1;width:100%}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1;width:100%;opacity:0;animation:fadeInUp 0.8s ease-out forwards}
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
 .hero-badge{
   display:inline-flex;align-items:center;gap:6px;
   border:1px solid rgba(0,188,212,0.2);
   color:rgba(0,188,212,0.8);padding:5px 14px;border-radius:20px;
   font-size:11px;font-weight:500;margin-bottom:24px;
-  background:rgba(0,188,212,0.05)
+  background:rgba(0,188,212,0.05);
+  animation:fadeInUp 0.8s 0.1s ease-out forwards
 }
 .hero h1{
   font-size:clamp(32px,5vw,56px);font-weight:900;color:#fff;
-  line-height:1.1;margin-bottom:10px;letter-spacing:-.5px
+  line-height:1.1;margin-bottom:10px;letter-spacing:-.5px;
+  animation:fadeInUp 0.8s 0.2s ease-out forwards
 }
 .hero h1 .g{
   background:linear-gradient(135deg,#00bcd4,#7c4dff);
@@ -111,8 +123,9 @@ body{
 .about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px}
 .about-card{
   background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
-  border-radius:16px;padding:32px
+  border-radius:16px;padding:32px;transition:all 0.3s
 }
+.about-card:hover{border-color:rgba(0,188,212,0.1)}
 .about-card h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:4px}
 .about-card .sub{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:16px}
 .about-card>p{font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:16px;line-height:1.8}
@@ -129,7 +142,8 @@ body{
   content:'';position:absolute;left:7px;top:8px;bottom:8px;
   width:2px;background:linear-gradient(to bottom,#00bcd4,#7c4dff)
 }
-.tl-item{position:relative;padding:16px 0 16px 20px}
+.tl-item{position:relative;padding:16px 0 16px 20px;transition:all 0.2s}
+.tl-item:hover{padding-left:24px}
 .tl-item::before{
   content:'';position:absolute;left:-19px;top:22px;
   width:10px;height:10px;border-radius:50%;
@@ -288,7 +302,7 @@ body{
 <body>
 
 <!-- 导航 -->
-<nav class="nav">
+<nav class="nav" id="mainNav">
   <div class="nav-l">
     <div class="nav-dot">W</div>
     <span>吴永毅 · IT咨询</span>
@@ -666,11 +680,11 @@ body{
       <div>
         <h4 style="font-size:14px;font-weight:700;color:#fff;margin-bottom:10px">快捷留言</h4>
         <form class="contact-form" onsubmit="handleForm(event)">
-          <input type="text" placeholder="您的姓名" required>
-          <input type="text" placeholder="公司名称">
-          <input type="tel" placeholder="联系电话" required>
-          <input type="email" placeholder="邮箱">
-          <textarea placeholder="请简要描述您的咨询需求…"></textarea>
+          <input type="text" name="name" placeholder="您的姓名" required>
+          <input type="text" name="company" placeholder="公司名称">
+          <input type="tel" name="phone" placeholder="联系电话" required>
+          <input type="email" name="email" placeholder="邮箱">
+          <textarea name="content" placeholder="请简要描述您的咨询需求…"></textarea>
           <button type="submit" class="btn-p" style="width:100%;border:none">提交咨询 →</button>
         </form>
         <p style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:6px;text-align:center">提交后我会尽快与您联系</p>
@@ -687,14 +701,34 @@ body{
 </footer>
 
 <script>
+// 导航菜单
 function toggleNav(){
   document.getElementById('navMenu').classList.toggle('active');
 }
+
+// 表单提交
 function handleForm(e){
   e.preventDefault();
   alert('感谢咨询！我会尽快联系您。');
   e.target.reset();
 }
+
+// 滚动时导航栏变化
+window.addEventListener('scroll', function(){
+  const nav = document.getElementById('mainNav');
+  if(window.scrollY > 50){
+    nav.classList.add('scrolled');
+  }else{
+    nav.classList.remove('scrolled');
+  }
+});
+
+// 点击导航自动关闭菜单
+document.querySelectorAll('.nav-r a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navMenu').classList.remove('active');
+  });
+});
 </script>
 
 </body>
