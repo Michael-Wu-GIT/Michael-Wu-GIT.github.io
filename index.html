@@ -1,734 +1,725 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>吴永毅 · IT咨询 | 数字化转型专家</title>
-<meta name="description" content="24年IT行业经验，专注企业数字化转型、ERP实施、数据治理、智能制造、AI应用。华为/金蝶/富士康/中兴/航天信息履历。">
-<meta name="keywords" content="吴永毅,IT咨询,数字化转型,ERP咨询,数据治理,智能制造,AI咨询">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
-  background:#080808;color:#e0e0e0;line-height:1.7;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden
-}
-::selection{background:rgba(0,188,212,0.3)}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吴永毅 · IT咨询顾问 | 数字化转型实战派</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            color: #333;
+            background: #fff;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
-/* 导航 */
-.nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(255,255,255,0.04);
-  padding:0 32px;height:60px;
-  display:flex;align-items:center;justify-content:space-between;
-  transition:all 0.2s ease
-}
-.nav.scrolled{height:52px;background:rgba(5,5,5,0.97)}
-.nav-l{display:flex;align-items:center;gap:10px}
-.nav-dot{
-  width:30px;height:30px;border-radius:6px;
-  background:linear-gradient(135deg,#00bcd4,#7c4dff);
-  display:flex;align-items:center;justify-content:center;
-  color:#000;font-size:14px;font-weight:800
-}
-.nav-l span{color:#fff;font-weight:600;font-size:14px;letter-spacing:.3px}
-.nav-r{display:flex;align-items:center;gap:24px;list-style:none}
-.nav-r a{color:rgba(255,255,255,0.5);font-size:13px;font-weight:500;text-decoration:none;transition:color .2s}
-.nav-r a:hover{color:#fff}
-.nav-btn{
-  background:linear-gradient(135deg,#00bcd4,#7c4dff);color:#000;border:none;
-  padding:7px 20px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;
-  transition:all 0.2s
-}
-.nav-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,188,212,0.15)}
-.nav-toggle{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:4px}
-.nav-toggle span{width:22px;height:2px;background:#fff;border-radius:2px;transition:all 0.2s}
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(26, 35, 126, 0.97);
+            backdrop-filter: blur(12px);
+            padding: 0 40px;
+            height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 600; font-size: 15px; letter-spacing: 0.5px; }
+        .nav-logo .logo-dot {
+            width: 28px; height: 28px; border-radius: 8px;
+            background: linear-gradient(135deg, #1565c0, #00bcd4);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 14px; font-weight: 700;
+        }
+        .nav-links { display: flex; gap: 28px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #fff; }
+        .nav-cta {
+            background: #1565c0; color: #fff; border: none;
+            padding: 8px 20px; border-radius: 8px; font-size: 13px;
+            font-weight: 600; cursor: pointer; transition: background 0.2s; text-decoration: none;
+        }
+        .nav-cta:hover { background: #0d47a1; }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .nav-toggle span { width: 24px; height: 2px; background: #fff; border-radius: 2px; }
 
-/* Hero */
-.hero{
-  min-height:100vh;padding:120px 32px 60px;
-  background:#080808;position:relative;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:center
-}
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 600px 400px at 20% 60%,rgba(0,188,212,0.04) 0%,transparent 60%),
-    radial-gradient(ellipse 500px 500px at 80% 30%,rgba(124,77,255,0.04) 0%,transparent 60%),
-    repeating-linear-gradient(90deg,transparent 0,transparent 39px,rgba(255,255,255,0.012) 39px,rgba(255,255,255,0.012) 40px);
-  pointer-events:none
-}
-.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1;width:100%;opacity:0;animation:fadeInUp 0.8s ease-out forwards}
-@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  border:1px solid rgba(0,188,212,0.2);
-  color:rgba(0,188,212,0.8);padding:5px 14px;border-radius:20px;
-  font-size:11px;font-weight:500;margin-bottom:24px;
-  background:rgba(0,188,212,0.05);
-  animation:fadeInUp 0.8s 0.1s ease-out forwards
-}
-.hero h1{
-  font-size:clamp(32px,5vw,56px);font-weight:900;color:#fff;
-  line-height:1.1;margin-bottom:10px;letter-spacing:-.5px;
-  animation:fadeInUp 0.8s 0.2s ease-out forwards
-}
-.hero h1 .g{
-  background:linear-gradient(135deg,#00bcd4,#7c4dff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
-}
-.hero-sub{font-size:clamp(14px,1.5vw,17px);color:rgba(255,255,255,0.45);margin-bottom:4px}
-.hero-name{font-size:15px;color:rgba(255,255,255,0.3);margin-bottom:32px}
-.hero-info{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px}
-.hero-info span{
-  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);
-  padding:8px 16px;border-radius:8px;font-size:12px;color:rgba(255,255,255,0.6)
-}
-.hero-info span strong{color:#00bcd4;font-weight:600}
-.hero-btns{display:flex;gap:14px}
-.btn-p{
-  background:linear-gradient(135deg,#00bcd4,#7c4dff);color:#000;border:none;
-  padding:14px 32px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;
-  transition:transform .2s,box-shadow .2s
-}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,188,212,0.2)}
-.btn-s{
-  background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);
-  padding:14px 32px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;
-  transition:.2s
-}
-.btn-s:hover{border-color:rgba(255,255,255,0.4);color:#fff}
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1a237e 50%, #0d47a1 100%);
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0,188,212,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(21,101,192,0.12) 0%, transparent 50%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 3px);
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0,188,212,0.15); border: 1px solid rgba(0,188,212,0.3);
+            color: #80deea; padding: 6px 18px; border-radius: 20px;
+            font-size: 13px; font-weight: 500; margin-bottom: 24px;
+        }
+        .hero h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2; }
+        .hero h1 .highlight { background: linear-gradient(135deg, #00bcd4, #4fc3f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: clamp(16px, 2vw, 20px); color: rgba(255,255,255,0.7); margin-bottom: 8px; font-weight: 400; }
+        .hero-position { font-size: clamp(14px, 1.5vw, 17px); color: rgba(255,255,255,0.55); margin-bottom: 40px; }
+        .hero-highlights { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 40px; }
+        .hero-highlight {
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 18px; border-radius: 10px;
+            color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 400;
+            backdrop-filter: blur(4px);
+        }
+        .hero-highlight strong { color: #4fc3f7; }
+        .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            background: #1565c0; color: #fff; border: none;
+            padding: 14px 36px; border-radius: 10px; font-size: 15px;
+            font-weight: 600; cursor: pointer; transition: all 0.3s; display: inline-block; text-decoration: none;
+        }
+        .btn-primary:hover { background: #0d47a1; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(21,101,192,0.3); }
+        .btn-outline {
+            background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3);
+            padding: 14px 36px; border-radius: 10px; font-size: 15px;
+            font-weight: 500; cursor: pointer; transition: all 0.3s; display: inline-block; text-decoration: none;
+        }
+        .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
 
-/* 通用 */
-.section{padding:90px 32px}
-.section-inner{max-width:1200px;margin:0 auto}
-.s-tag{
-  font-size:11px;font-weight:600;color:#00bcd4;letter-spacing:3px;
-  margin-bottom:4px;text-transform:uppercase
-}
-.s-title{
-  font-size:clamp(24px,3vw,38px);font-weight:900;color:#fff;
-  margin-bottom:8px;letter-spacing:-.3px
-}
-.s-desc{font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:44px;max-width:500px}
-.s-dash{width:40px;height:3px;background:linear-gradient(90deg,#00bcd4,#7c4dff);border-radius:2px;margin-bottom:20px}
+        .section { padding: 80px 24px; }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
+        .section-label {
+            display: inline-block; color: #1565c0; font-size: 13px; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+        }
+        .section-title { font-size: clamp(26px, 3vw, 36px); font-weight: 700; color: #1a237e; margin-bottom: 16px; }
+        .section-desc { color: #666; font-size: 16px; max-width: 600px; margin-bottom: 48px; }
+        .section-alt { background: #f5f7fa; }
 
-/* 关于我 - 左右布局 */
-.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px}
-.about-card{
-  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
-  border-radius:16px;padding:32px;transition:all 0.3s
-}
-.about-card:hover{border-color:rgba(0,188,212,0.1)}
-.about-card h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:4px}
-.about-card .sub{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:16px}
-.about-card>p{font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:16px;line-height:1.8}
-.about-mini{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.about-mini>div{
-  background:rgba(255,255,255,0.03);border-radius:10px;padding:14px
-}
-.about-mini .l{font-size:10px;color:rgba(255,255,255,0.3);font-weight:500;text-transform:uppercase;letter-spacing:1px}
-.about-mini .v{font-size:13px;color:rgba(255,255,255,0.75);font-weight:600;margin-top:2px}
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .about-left h2 { font-size: 24px; font-weight: 700; color: #1a237e; margin-bottom: 16px; }
+        .about-left p { color: #555; margin-bottom: 12px; font-size: 15px; }
+        .about-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .about-info-item { background: #f5f7fa; border-radius: 10px; padding: 14px 18px; }
+        .about-info-item .label { font-size: 12px; color: #888; font-weight: 500; }
+        .about-info-item .value { font-size: 14px; color: #333; font-weight: 600; margin-top: 2px; }
 
-/* 时间轴 */
-.timeline{position:relative;padding-left:24px}
-.timeline::before{
-  content:'';position:absolute;left:7px;top:8px;bottom:8px;
-  width:2px;background:linear-gradient(to bottom,#00bcd4,#7c4dff)
-}
-.tl-item{position:relative;padding:16px 0 16px 20px;transition:all 0.2s}
-.tl-item:hover{padding-left:24px}
-.tl-item::before{
-  content:'';position:absolute;left:-19px;top:22px;
-  width:10px;height:10px;border-radius:50%;
-  background:#080808;border:2px solid #00bcd4
-}
-.tl-c{font-size:15px;font-weight:700;color:#fff}
-.tl-r{font-size:12px;color:#00bcd4;font-weight:600}
-.tl-t{font-size:11px;color:rgba(255,255,255,0.3)}
-.tl-d{font-size:13px;color:rgba(255,255,255,0.45);margin-top:4px}
+        .career-timeline { position: relative; padding-left: 28px; }
+        .career-timeline::before {
+            content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px;
+            width: 2px; background: linear-gradient(to bottom, #1565c0, #00bcd4);
+        }
+        .career-item { position: relative; margin-bottom: 24px; padding-left: 16px; }
+        .career-item::before {
+            content: ''; position: absolute; left: -24px; top: 6px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: #1565c0; border: 3px solid #e8eaf6;
+        }
+        .career-item .company { font-weight: 700; color: #1a237e; font-size: 15px; }
+        .career-item .role { font-size: 13px; color: #1565c0; font-weight: 600; }
+        .career-item .period { font-size: 12px; color: #999; }
+        .career-item .detail { font-size: 13px; color: #666; margin-top: 4px; }
 
-/* 能力 - 3列网格 */
-.skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.skill-card{
-  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
-  border-radius:14px;padding:28px 24px;transition:all .3s
-}
-.skill-card:hover{transform:translateY(-4px);border-color:#00bcd4;background:rgba(0,188,212,0.03)}
-.skill-card .ic{font-size:28px;margin-bottom:10px}
-.skill-card h4{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
-.skill-card .sk{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:8px;line-height:1.6}
-.skill-card .sm{font-size:11px;color:rgba(255,255,255,0.25)}
-.skill-card .sm strong{color:#00bcd4}
+        .ability-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .ability-card {
+            background: #fff; border: 1px solid #e8eaf6; border-radius: 14px;
+            padding: 28px 24px; transition: all 0.3s;
+        }
+        .ability-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,35,126,0.08); border-color: #1565c0; }
+        .ability-icon { font-size: 32px; margin-bottom: 12px; }
+        .ability-card h3 { font-size: 16px; font-weight: 700; color: #1a237e; margin-bottom: 6px; }
+        .ability-card .ability-skills { font-size: 13px; color: #666; margin-bottom: 8px; line-height: 1.6; }
+        .ability-card .ability-meta { font-size: 12px; color: #999; }
+        .ability-card .ability-meta strong { color: #1565c0; }
 
-/* 案例 - 2列网格 */
-.case-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.case-item{
-  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
-  border-radius:14px;padding:28px;transition:all .3s
-}
-.case-item:hover{transform:translateY(-3px);border-color:#7c4dff;background:rgba(124,77,255,0.02)}
-.case-item .ct{font-size:11px;color:#7c4dff;font-weight:600;letter-spacing:1px;margin-bottom:2px}
-.case-item h4{font-size:17px;font-weight:700;color:#fff;margin-bottom:16px}
-.case-item .ci{margin-bottom:10px}
-.case-item .ci .lb{
-  display:inline-block;font-size:10px;font-weight:700;color:#00bcd4;
-  background:rgba(0,188,212,0.08);padding:2px 10px;border-radius:4px;margin-bottom:2px;letter-spacing:1px
-}
-.case-item .ci p{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6}
+        .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .case-card {
+            background: #fff; border: 1px solid #e8eaf6; border-radius: 14px;
+            padding: 32px; transition: all 0.3s;
+        }
+        .case-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(26,35,126,0.06); }
+        .case-card .case-client { font-size: 12px; color: #1565c0; font-weight: 600; letter-spacing: 1px; }
+        .case-card h3 { font-size: 18px; font-weight: 700; color: #1a237e; margin: 4px 0 16px; }
+        .case-card .case-item { margin-bottom: 10px; }
+        .case-card .case-item .case-label {
+            font-size: 12px; font-weight: 600; color: #1565c0;
+            background: #e3f2fd; padding: 2px 10px; border-radius: 4px;
+            display: inline-block; margin-bottom: 3px;
+        }
+        .case-card .case-item p { font-size: 14px; color: #555; line-height: 1.6; }
 
-/* 服务 - 2列 */
-.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.svc-item{
-  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
-  border-radius:14px;padding:28px;transition:all .3s
-}
-.svc-item:hover{border-color:rgba(0,188,212,0.3)}
-.svc-item h4{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
-.svc-item .svc-d{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:12px}
-.svc-t{display:flex;flex-wrap:wrap;gap:6px}
-.svc-t span{
-  font-size:11px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.4);
-  padding:4px 12px;border-radius:6px;font-weight:500;border:1px solid rgba(255,255,255,0.06)
-}
-.svc-t span.highlight{background:rgba(0,188,212,0.08);border-color:rgba(0,188,212,0.15);color:#00bcd4}
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .service-card {
+            background: #fff; border: 1px solid #e8eaf6; border-radius: 14px;
+            padding: 28px 24px; transition: all 0.3s;
+        }
+        .service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(26,35,126,0.06); }
+        .service-card .service-icon { font-size: 28px; margin-bottom: 12px; }
+        .service-card h3 { font-size: 17px; font-weight: 700; color: #1a237e; margin-bottom: 4px; }
+        .service-card .service-desc { font-size: 13px; color: #666; margin-bottom: 10px; }
+        .service-card .service-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .service-card .service-tags span {
+            font-size: 11px; background: #e3f2fd; color: #1565c0;
+            padding: 3px 10px; border-radius: 6px; font-weight: 500;
+        }
 
-/* 跑步之外 */
-.hobby-wrap{text-align:center}
-.hobby-quote{
-  font-size:clamp(16px,2.5vw,22px);font-weight:500;font-style:italic;
-  color:#fff;margin-bottom:36px;line-height:1.6
-}
-.hobby-quote span{color:#00bcd4}
-.hobby-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
-.hb-item{
-  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
-  border-radius:14px;padding:28px 16px;text-align:center;transition:all .3s
-}
-.hb-item:hover{border-color:rgba(0,188,212,0.2)}
-.hb-item .ic{font-size:36px;margin-bottom:10px}
-.hb-item h4{font-size:14px;font-weight:700;color:#fff}
-.hb-item p{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;line-height:1.5}
-.hb-motto{
-  display:inline-block;padding:14px 32px;border-radius:10px;
-  background:rgba(0,188,212,0.06);border:1px solid rgba(0,188,212,0.1);
-  color:#00bcd4;font-size:13px;font-weight:500
-}
+        .hobby-section { text-align: center; }
+        .hobby-tagline {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: #1a237e; font-style: italic; font-weight: 500;
+            margin-bottom: 40px; line-height: 1.5;
+        }
+        .hobby-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .hobby-card {
+            background: #fff; border: 1px solid #e8eaf6; border-radius: 14px;
+            padding: 28px 20px;
+        }
+        .hobby-card .hobby-icon { font-size: 40px; margin-bottom: 12px; }
+        .hobby-card h3 { font-size: 15px; font-weight: 700; color: #1a237e; }
+        .hobby-card p { font-size: 13px; color: #666; margin-top: 6px; line-height: 1.6; }
+        .hobby-quote {
+            margin-top: 40px;
+            padding: 28px 24px; border-radius: 14px;
+            background: linear-gradient(135deg, #e3f2fd, #e0f7fa);
+            font-size: 17px; color: #1565c0; font-weight: 500;
+            max-width: 600px; margin-left: auto; margin-right: auto;
+        }
 
-/* 合作 */
-.coop-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.coop-m{display:flex;flex-direction:column;gap:10px}
-.coop-m-item{
-  display:flex;gap:16px;align-items:flex-start;
-  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
-  border-radius:12px;padding:18px 20px;transition:all .2s
-}
-.coop-m-item:hover{border-color:rgba(0,188,212,0.15)}
-.coop-m-item .ic{font-size:22px;flex-shrink:0}
-.coop-m-item h4{font-size:14px;font-weight:700;color:#fff}
-.coop-m-item p{font-size:12px;color:rgba(255,255,255,0.4);margin-top:1px}
-.coop-st{display:flex;flex-direction:column;gap:8px}
-.coop-st .stp{
-  display:flex;gap:14px;align-items:center;
-  padding:14px 18px;background:rgba(255,255,255,0.02);border-radius:10px;
-  border:1px solid rgba(255,255,255,0.04)
-}
-.coop-st .stp .num{
-  width:30px;height:30px;border-radius:50%;
-  background:linear-gradient(135deg,#00bcd4,#7c4dff);color:#000;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;flex-shrink:0
-}
-.coop-st .stp h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:1px}
-.coop-st .stp p{font-size:12px;color:rgba(255,255,255,0.4)}
+        .coop-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .coop-mode { display: flex; flex-direction: column; gap: 16px; }
+        .coop-mode-item {
+            background: #fff; border: 1px solid #e8eaf6; border-radius: 12px;
+            padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start;
+        }
+        .coop-mode-item .icon { font-size: 24px; flex-shrink: 0; }
+        .coop-mode-item h4 { font-size: 15px; font-weight: 700; color: #1a237e; }
+        .coop-mode-item p { font-size: 13px; color: #666; margin-top: 2px; }
+        .coop-process { counter-reset: step; }
+        .coop-step {
+            display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px;
+            padding: 16px 20px; background: #f5f7fa; border-radius: 10px;
+        }
+        .coop-step .num {
+            width: 32px; height: 32px; border-radius: 50%; background: #1565c0;
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 700; flex-shrink: 0;
+        }
+        .coop-step h4 { font-size: 14px; font-weight: 700; color: #1a237e; }
+        .coop-step p { font-size: 13px; color: #666; }
 
-/* 联系方式 */
-.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.ct-list{display:flex;flex-direction:column;gap:10px}
-.ct-item{
-  display:flex;align-items:center;gap:14px;
-  padding:16px 20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
-  border-radius:12px
-}
-.ct-item .ic{font-size:20px}
-.ct-item .val{font-size:14px;font-weight:600;color:#fff}
-.ct-item .sub{font-size:11px;color:rgba(255,255,255,0.35)}
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .contact-info-list { display: flex; flex-direction: column; gap: 16px; }
+        .contact-item {
+            display: flex; align-items: center; gap: 16px;
+            padding: 16px 20px; background: #f5f7fa; border-radius: 10px;
+        }
+        .contact-item .icon { font-size: 24px; }
+        .contact-item .value { font-size: 15px; font-weight: 600; color: #1a237e; }
+        .contact-item .sub { font-size: 12px; color: #888; }
 
-.contact-form input,.contact-form textarea{
-  width:100%;padding:13px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
-  border-radius:10px;font-size:14px;font-family:inherit;color:#e0e0e0;margin-bottom:10px;transition:border-color .2s
-}
-.contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,0.25)}
-.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:#00bcd4;background:rgba(0,188,212,0.03)}
-.contact-form textarea{min-height:90px;resize:vertical}
+        .contact-form input, .contact-form textarea {
+            width: 100%; padding: 12px 16px; border: 1px solid #ddd;
+            border-radius: 10px; font-size: 14px; font-family: inherit;
+            margin-bottom: 12px; transition: border-color 0.2s;
+        }
+        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #1565c0; }
+        .contact-form textarea { min-height: 100px; resize: vertical; }
 
-/* 底部 */
-.footer{
-  background:#040404;border-top:1px solid rgba(255,255,255,0.04);
-  text-align:center;padding:32px;font-size:12px;color:rgba(255,255,255,0.25)
-}
-.footer a{color:#00bcd4;text-decoration:none}
+        .footer {
+            background: #0d1b2a; color: rgba(255,255,255,0.6);
+            text-align: center; padding: 32px 24px; font-size: 13px;
+        }
+        .footer a { color: #4fc3f7; text-decoration: none; }
+        .footer .back-top {
+            display: inline-block; margin-bottom: 16px;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(255,255,255,0.08); color: #fff;
+            line-height: 40px; font-size: 18px; transition: 0.2s; text-decoration: none;
+        }
+        .footer .back-top:hover { background: #1565c0; }
 
-/* ===== 分割线 ===== */
-.s-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,188,212,0.1),transparent);margin:0 auto;max-width:1200px}
+        .fade-in {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-/* 响应式 */
-@media(max-width:768px){
-  .nav{padding:0 16px}
-  .nav-r{display:none;position:absolute;top:60px;left:0;right:0;background:rgba(8,8,8,0.98);flex-direction:column;padding:16px 20px;gap:14px}
-  .nav-r.active{display:flex}
-  .nav-toggle{display:flex}
-  .hero,.section{padding-left:16px;padding-right:16px}
-  .about-wrap,.coop-wrap,.contact-wrap{grid-template-columns:1fr}
-  .skill-grid{grid-template-columns:1fr 1fr}
-  .case-grid{grid-template-columns:1fr}
-  .svc-grid{grid-template-columns:1fr}
-  .hobby-grid{grid-template-columns:repeat(2,1fr)}
-  .about-mini{grid-template-columns:1fr 1fr}
-}
-@media(max-width:480px){
-  .skill-grid{grid-template-columns:1fr}
-  .hobby-grid{grid-template-columns:1fr}
-  .about-mini{grid-template-columns:1fr}
-}
-</style>
+        @media (max-width: 768px) {
+            .navbar { padding: 0 16px; }
+            .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0;
+                background: rgba(26,35,126,0.98); flex-direction: column; padding: 16px 24px; gap: 16px; }
+            .nav-links.active { display: flex; }
+            .nav-toggle { display: flex; }
+            .about-grid { grid-template-columns: 1fr; }
+            .ability-grid { grid-template-columns: 1fr 1fr; }
+            .cases-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .hobby-grid { grid-template-columns: repeat(2, 1fr); }
+            .coop-layout { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .section { padding: 48px 16px; }
+        }
+        @media (max-width: 480px) {
+            .ability-grid { grid-template-columns: 1fr; }
+            .hobby-grid { grid-template-columns: 1fr 1fr; }
+            .about-info { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- 导航 -->
-<nav class="nav" id="mainNav">
-  <div class="nav-l">
-    <div class="nav-dot">W</div>
-    <span>吴永毅 · IT咨询</span>
-  </div>
-  <ul class="nav-r" id="navMenu">
-    <li><a href="#about">关于</a></li>
-    <li><a href="#skills">能力</a></li>
-    <li><a href="#cases">案例</a></li>
-    <li><a href="#services">服务</a></li>
-    <li><a href="#hobby">之外</a></li>
-    <li><a href="#contact" class="nav-btn">联系我</a></li>
-  </ul>
-  <button class="nav-toggle" onclick="toggleNav()" aria-label="菜单">
-    <span></span><span></span><span></span>
-  </button>
+<nav class="navbar" id="navbar">
+    <div class="nav-logo">
+        <div class="logo-dot">W</div>
+        <span>吴永毅 · IT咨询</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#hero">首页</a></li>
+        <li><a href="#about">关于我</a></li>
+        <li><a href="#cases">案例</a></li>
+        <li><a href="#services">服务</a></li>
+        <li><a href="#hobby">跑步之外</a></li>
+        <li><a href="#contact">联系</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta" style="color:#fff">立即咨询 →</a>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
 
-<!-- Hero -->
 <section class="hero" id="hero">
-  <div class="hero-inner">
-    <div class="hero-badge">✦ 24年IT行业 · 数字化转型实战派</div>
-    <h1>解决企业<span class="g">IT核心痛点</span></h1>
-    <p class="hero-sub">数字化转型 · ERP实施 · 数据治理 · 智能制造 · AI应用</p>
-    <p class="hero-name">吴永毅 | 元毅数智科技 · 解决方案总监</p>
-    <div class="hero-info">
-      <span>🏆 <strong>6家</strong> 行业龙头经历</span>
-      <span>📜 <strong>TOGAF</strong> · <strong>PMP</strong> · <strong>CPIM</strong></span>
-      <span>💡 <strong>6项</strong> 软件发明专利</span>
+    <div class="hero-content">
+        <div class="hero-badge">✨ 24年IT行业 · 数字化转型实战派</div>
+        <h1>用专业技术<br>解决企业<span class="highlight">IT核心痛点</span></h1>
+        <p class="hero-subtitle">从华为、金蝶、航天信息到元毅数智</p>
+        <p class="hero-position">吴永毅 | 元毅数智科技 · 解决方案总监</p>
+        <div class="hero-highlights">
+            <span class="hero-highlight">🏆 <strong>6家</strong> 行业龙头经历</span>
+            <span class="hero-highlight">🏆 <strong>6项</strong> 软件发明专利</span>
+            <span class="hero-highlight">🏆 <strong>4个</strong> 亿级项目实战</span>
+            <span class="hero-highlight">📜 TOGAF · PMP · APICS CPIM</span>
+        </div>
+        <div class="hero-cta">
+            <a href="#cases" class="btn-primary">查看案例 ↓</a>
+            <a href="#contact" class="btn-outline">立即咨询 →</a>
+        </div>
     </div>
-    <div class="hero-btns">
-      <a href="#cases" class="btn-p">查看案例 ↓</a>
-      <a href="#contact" class="btn-s">立即咨询 →</a>
-    </div>
-  </div>
 </section>
 
-<!-- 关于我 -->
 <section class="section" id="about">
-  <div class="section-inner">
-    <div class="s-tag">About</div>
-    <div class="s-title">关于我</div>
-    <div class="s-dash"></div>
-    <div class="s-desc">24年完整IT履历，从技术到业务、从大厂到创业的完整蜕变。</div>
-    <div class="about-wrap">
-      <div class="about-card">
-        <h3>吴永毅 <span style="font-weight:400;font-size:13px;color:rgba(255,255,255,0.3)">（毅力的毅）</span></h3>
-        <div class="sub">48岁 · 中南大学 管理信息系统 本科 · 深圳龙华</div>
-        <p>从富士康ERP技术员起步，历经金蝶产品规划、华为IT项目管理、中兴智慧城市方案、航天信息国企数字化转型，到如今立足元毅数智科技。24年最深感悟：技术只是手段，帮企业解决问题才是目的。</p>
-        <div class="about-mini">
-          <div><div class="l">Education</div><div class="v">中南大学 · 本科</div></div>
-          <div><div class="l">Location</div><div class="v">深圳龙华</div></div>
-          <div><div class="l">Company</div><div class="v">元毅数智科技</div></div>
-          <div><div class="l">Certifications</div><div class="v">PMP · TOGAF · CPIM</div></div>
+    <div class="section-inner fade-in">
+        <span class="section-label">ABOUT</span>
+        <h2 class="section-title">关于我</h2>
+        <p class="section-desc">24年完整IT履历，从技术到业务、从大厂到创业的完整蜕变。</p>
+        <div class="about-grid">
+            <div class="about-left">
+                <h2>吴永毅 <span style="font-size:16px;font-weight:400;color:#666;">（毅力的毅）</span></h2>
+                <p>48岁，四川仁寿人，中南大学管理信息系统本科（1997-2001）。现居深圳龙华。</p>
+                <p>从富士康的ERP技术员起步，历经金蝶的产品规划、华为的IT项目管理、中兴的智慧城市方案、航天信息的国企数字化转型，到如今立足元毅数智，专注AI+数字化前沿。</p>
+                <p>24年最大的感悟：技术只是手段，帮企业解决问题才是目的。</p>
+                <div class="about-info">
+                    <div class="about-info-item"><div class="label">教育</div><div class="value">中南大学 · 本科</div></div>
+                    <div class="about-info-item"><div class="label">现居</div><div class="value">深圳龙华区</div></div>
+                    <div class="about-info-item"><div class="label">公司</div><div class="value">元毅数智科技</div></div>
+                    <div class="about-info-item"><div class="label">认证</div><div class="value">PMP · TOGAF · CPIM</div></div>
+                </div>
+            </div>
+            <div class="career-timeline">
+                <div class="career-item">
+                    <div class="company">元毅数智科技</div>
+                    <div class="role">创始人</div>
+                    <div class="period">2026 - 至今</div>
+                    <div class="detail">数据治理、AI+数字化前沿探索</div>
+                </div>
+                <div class="career-item">
+                    <div class="company">启诚信息科技</div>
+                    <div class="role">解决方案总监</div>
+                    <div class="period">2022 - 2025</div>
+                    <div class="detail">独立方案输出，AI+数字化转型实践</div>
+                </div>
+                <div class="career-item">
+                    <div class="company">航天信息（深圳）</div>
+                    <div class="role">解决方案总监 / PMO</div>
+                    <div class="period">2018 - 2022</div>
+                    <div class="detail">国企数字化转型，电子发票/税务方案</div>
+                </div>
+                <div class="career-item">
+                    <div class="company">深圳中兴网信</div>
+                    <div class="role">解决方案经理</div>
+                    <div class="period">2015 - 2018</div>
+                    <div class="detail">智慧城市/大数据方案能力</div>
+                </div>
+                <div class="career-item">
+                    <div class="company">华为技术有限公司</div>
+                    <div class="role">IT项目经理 / BA / 产品经理</div>
+                    <div class="period">2011 - 2015</div>
+                    <div class="detail">IPD/ISC/LTC体系，IFS BI项目，大厂方法论</div>
+                </div>
+                <div class="career-item">
+                    <div class="company">金蝶国际软件集团</div>
+                    <div class="role">规划师 / BA工程师</div>
+                    <div class="period">2007 - 2011</div>
+                    <div class="detail">金蝶EAS供应链/制造模块研发，产品思维</div>
+                </div>
+                <div class="career-item">
+                    <div class="company">富士康科技集团</div>
+                    <div class="role">ERP技术 / 开发应用</div>
+                    <div class="period">2001 - 2007</div>
+                    <div class="detail">ERP底层功底，制造业务流程</div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="about-card">
-        <h3>职业生涯</h3>
-        <div class="sub">Career Timeline</div>
-        <div class="timeline">
-          <div class="tl-item">
-            <div class="tl-c">元毅数智科技</div>
-            <div class="tl-r">创始人</div>
-            <div class="tl-t">2026 - 至今</div>
-            <div class="tl-d">数据治理、AI+数字化前沿探索</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-c">启诚信息科技</div>
-            <div class="tl-r">解决方案总监</div>
-            <div class="tl-t">2022 - 2025</div>
-            <div class="tl-d">独立方案输出，项目管理</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-c">航天信息（深圳）</div>
-            <div class="tl-r">解决方案总监 / PMO</div>
-            <div class="tl-t">2018 - 2022</div>
-            <div class="tl-d">国企数字化转型，电子发票/税务方案</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-c">深圳中兴网信</div>
-            <div class="tl-r">解决方案经理</div>
-            <div class="tl-t">2015 - 2018</div>
-            <div class="tl-d">智慧城市/大数据方案能力</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-c">华为技术有限公司</div>
-            <div class="tl-r">IT项目经理 / BA / 产品经理</div>
-            <div class="tl-t">2011 - 2015</div>
-            <div class="tl-d">IPD/ISC/LTC体系，IFS BI项目</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-c">金蝶国际软件集团</div>
-            <div class="tl-r">规划师 / BA工程师</div>
-            <div class="tl-t">2007 - 2011</div>
-            <div class="tl-d">金蝶EAS供应链/制造模块研发</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-c">富士康科技集团</div>
-            <div class="tl-r">ERP技术 / 开发应用</div>
-            <div class="tl-t">2001 - 2007</div>
-            <div class="tl-d">ERP底层功底，制造业务流程</div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<div class="s-divider"></div>
-
-<!-- 能力 -->
-<section class="section" id="skills">
-  <div class="section-inner">
-    <div class="s-tag">Capabilities</div>
-    <div class="s-title">能力图谱</div>
-    <div class="s-dash"></div>
-    <div class="s-desc">六大领域，24年深耕。按领域 × 经验 × 项目呈现。</div>
-    <div class="skill-grid">
-      <div class="skill-card">
-        <div class="ic">⚙️</div>
-        <h4>ERP / 供应链</h4>
-        <div class="sk">金蝶EAS/星瀚 · 鼎捷 · SAP · ISC流程优化</div>
-        <div class="sm"><strong>15+年</strong> · ITES数字化转型项目</div>
-      </div>
-      <div class="skill-card">
-        <div class="ic">💰</div>
-        <h4>财务税务</h4>
-        <div class="sk">电子专票 · 进项发票认证 · 业财税一体化</div>
-        <div class="sm"><strong>10+年</strong> · 比亚迪专票 / 华大智造进项</div>
-      </div>
-      <div class="skill-card">
-        <div class="ic">🧠</div>
-        <h4>数据治理 / BI</h4>
-        <div class="sk">数据血缘 · 数据标准 · BI方案 · Hadoop大数据</div>
-        <div class="sm"><strong>10+年</strong> · 华为IFS集成财经BI</div>
-      </div>
-      <div class="skill-card">
-        <div class="ic">🏙️</div>
-        <h4>智慧城市</h4>
-        <div class="sk">智慧城市架构 · 大数据平台 · 物联网方案</div>
-        <div class="sm"><strong>5+年</strong> · 中兴智慧城市项目群</div>
-      </div>
-      <div class="skill-card">
-        <div class="ic">🏭</div>
-        <h4>智能制造</h4>
-        <div class="sk">智能工厂规划 · PMO管理 · AI排产 · MES</div>
-        <div class="sm"><strong>3+年</strong> · 中海油智能工厂（100+人团队）</div>
-      </div>
-      <div class="skill-card">
-        <div class="ic">🤖</div>
-        <h4>AI + 数字化</h4>
-        <div class="sk">大模型应用 · AI+供应链 · AI+财务 · 企业知识库</div>
-        <div class="sm">状态：<strong>持续精进</strong></div>
-      </div>
+<section class="section section-alt" id="skills">
+    <div class="section-inner fade-in">
+        <span class="section-label">CAPABILITIES</span>
+        <h2 class="section-title">能力图谱</h2>
+        <p class="section-desc">按领域×经验年限×代表项目呈现，一眼匹配你的需求。</p>
+        <div class="ability-grid">
+            <div class="ability-card">
+                <div class="ability-icon">⚙️</div>
+                <h3>ERP / 供应链</h3>
+                <div class="ability-skills">金蝶EAS/星瀚 · 鼎捷 · SAP<br>ISC流程优化 · 供应链规划</div>
+                <div class="ability-meta">经验：<strong>15+年</strong> · ITES数字化转型项目</div>
+            </div>
+            <div class="ability-card">
+                <div class="ability-icon">💰</div>
+                <h3>财务税务</h3>
+                <div class="ability-skills">电子专票 · 进项认证<br>业财税一体化方案</div>
+                <div class="ability-meta">经验：<strong>10+年</strong> · 比亚迪专票</div>
+            </div>
+            <div class="ability-card">
+                <div class="ability-icon">🧠</div>
+                <h3>数据治理 / BI</h3>
+                <div class="ability-skills">数据血缘 · 数据标准 · BI方案<br>Hadoop大数据平台</div>
+                <div class="ability-meta">经验：<strong>10+年</strong> · 华为IFS BI</div>
+            </div>
+            <div class="ability-card">
+                <div class="ability-icon">🏙️</div>
+                <h3>智慧城市</h3>
+                <div class="ability-skills">智慧城市架构 · 大数据平台<br>物联网方案设计</div>
+                <div class="ability-meta">经验：<strong>5+年</strong> · 中兴智慧城市</div>
+            </div>
+            <div class="ability-card">
+                <div class="ability-icon">🏭</div>
+                <h3>智能制造</h3>
+                <div class="ability-skills">智能工厂规划 · PMO管理<br>AI排产 · MES方案</div>
+                <div class="ability-meta">经验：<strong>3+年</strong> · 中海油智能工厂</div>
+            </div>
+            <div class="ability-card">
+                <div class="ability-icon">🤖</div>
+                <h3>AI + 数字化</h3>
+                <div class="ability-skills">大模型应用 · AI+供应链<br>AI+财务 · 企业知识库</div>
+                <div class="ability-meta">状态：<strong>持续精进</strong> · 前沿探索</div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
-<div class="s-divider"></div>
-
-<!-- 案例 -->
 <section class="section" id="cases">
-  <div class="section-inner">
-    <div class="s-tag">Case Studies</div>
-    <div class="s-title">重点项目</div>
-    <div class="s-dash"></div>
-    <div class="s-desc">覆盖制造、能源、新能源、通信四大行业。</div>
-    <div class="case-grid">
-      <div class="case-item">
-        <div class="ct">制造业 · 2024</div>
-        <h4>ITES数字化转型项目</h4>
-        <div class="ci"><span class="lb">痛点</span><p>业务流程复杂、数字工具分散、数据孤岛</p></div>
-        <div class="ci"><span class="lb">方案</span><p>数字工具设计与流程优化，打通端到端链路</p></div>
-        <div class="ci"><span class="lb">成果</span><p>构建数字化运营体系，效率显著提升</p></div>
-      </div>
-      <div class="case-item">
-        <div class="ct">能源央企 · 2023</div>
-        <h4>中海油智能工厂项目</h4>
-        <div class="ci"><span class="lb">痛点</span><p>数据分散、调度靠人工、缺乏统一管控</p></div>
-        <div class="ci"><span class="lb">方案</span><p>PMO负责人，统筹100+人跨部门团队</p></div>
-        <div class="ci"><span class="lb">成果</span><p>成功交付智能工厂标杆项目</p></div>
-      </div>
-      <div class="case-item">
-        <div class="ct">新能源龙头 · 2021-2022</div>
-        <h4>比亚迪电子专票项目</h4>
-        <div class="ci"><span class="lb">痛点</span><p>海量发票处理、人工查验效率低、合规压力大</p></div>
-        <div class="ci"><span class="lb">方案</span><p>电子专票全流程，对接税务局</p></div>
-        <div class="ci"><span class="lb">成果</span><p>效率提升数倍，税务合规自动闭环</p></div>
-      </div>
-      <div class="case-item">
-        <div class="ct">通信巨头 · 2011-2015</div>
-        <h4>华为IFS集成财经BI</h4>
-        <div class="ci"><span class="lb">痛点</span><p>全球50+国家数据分散、报表人工合并</p></div>
-        <div class="ci"><span class="lb">方案</span><p>主导财经BI系统，全球统一数据平台</p></div>
-        <div class="ci"><span class="lb">成果</span><p>T+0实时可视，决策效率显著提升</p></div>
-      </div>
+    <div class="section-inner fade-in">
+        <span class="section-label">CASE STUDIES</span>
+        <h2 class="section-title">重点项目案例</h2>
+        <p class="section-desc">精选4个覆盖不同行业、不同方向的核心项目，用结果说话。</p>
+        <div class="cases-grid">
+            <div class="case-card">
+                <div class="case-client">制造业 · 数字化转型</div>
+                <h3>ITES数字化转型项目</h3>
+                <div class="case-item">
+                    <span class="case-label">痛点</span>
+                    <p>业务流程复杂、数字化工具分散、数据孤岛严重</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">方案</span>
+                    <p>数字化工具设计与流程优化，打通端到端业务链路</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">成果</span>
+                    <p>成功构建数字化运营体系，运营效率显著提升</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-client">能源央企 · 智能制造</div>
+                <h3>中海油智能工厂项目</h3>
+                <div class="case-item">
+                    <span class="case-label">痛点</span>
+                    <p>工厂数据分散、生产调度依赖人工、缺乏统一管控</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">方案</span>
+                    <p>担任PMO负责人，统筹100+人跨部门团队</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">成果</span>
+                    <p>成功交付智能工厂标杆项目，获客户高度认可</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-client">新能源龙头 · 税务数字化</div>
+                <h3>比亚迪电子专票项目</h3>
+                <div class="case-item">
+                    <span class="case-label">痛点</span>
+                    <p>月均海量发票处理、人工查验效率低、合规压力大</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">方案</span>
+                    <p>电子专票全流程管理，对接税务局接口</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">成果</span>
+                    <p>发票处理效率提升数倍，税务合规自动闭环</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-client">全球通信巨头 · 财经BI</div>
+                <h3>华为IFS集成财经BI</h3>
+                <div class="case-item">
+                    <span class="case-label">痛点</span>
+                    <p>全球50+国家数据分散、报表靠人工合并</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">方案</span>
+                    <p>主导财经BI系统建设，搭建全球统一数据平台</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">成果</span>
+                    <p>财务数据T+0实时可视，决策效率提升显著</p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
-<div class="s-divider"></div>
-
-<!-- 服务 -->
-<section class="section" id="services">
-  <div class="section-inner">
-    <div class="s-tag">Services</div>
-    <div class="s-title">咨询服务</div>
-    <div class="s-dash"></div>
-    <div class="s-desc">按需定制，一对一专属对接，从诊断到落地全流程。</div>
-    <div class="svc-grid">
-      <div class="svc-item">
-        <h4>🔄 数字化转型咨询</h4>
-        <div class="svc-d">现状诊断 → 路径规划 → 方案输出 → 落地指导</div>
-        <div class="svc-t">
-          <span>制造业</span><span>国企</span><span>民企</span>
-          <span class="highlight">省百万级试错成本</span>
+<section class="section section-alt" id="services">
+    <div class="section-inner fade-in">
+        <span class="section-label">SERVICES</span>
+        <h2 class="section-title">咨询服务</h2>
+        <p class="section-desc">标准化咨询方向，按需定制，一对一专属对接。</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🔄</div>
+                <h3>数字化转型咨询</h3>
+                <div class="service-desc">现状诊断 → 路径规划 → 方案输出 → 落地指导</div>
+                <div class="service-tags">
+                    <span>制造业</span><span>国企</span><span>民企</span>
+                    <span style="background:#e0f2fe;color:#0369a1;">百万级试错成本省掉</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>ERP / 供应链优化</h3>
+                <div class="service-desc">系统选型评估 → 流程重塑 → 数据治理</div>
+                <div class="service-tags">
+                    <span>金蝶</span><span>SAP</span><span>鼎捷</span>
+                    <span style="background:#e0f2fe;color:#0369a1;">让ERP真正用起来</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>AI + 数据治理</h3>
+                <div class="service-desc">数据质量评估 → 数据治理 → AI场景匹配</div>
+                <div class="service-tags">
+                    <span>数据血缘</span><span>数据标准</span><span>大模型</span>
+                    <span style="background:#e0f2fe;color:#0369a1;">先治数再上AI</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>项目管理（PMO）</h3>
+                <div class="service-desc">多项目管控 → IPD流程 → 资源协调</div>
+                <div class="service-tags">
+                    <span>IPD</span><span>PMO</span><span>大型项目</span>
+                    <span style="background:#e0f2fe;color:#0369a1;">100+人团队管控经验</span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="svc-item">
-        <h4>⚡ ERP / 供应链优化</h4>
-        <div class="svc-d">系统选型评估 → 流程重塑 → 数据治理</div>
-        <div class="svc-t">
-          <span>金蝶</span><span>SAP</span><span>鼎捷</span>
-          <span class="highlight">让ERP真正用起来</span>
-        </div>
-      </div>
-      <div class="svc-item">
-        <h4>🤖 AI + 数据治理</h4>
-        <div class="svc-d">数据质量评估 → 治理 → AI场景匹配</div>
-        <div class="svc-t">
-          <span>数据血缘</span><span>数据标准</span><span>大模型</span>
-          <span class="highlight">先治数再上AI</span>
-        </div>
-      </div>
-      <div class="svc-item">
-        <h4>📊 项目管理（PMO）</h4>
-        <div class="svc-d">多项目管控 → IPD流程 → 资源协调</div>
-        <div class="svc-t">
-          <span>IPD</span><span>PMO</span><span>大型项目</span>
-          <span class="highlight">100+人团队管控</span>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<div class="s-divider"></div>
-
-<!-- 跑步之外 -->
 <section class="section" id="hobby">
-  <div class="section-inner hobby-wrap">
-    <div class="s-tag">Beyond Work</div>
-    <div class="s-title">跑步之外</div>
-    <div class="s-dash" style="margin:0 auto 8px"></div>
-    <div class="s-desc" style="margin:0 auto 32px">一个48岁还在坚持跑步的人，对待你的项目也不会半途而废。</div>
-    <div class="hobby-quote">
-      "咨询不只在会议室。<br>有时候，一个方案是在晨跑时想通的。"<br>
-      <span style="font-size:13px;font-weight:400">—— 不看配速看心率，不拼速度拼坚持</span>
+    <div class="section-inner fade-in hobby-section">
+        <span class="section-label">BEYOND WORK</span>
+        <h2 class="section-title">跑步之外</h2>
+        <p class="section-desc" style="margin: 0 auto 16px;">一个48岁还在坚持跑步的人，对待你的项目也不会半途而废。</p>
+        <div class="hobby-tagline">
+            "咨询不只在会议室。<br>有时候，一个方案是在晨跑时想通的。"
+        </div>
+        <div class="hobby-grid">
+            <div class="hobby-card">
+                <div class="hobby-icon">🏃</div>
+                <h3>跑步 5年+</h3>
+                <p>月跑量约100km<br>有扁平足，但不妨碍热爱<br>目标：完成半程马拉松</p>
+            </div>
+            <div class="hobby-card">
+                <div class="hobby-icon">🚴</div>
+                <h3>骑行</h3>
+                <p>深圳周边<br>用两个轮子感受<br>城市之外的节奏</p>
+            </div>
+            <div class="hobby-card">
+                <div class="hobby-icon">🥾</div>
+                <h3>徒步 · 重装露营</h3>
+                <p>在山野中思考<br>回程时往往带着<br>方案的灵感</p>
+            </div>
+            <div class="hobby-card">
+                <div class="hobby-icon">🏄</div>
+                <h3>桨板</h3>
+                <p>夏天上水<br>换个角度<br>看深圳湾</p>
+            </div>
+        </div>
+        <div class="hobby-quote">
+            训练信条：不看配速看心率，不拼速度拼坚持。
+        </div>
     </div>
-    <div class="hobby-grid">
-      <div class="hb-item">
-        <div class="ic">🏃</div>
-        <h4>跑步 5年+</h4>
-        <p>月跑量约100km · 有扁平足也不妨碍热爱</p>
-      </div>
-      <div class="hb-item">
-        <div class="ic">🚴</div>
-        <h4>骑行</h4>
-        <p>深圳周边，用两个轮子感受城市之外的节奏</p>
-      </div>
-      <div class="hb-item">
-        <div class="ic">🥾</div>
-        <h4>重装徒步</h4>
-        <p>在山野中思考，回程带着方案的灵感</p>
-      </div>
-      <div class="hb-item">
-        <div class="ic">🏄</div>
-        <h4>桨板</h4>
-        <p>夏天上水，换个角度看深圳湾</p>
-      </div>
-    </div>
-    <div class="hb-motto">目标：完成半程马拉松</div>
-  </div>
 </section>
 
-<div class="s-divider"></div>
-
-<!-- 合作 -->
-<section class="section" id="cooperation">
-  <div class="section-inner">
-    <div class="s-tag">Cooperation</div>
-    <div class="s-title">合作意向</div>
-    <div class="s-dash"></div>
-    <div class="s-desc">灵活适配不同需求，从单次诊断到全流程陪跑。</div>
-    <div class="coop-wrap">
-      <div>
-        <h4 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:12px">合作模式</h4>
-        <div class="coop-m">
-          <div class="coop-m-item">
-            <div class="ic">🎯</div>
+<section class="section section-alt" id="cooperation">
+    <div class="section-inner fade-in">
+        <span class="section-label">COOPERATION</span>
+        <h2 class="section-title">合作意向</h2>
+        <p class="section-desc">三种合作模式，灵活适配不同需求。</p>
+        <div class="coop-layout">
             <div>
-              <h4>单次诊断咨询</h4>
-              <p>针对具体IT问题，提供一次性方案输出</p>
+                <h3 style="font-size:18px;font-weight:700;color:#1a237e;margin-bottom:16px;">合作模式</h3>
+                <div class="coop-mode">
+                    <div class="coop-mode-item">
+                        <div class="icon">🎯</div>
+                        <div>
+                            <h4>单次诊断咨询</h4>
+                            <p>针对具体IT问题，提供一次性方案输出<br><small style="color:#999;">适合：企业IT痛点诊断、方案选型评估</small></p>
+                        </div>
+                    </div>
+                    <div class="coop-mode-item">
+                        <div class="icon">🤝</div>
+                        <div>
+                            <h4>长期顾问合作</h4>
+                            <p>按季度/年度为企业提供持续IT咨询支撑<br><small style="color:#999;">适合：数字化转型长期陪跑、PMO咨询</small></p>
+                        </div>
+                    </div>
+                    <div class="coop-mode-item">
+                        <div class="icon">📋</div>
+                        <div>
+                            <h4>项目全流程</h4>
+                            <p>从需求对接到落地指导，全流程跟进<br><small style="color:#999;">适合：ERP上线、智能制造项目等大型实施</small></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="coop-m-item">
-            <div class="ic">🤝</div>
             <div>
-              <h4>长期顾问合作</h4>
-              <p>按季度/年度提供持续IT咨询支撑</p>
+                <h3 style="font-size:18px;font-weight:700;color:#1a237e;margin-bottom:16px;">合作流程</h3>
+                <div class="coop-process">
+                    <div class="coop-step">
+                        <div class="num">1</div>
+                        <div><h4>需求对接</h4><p>免费初步沟通，了解痛点与目标</p></div>
+                    </div>
+                    <div class="coop-step">
+                        <div class="num">2</div>
+                        <div><h4>现状评估</h4><p>出具诊断报告，明确问题和机会</p></div>
+                    </div>
+                    <div class="coop-step">
+                        <div class="num">3</div>
+                        <div><h4>方案输出</h4><p>定制化咨询方案</p></div>
+                    </div>
+                    <div class="coop-step">
+                        <div class="num">4</div>
+                        <div><h4>落地执行</h4><p>方案实施 + 定期复盘</p></div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="coop-m-item">
-            <div class="ic">📋</div>
-            <div>
-              <h4>项目全流程陪跑</h4>
-              <p>从需求对接到落地指导全面跟进</p>
-            </div>
-          </div>
         </div>
-      </div>
-      <div>
-        <h4 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:12px">合作流程</h4>
-        <div class="coop-st">
-          <div class="stp"><div class="num">1</div><div><h4>需求对接</h4><p>免费初步沟通，了解痛点</p></div></div>
-          <div class="stp"><div class="num">2</div><div><h4>现状评估</h4><p>出具诊断报告</p></div></div>
-          <div class="stp"><div class="num">3</div><div><h4>方案输出</h4><p>定制化咨询方案</p></div></div>
-          <div class="stp"><div class="num">4</div><div><h4>落地执行</h4><p>实施 + 定期复盘</p></div></div>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<div class="s-divider"></div>
-
-<!-- 联系方式 -->
 <section class="section" id="contact">
-  <div class="section-inner">
-    <div class="s-tag">Contact</div>
-    <div class="s-title">联系我</div>
-    <div class="s-dash"></div>
-    <div class="s-desc">一次沟通，可能是企业转型的开始。</div>
-    <div class="contact-wrap">
-      <div>
-        <div class="ct-list">
-          <div class="ct-item">
-            <div class="ic">📱</div>
+    <div class="section-inner fade-in">
+        <span class="section-label">CONTACT</span>
+        <h2 class="section-title">联系我</h2>
+        <p class="section-desc">一次沟通，可能是企业转型的开始。</p>
+        <div class="contact-grid">
             <div>
-              <div class="val">136 3252 5397</div>
-              <div class="sub">电话 · 微信同号</div>
+                <div class="contact-info-list">
+                    <div class="contact-item">
+                        <div class="icon">📱</div>
+                        <div>
+                            <div class="value">136 3252 5397</div>
+                            <div class="sub">电话 · 微信同号</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">✉️</div>
+                        <div>
+                            <div class="value">yongyi_wu@126.com</div>
+                            <div class="sub">邮箱</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">🏢</div>
+                        <div>
+                            <div class="value">元毅数智科技</div>
+                            <div class="sub">深圳龙华区</div>
+                        </div>
+                    </div>
+                    <div class="contact-item" style="background:#e3f2fd;">
+                        <div class="icon">⏰</div>
+                        <div>
+                            <div class="value" style="font-weight:400;font-size:13px;">周一至周五 9:00-18:00 · 周末可预约</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="ct-item">
-            <div class="ic">✉️</div>
             <div>
-              <div class="val">yongyi_wu@126.com</div>
-              <div class="sub">邮箱</div>
+                <h3 style="font-size:16px;font-weight:700;color:#1a237e;margin-bottom:12px;">快捷留言</h3>
+                <form class="contact-form" onsubmit="handleForm(event)">
+                    <input type="text" placeholder="您的姓名" required>
+                    <input type="text" placeholder="公司名称">
+                    <input type="tel" placeholder="联系电话" required>
+                    <input type="email" placeholder="邮箱">
+                    <textarea placeholder="请简要描述您的咨询需求…"></textarea>
+                    <button type="submit" class="btn-primary" style="width:100%;border:none;">提交咨询 →</button>
+                </form>
+                <p style="font-size:12px;color:#999;margin-top:8px;text-align:center;">提交后我会尽快与您联系</p>
             </div>
-          </div>
-          <div class="ct-item">
-            <div class="ic">🏢</div>
-            <div>
-              <div class="val">元毅数智科技</div>
-              <div class="sub">深圳龙华区</div>
-            </div>
-          </div>
-          <div class="ct-item" style="border-color:rgba(0,188,212,0.08);background:rgba(0,188,212,0.03)">
-            <div class="ic">⏰</div>
-            <div>
-              <div class="val" style="font-weight:400;font-size:13px">周一至周五 9:00-18:00 · 周末可预约</div>
-            </div>
-          </div>
         </div>
-      </div>
-      <div>
-        <h4 style="font-size:14px;font-weight:700;color:#fff;margin-bottom:10px">快捷留言</h4>
-        <form class="contact-form" onsubmit="handleForm(event)">
-          <input type="text" name="name" placeholder="您的姓名" required>
-          <input type="text" name="company" placeholder="公司名称">
-          <input type="tel" name="phone" placeholder="联系电话" required>
-          <input type="email" name="email" placeholder="邮箱">
-          <textarea name="content" placeholder="请简要描述您的咨询需求…"></textarea>
-          <button type="submit" class="btn-p" style="width:100%;border:none">提交咨询 →</button>
-        </form>
-        <p style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:6px;text-align:center">提交后我会尽快与您联系</p>
-      </div>
     </div>
-  </div>
 </section>
 
-<!-- 底部 -->
 <footer class="footer">
-  <p>© 2026 吴永毅 · 保留所有权利</p>
-  <p style="margin-top:3px">所有案例均为真实项目 · 未经允许不得转载</p>
-  <p style="margin-top:3px"><a href="#hero">↑ 返回顶部</a></p>
+    <a href="#hero" class="back-top">↑</a>
+    <p>© 2026 吴永毅 · 保留所有权利</p>
+    <p style="margin-top:4px;">本主页所有案例均为真实项目，未经允许不得转载</p>
 </footer>
 
 <script>
-// 导航菜单
-function toggleNav(){
-  document.getElementById('navMenu').classList.toggle('active');
-}
-
-// 表单提交
-function handleForm(e){
-  e.preventDefault();
-  alert('感谢咨询！我会尽快联系您。');
-  e.target.reset();
-}
-
-// 滚动时导航栏变化
-window.addEventListener('scroll', function(){
-  const nav = document.getElementById('mainNav');
-  if(window.scrollY > 50){
-    nav.classList.add('scrolled');
-  }else{
-    nav.classList.remove('scrolled');
-  }
-});
-
-// 点击导航自动关闭菜单
-document.querySelectorAll('.nav-r a').forEach(link => {
-  link.addEventListener('click', () => {
-    document.getElementById('navMenu').classList.remove('active');
-  });
-});
+    document.getElementById('navToggle').addEventListener('click', function() {
+        document.getElementById('navLinks').classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+        a.addEventListener('click', () => {
+            document.getElementById('navLinks').classList.remove('active');
+        });
+    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    function handleForm(e) {
+        e.preventDefault();
+        alert('感谢您的咨询！我会尽快与您联系。');
+        e.target.reset();
+    }
 </script>
 
 </body>
