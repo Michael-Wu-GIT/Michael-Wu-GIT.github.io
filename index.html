@@ -744,7 +744,6 @@
                     <button type="submit" class="btn-primary" style="width:100%;border:none;">提交咨询 →</button>
                 </form>
                 <p id="messageStatus" class="message-status" aria-live="polite">提交后我会尽快与您联系</p>
-                <div id="messageList" class="message-list" aria-live="polite"></div>
             </div>
         </div>
     </div>
@@ -782,46 +781,6 @@
         status.classList.toggle('error', isError);
     }
 
-    function formatMessageTime(value) {
-        const date = new Date(value);
-        return Number.isNaN(date.getTime()) ? '' : date.toLocaleString('zh-CN');
-    }
-
-    function renderMessages(messages) {
-        const list = document.getElementById('messageList');
-        list.replaceChildren();
-
-        messages.forEach(message => {
-            const item = document.createElement('article');
-            item.className = 'message-item';
-
-            const meta = document.createElement('div');
-            meta.className = 'message-meta';
-            const name = document.createElement('span');
-            name.textContent = message.name;
-            const time = document.createElement('span');
-            time.className = 'message-time';
-            time.textContent = formatMessageTime(message.created_at);
-            meta.append(name, time);
-
-            const content = document.createElement('p');
-            content.className = 'message-content';
-            content.textContent = message.content;
-            item.append(meta, content);
-            list.appendChild(item);
-        });
-    }
-
-    async function loadMessages() {
-        try {
-            const response = await fetch(`${API_BASE_URL}/api/messages`);
-            if (!response.ok) throw new Error('留言加载失败');
-            renderMessages(await response.json());
-        } catch (error) {
-            setMessageStatus('暂时无法加载留言，请确认后端服务已启动。', true);
-        }
-    }
-
     async function handleForm(e) {
         e.preventDefault();
         const form = e.target;
@@ -855,15 +814,12 @@
             if (!response.ok) throw new Error(result.error || '留言提交失败');
             form.reset();
             setMessageStatus('留言提交成功，我会尽快联系您。');
-            await loadMessages();
         } catch (error) {
             setMessageStatus(error.message || '留言提交失败，请稍后重试。', true);
         } finally {
             button.disabled = false;
         }
     }
-
-    loadMessages();
 </script>
 
 </body>

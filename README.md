@@ -30,8 +30,8 @@ npm start
 
 本地没有设置 `DATABASE_URL` 时，会自动创建 `data/messages.db`。Render 部署时设置 `DATABASE_URL` 后，会自动使用 Render PostgreSQL。留言表单通过以下接口读写数据库：
 
-- `GET /api/messages`：读取最近 100 条留言
 - `POST /api/messages`：保存姓名和留言内容
+- `GET /api/admin/messages`：后台读取留言，需要 `Authorization: Bearer <ADMIN_TOKEN>`
 
 停止服务：在终端按 `Ctrl + C`。
 
@@ -43,6 +43,7 @@ npm start
 - Start Command：`npm start`
 - `DATABASE_URL`：绑定 Render PostgreSQL 的 Internal Database URL
 - `FRONTEND_ORIGIN`：GitHub Pages 地址，例如 `https://michael-wu-git.github.io`
+- `ADMIN_TOKEN`：后台查询留言的随机密钥
 
 当前 Render API 公开地址：<https://message-api-9j19.onrender.com>
 

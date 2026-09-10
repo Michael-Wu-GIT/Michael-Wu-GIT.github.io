@@ -7,6 +7,7 @@ const { Pool } = require('pg');
 const PORT = Number(process.env.PORT) || 3000;
 const ROOT_DIR = __dirname;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || '*';
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN || '';
 const usePostgres = Boolean(process.env.DATABASE_URL);
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const DATABASE_FILE = path.join(DATA_DIR, 'messages.db');
@@ -130,6 +131,17 @@ async function handleRequest(request, response) {
     }
 
     if (request.method === 'GET' && request.url === '/api/messages') {
+        sendJson(response, 403, { error: '留言内容不对外公开' });
+        return;
+    }
+
+    if (request.method === 'GET' && request.url === '/api/admin/messages') {
+        const authorization = request.headers.authorization || '';
+        if (!ADMIN_TOKEN || authorization !== `Bearer ${ADMIN_TOKEN}`) {
+            sendJson(response, 401, { error: '未授权' });
+            return;
+        }
+
         sendJson(response, 200, await getMessages());
         return;
     }
