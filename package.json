@@ -1,0 +1,16 @@
+{
+  "name": "michael-wu-personal-homepage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "吴永毅个人主页与本地 SQLite 留言板",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

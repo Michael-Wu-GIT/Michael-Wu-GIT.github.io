@@ -1,0 +1,5 @@
+data/messages.db
+data/messages.db-shm
+data/messages.db-wal
+node_modules/
+.DS_Store
