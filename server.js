@@ -89,6 +89,68 @@ function sendJson(response, statusCode, payload) {
     response.end(body);
 }
 
+function escapeHtml(value) {
+    return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+}
+
+function hasBasicAdminAccess(request) {
+    const authorization = request.headers.authorization || '';
+    if (!authorization.startsWith('Basic ')) return false;
+
+    const credentials = Buffer.from(authorization.slice(6), 'base64').toString('utf8');
+    return credentials === `admin:${ADMIN_TOKEN}`;
+}
+
+function sendMessagesTable(response, messages) {
+    const rows = messages.map(message => `
+        <tr>
+            <td>${escapeHtml(message.id)}</td>
+            <td>${escapeHtml(message.name)}</td>
+            <td><pre>${escapeHtml(message.content)}</pre></td>
+            <td>${escapeHtml(new Date(message.created_at).toLocaleString('zh-CN'))}</td>
+        </tr>
+    `).join('');
+    const body = `<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>留言管理</title>
+    <style>
+        body { margin: 0; padding: 32px; color: #222; background: #f4f6f8; font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+        main { max-width: 1200px; margin: 0 auto; }
+        h1 { margin: 0 0 8px; }
+        p { color: #667085; }
+        .table-wrap { overflow-x: auto; background: #fff; border: 1px solid #dfe3e8; border-radius: 10px; box-shadow: 0 4px 16px rgba(16, 24, 40, .06); }
+        table { width: 100%; border-collapse: collapse; min-width: 720px; }
+        th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid #eaecf0; }
+        th { color: #344054; background: #f9fafb; font-weight: 600; }
+        tr:last-child td { border-bottom: 0; }
+        pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: inherit; color: #344054; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>留言管理</h1>
+        <p>最近 ${messages.length} 条留言</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>ID</th><th>姓名</th><th>留言内容</th><th>提交时间</th></tr></thead>
+                <tbody>${rows || '<tr><td colspan="4">暂无留言</td></tr>'}</tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>`;
+    response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+    response.end(body);
+}
+
 function serveIndex(response) {
     fs.readFile(path.join(ROOT_DIR, 'index.html'), (error, content) => {
         if (error) {
@@ -131,7 +193,17 @@ async function handleRequest(request, response) {
     }
 
     if (request.method === 'GET' && request.url === '/api/messages') {
-        sendJson(response, 403, { error: '留言内容不对外公开' });
+        if (!ADMIN_TOKEN || !hasBasicAdminAccess(request)) {
+            response.writeHead(401, {
+                'Content-Type': 'application/json; charset=utf-8',
+                'WWW-Authenticate': 'Basic realm="message-admin"',
+                'Cache-Control': 'no-store'
+            });
+            response.end(JSON.stringify({ error: '需要后台登录' }));
+            return;
+        }
+
+        sendMessagesTable(response, await getMessages());
         return;
     }
 
