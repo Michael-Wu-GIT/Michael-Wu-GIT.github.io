@@ -274,6 +274,13 @@
         .contact-form input::placeholder, .contact-form textarea::placeholder { color: #7a8a9d; }
         .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #00e5ff; box-shadow: 0 0 0 4px rgba(0,229,255,0.14); }
         .contact-form textarea { min-height: 120px; resize: vertical; }
+        .message-status { min-height: 20px; margin-top: 10px; color: #b8c2cc; font-size: 12px; text-align: center; }
+        .message-status.error { color: #ff8a80; }
+        .message-list { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+        .message-item { padding: 14px 16px; background: #101010; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; }
+        .message-meta { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 4px; color: #00e5ff; font-size: 12px; font-weight: 700; }
+        .message-time { color: #8a9ca7; font-weight: 400; }
+        .message-content { color: #c8d1db; font-size: 13px; white-space: pre-wrap; word-break: break-word; }
 
         .footer {
             background: #020202; color: rgba(255,255,255,0.68);
@@ -729,14 +736,15 @@
             <div>
                 <h3 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:12px;">快捷留言</h3>
                 <form class="contact-form" onsubmit="handleForm(event)">
-                    <input type="text" placeholder="您的姓名" required>
-                    <input type="text" placeholder="公司名称">
-                    <input type="tel" placeholder="联系电话" required>
-                    <input type="email" placeholder="邮箱">
-                    <textarea placeholder="请简要描述您的咨询需求…"></textarea>
+                    <input type="text" name="name" placeholder="您的姓名" required>
+                    <input type="text" name="company" placeholder="公司名称">
+                    <input type="tel" name="phone" placeholder="联系电话" required>
+                    <input type="email" name="email" placeholder="邮箱">
+                    <textarea name="content" placeholder="请简要描述您的咨询需求…" required></textarea>
                     <button type="submit" class="btn-primary" style="width:100%;border:none;">提交咨询 →</button>
                 </form>
-                <p style="font-size:12px;color:#999;margin-top:8px;text-align:center;">提交后我会尽快与您联系</p>
+                <p id="messageStatus" class="message-status" aria-live="polite">提交后我会尽快与您联系</p>
+                <div id="messageList" class="message-list" aria-live="polite"></div>
             </div>
         </div>
     </div>
@@ -765,11 +773,96 @@
         });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    function handleForm(e) {
-        e.preventDefault();
-        alert('感谢您的咨询！我会尽快与您联系。');
-        e.target.reset();
+    const API_BASE_URL = window.MESSAGE_API_BASE || 'http://localhost:3000';
+
+    function setMessageStatus(text, isError = false) {
+        const status = document.getElementById('messageStatus');
+        status.textContent = text;
+        status.classList.toggle('error', isError);
     }
+
+    function formatMessageTime(value) {
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? '' : date.toLocaleString('zh-CN');
+    }
+
+    function renderMessages(messages) {
+        const list = document.getElementById('messageList');
+        list.replaceChildren();
+
+        messages.forEach(message => {
+            const item = document.createElement('article');
+            item.className = 'message-item';
+
+            const meta = document.createElement('div');
+            meta.className = 'message-meta';
+            const name = document.createElement('span');
+            name.textContent = message.name;
+            const time = document.createElement('span');
+            time.className = 'message-time';
+            time.textContent = formatMessageTime(message.created_at);
+            meta.append(name, time);
+
+            const content = document.createElement('p');
+            content.className = 'message-content';
+            content.textContent = message.content;
+            item.append(meta, content);
+            list.appendChild(item);
+        });
+    }
+
+    async function loadMessages() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/messages`);
+            if (!response.ok) throw new Error('留言加载失败');
+            renderMessages(await response.json());
+        } catch (error) {
+            setMessageStatus('暂时无法加载留言，请确认后端服务已启动。', true);
+        }
+    }
+
+    async function handleForm(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const name = String(formData.get('name') || '').trim();
+        const content = String(formData.get('content') || '').trim();
+        const extra = [
+            ['公司', formData.get('company')],
+            ['电话', formData.get('phone')],
+            ['邮箱', formData.get('email')]
+        ].filter(([, value]) => String(value || '').trim())
+            .map(([label, value]) => `${label}：${String(value).trim()}`)
+            .join('\n');
+
+        if (!name || !content) {
+            setMessageStatus('请填写姓名和留言内容。', true);
+            return;
+        }
+
+        const button = form.querySelector('button[type="submit"]');
+        button.disabled = true;
+        setMessageStatus('正在提交…');
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/messages`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, content: extra ? `${content}\n${extra}` : content })
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || '留言提交失败');
+            form.reset();
+            setMessageStatus('留言提交成功，我会尽快联系您。');
+            await loadMessages();
+        } catch (error) {
+            setMessageStatus(error.message || '留言提交失败，请稍后重试。', true);
+        } finally {
+            button.disabled = false;
+        }
+    }
+
+    loadMessages();
 </script>
 
 </body>
