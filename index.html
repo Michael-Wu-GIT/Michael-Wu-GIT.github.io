@@ -773,7 +773,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-    const API_BASE_URL = window.MESSAGE_API_BASE || (window.location.protocol === 'file:' ? 'http://localhost:3000' : isLocalHost ? window.location.origin : 'https://message-api-9j19.onrender.com');
+    const API_BASE_URL = window.MESSAGE_API_BASE || (window.location.protocol === 'file:' ? 'http://localhost:3000' : isLocalHost ? window.location.origin : 'https://message-api-o8nd.onrender.com');
 
     function setMessageStatus(text, isError = false) {
         const status = document.getElementById('messageStatus');
