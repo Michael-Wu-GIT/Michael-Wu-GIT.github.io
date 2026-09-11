@@ -32,6 +32,7 @@ npm start
 
 - `POST /api/messages`：保存姓名和留言内容
 - `GET /api/messages`：后台 HTML 表格，需要 Basic Auth（用户名 `admin`，密码为 `ADMIN_TOKEN`）
+- `GET /api/mess`：后台 HTML 表格别名，需要 Basic Auth（用户名 `admin`，密码为 `ADMIN_TOKEN`）
 - `GET /api/admin/messages`：后台 JSON 数据，需要 `Authorization: Bearer <ADMIN_TOKEN>`
 
 停止服务：在终端按 `Ctrl + C`。

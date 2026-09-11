@@ -192,7 +192,7 @@ async function handleRequest(request, response) {
         return;
     }
 
-    if (request.method === 'GET' && request.url === '/api/messages') {
+    if (request.method === 'GET' && ['/api/messages', '/api/mess'].includes(request.url)) {
         if (!ADMIN_TOKEN || !hasBasicAdminAccess(request)) {
             response.writeHead(401, {
                 'Content-Type': 'application/json; charset=utf-8',
