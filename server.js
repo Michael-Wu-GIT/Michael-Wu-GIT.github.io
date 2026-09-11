@@ -7,7 +7,8 @@ const { Pool } = require('pg');
 const PORT = Number(process.env.PORT) || 3000;
 const ROOT_DIR = __dirname;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || '*';
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN || '';
+const ADMIN_USER = process.env.ADMIN_USER || 'admin';
+const ADMIN_PASS = process.env.ADMIN_PASS || '';
 const usePostgres = Boolean(process.env.DATABASE_URL);
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const DATABASE_FILE = path.join(DATA_DIR, 'messages.db');
@@ -103,7 +104,12 @@ function hasBasicAdminAccess(request) {
     if (!authorization.startsWith('Basic ')) return false;
 
     const credentials = Buffer.from(authorization.slice(6), 'base64').toString('utf8');
-    return credentials === `admin:${ADMIN_TOKEN}`;
+    const separator = credentials.indexOf(':');
+    if (separator < 0) return false;
+
+    const user = credentials.slice(0, separator);
+    const pass = credentials.slice(separator + 1);
+    return Boolean(ADMIN_PASS) && user === ADMIN_USER && pass === ADMIN_PASS;
 }
 
 function sendMessagesTable(response, messages) {
@@ -193,13 +199,14 @@ async function handleRequest(request, response) {
     }
 
     if (request.method === 'GET' && ['/api/messages', '/api/mess'].includes(request.url)) {
-        if (!ADMIN_TOKEN || !hasBasicAdminAccess(request)) {
+        const hasBasicHeader = (request.headers.authorization || '').startsWith('Basic ');
+        if (!hasBasicHeader || !hasBasicAdminAccess(request)) {
             response.writeHead(401, {
                 'Content-Type': 'application/json; charset=utf-8',
                 'WWW-Authenticate': 'Basic realm="message-admin"',
                 'Cache-Control': 'no-store'
             });
-            response.end(JSON.stringify({ error: '需要后台登录' }));
+            response.end(JSON.stringify({ error: hasBasicHeader ? '账号密码错误' : '需要登录' }));
             return;
         }
 
@@ -208,9 +215,13 @@ async function handleRequest(request, response) {
     }
 
     if (request.method === 'GET' && request.url === '/api/admin/messages') {
-        const authorization = request.headers.authorization || '';
-        if (!ADMIN_TOKEN || authorization !== `Bearer ${ADMIN_TOKEN}`) {
-            sendJson(response, 401, { error: '未授权' });
+        if (!hasBasicAdminAccess(request)) {
+            response.writeHead(401, {
+                'Content-Type': 'application/json; charset=utf-8',
+                'WWW-Authenticate': 'Basic realm="message-admin"',
+                'Cache-Control': 'no-store'
+            });
+            response.end(JSON.stringify({ error: '未授权' }));
             return;
         }
 
