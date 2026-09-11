@@ -31,6 +31,7 @@ npm start
 本地没有设置 `DATABASE_URL` 时，会自动创建 `data/messages.db`。Render 部署时设置 `DATABASE_URL` 后，会自动使用 Render PostgreSQL。留言表单通过以下接口读写数据库：
 
 - `POST /api/messages`：保存姓名和留言内容
+- `GET /health`：Render 服务健康检查
 - `GET /api/messages`：后台 HTML 表格，需要 Basic Auth
 - `GET /api/mess`：后台 HTML 表格别名，需要 Basic Auth
 - `GET /api/admin/messages`：后台 JSON 数据，需要 Basic Auth

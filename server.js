@@ -1,7 +1,6 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
-const { DatabaseSync } = require('node:sqlite');
 const { Pool } = require('pg');
 
 const PORT = Number(process.env.PORT) || 3000;
@@ -34,6 +33,7 @@ async function initializeDatabase() {
     }
 
     fs.mkdirSync(DATA_DIR, { recursive: true });
+    const { DatabaseSync } = require('node:sqlite');
     database = new DatabaseSync(DATABASE_FILE);
     database.exec(`
         CREATE TABLE IF NOT EXISTS messages (
@@ -187,6 +187,11 @@ function readRequestBody(request) {
 }
 
 async function handleRequest(request, response) {
+    if (request.method === 'GET' && request.url === '/health') {
+        sendJson(response, 200, { ok: true });
+        return;
+    }
+
     if (request.method === 'OPTIONS') {
         response.writeHead(204, {
             'Access-Control-Allow-Origin': FRONTEND_ORIGIN,
