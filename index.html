@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>吴永毅 · IT咨询顾问 | 数字化转型实战派</title>
+    <title>吴永毅 · 企业数字化咨询顾问 | 数据资产 · 业财融合 · 数据治理</title>
+    <meta name="description" content="吴永毅，企业数字化咨询顾问，24 年 ERP / BI / 数据治理实战经验。面向国央企与集团企业，提供数据资产入表、业财融合、数据治理、内控合规、REITs 数字化与供应链优化咨询服务。">
+    <meta property="og:title" content="吴永毅 · 企业数字化咨询顾问">
+    <meta property="og:description" content="数据资产入表 · 业财融合 · 数据治理 · 内控合规 · REITs 数字化 · 供应链优化">
+    <meta property="og:type" content="website">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -15,7 +19,6 @@
             -webkit-font-smoothing: antialiased;
         }
         a { text-decoration: none; color: inherit; }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
         .navbar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
@@ -58,7 +61,7 @@
             position: absolute; inset: 0;
             background:
                 radial-gradient(circle at 20% 50%, rgba(240,180,41,0.12) 0%, transparent 38%),
-                radial-gradient(circle at 80% 30%, rgba(0,229,255,0.12) 0%, transparent 35%),
+                radial-gradient(circle at 80% 30%, rgba(240,180,41,0.06) 0%, transparent 35%),
                 linear-gradient(180deg, rgba(255,255,255,0.02), transparent 60%);
             pointer-events: none;
         }
@@ -70,46 +73,14 @@
             font-size: 13px; font-weight: 600; margin-bottom: 26px;
         }
         .hero h1 { font-size: clamp(34px, 5vw, 58px); font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.05; }
-        .hero h1 .highlight { background: linear-gradient(135deg, #f0b429, #00e5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-subtitle { font-size: clamp(16px, 2vw, 20px); color: rgba(255,255,255,0.75); margin-bottom: 10px; font-weight: 400; }
-        .hero-position { font-size: clamp(14px, 1.5vw, 17px); color: rgba(255,255,255,0.6); margin-bottom: 44px; }
-        .hero-highlights { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 36px; }
-        .hero-highlight {
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-            padding: 12px 20px; border-radius: 14px;
-            color: rgba(255,255,255,0.88); font-size: 13px; font-weight: 400;
-            backdrop-filter: blur(6px);
+        .hero h1 .highlight { background: linear-gradient(135deg, #ffd76e, #f0b429); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-capability { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 24px 0 26px; }
+        .hero-capability span {
+            background: rgba(240,180,41,0.10); border: 1px solid rgba(240,180,41,0.28);
+            color: #f7d47d; padding: 9px 22px; border-radius: 999px;
+            font-size: 14px; font-weight: 600; letter-spacing: 0.4px;
         }
-        .hero-highlight strong { color: #f0b429; }
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(140px, 1fr));
-            gap: 18px;
-            justify-items: center;
-            margin: 28px auto 42px;
-            max-width: 860px;
-        }
-        .hero-stat {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.12);
-            box-shadow: 0 18px 45px rgba(0,0,0,0.18);
-            border-radius: 18px;
-            padding: 18px 20px;
-            min-height: 104px;
-            width: 100%;
-        }
-        .hero-stat strong {
-            display: block;
-            font-size: 26px;
-            color: #fff;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-        .hero-stat span {
-            color: rgba(255,255,255,0.72);
-            font-size: 13px;
-            line-height: 1.6;
-        }
+        .hero-subtitle { font-size: clamp(14px, 1.6vw, 16px); color: rgba(255,255,255,0.62); margin-bottom: 40px; font-weight: 400; letter-spacing: 0.3px; }
         .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .btn-primary {
             background: #f0b429; color: #111; border: none;
@@ -124,11 +95,21 @@
         }
         .btn-outline:hover { border-color: #f0b429; background: rgba(240,180,41,0.12); }
 
+        .trust-bar { background: #080808; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 26px 24px; }
+        .trust-inner {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+            gap: 14px 44px;
+            color: rgba(255,255,255,0.6); font-size: 13px;
+        }
+        .trust-inner span { display: inline-flex; align-items: baseline; gap: 7px; white-space: nowrap; }
+        .trust-inner strong { color: #f0b429; font-weight: 700; font-size: 15px; }
+
         .section { padding: 90px 24px; }
         .section-inner { max-width: 1100px; margin: 0 auto; }
         .section { scroll-margin-top: 92px; }
         .section-label {
-            display: inline-block; color: #00e5ff; font-size: 13px; font-weight: 600;
+            display: inline-block; color: #f0b429; font-size: 13px; font-weight: 600;
             letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
         }
         .section-title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; color: #fff; margin-bottom: 18px; }
@@ -142,17 +123,24 @@
         .about-info-item { background: #101010; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px 20px; }
         .about-info-item .label { font-size: 12px; color: #8a9ca7; font-weight: 600; }
         .about-info-item .value { font-size: 14px; color: #fff; font-weight: 700; margin-top: 4px; }
+        .about-method {
+            margin-top: 22px; padding: 18px 22px;
+            background: rgba(240,180,41,0.07);
+            border-left: 3px solid #f0b429; border-radius: 0 14px 14px 0;
+        }
+        .about-method strong { display: block; font-size: 13px; font-weight: 700; color: #f0b429; letter-spacing: 1px; margin-bottom: 6px; }
+        .about-method p { font-size: 14px; color: #d6dce3; margin: 0; line-height: 1.8; }
 
         .career-timeline { position: relative; padding-left: 28px; }
         .career-timeline::before {
             content: ''; position: absolute; left: 8px; top: 12px; bottom: 12px;
-            width: 2px; background: linear-gradient(to bottom, #00e5ff, #f0b429);
+            width: 2px; background: linear-gradient(to bottom, rgba(240,180,41,0.35), #f0b429);
         }
         .career-item { position: relative; margin-bottom: 24px; padding-left: 16px; }
         .career-item::before {
             content: ''; position: absolute; left: -24px; top: 6px;
             width: 12px; height: 12px; border-radius: 50%;
-            background: #00e5ff; border: 3px solid #090909;
+            background: #f0b429; border: 3px solid #090909;
         }
         .career-item .company { font-weight: 700; color: #fff; font-size: 15px; }
         .career-item .role { font-size: 13px; color: #f0b429; font-weight: 700; }
@@ -165,7 +153,11 @@
             padding: 30px 26px; transition: all 0.3s;
         }
         .ability-card:hover { transform: translateY(-4px); box-shadow: 0 18px 45px rgba(0,0,0,0.32); border-color: rgba(240,180,41,0.3); }
-        .ability-icon { font-size: 34px; margin-bottom: 14px; }
+        .ability-num {
+            display: inline-block; font-size: 12px; font-weight: 800; color: #f0b429;
+            letter-spacing: 1px; border: 1px solid rgba(240,180,41,0.35);
+            padding: 3px 9px; border-radius: 8px; margin-bottom: 14px;
+        }
         .ability-card h3 { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 8px; }
         .ability-card .ability-skills { font-size: 13px; color: #c4ccd4; margin-bottom: 10px; line-height: 1.7; }
         .ability-card .ability-meta { font-size: 12px; color: #9ab0c7; }
@@ -175,14 +167,13 @@
         .case-card {
             background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 22px;
             padding: 34px; transition: all 0.3s;
-            min-height: 336px;
             display: flex; flex-direction: column;
         }
-        .case-card .case-item { flex: 1; }
-        .case-card:hover { transform: translateY(-3px); box-shadow: 0 16px 42px rgba(0,0,0,0.26); }
-        .case-card .case-client { font-size: 12px; color: #00e5ff; font-weight: 700; letter-spacing: 1px; }
+        .case-card:hover { transform: translateY(-3px); box-shadow: 0 16px 42px rgba(0,0,0,0.26); border-color: rgba(240,180,41,0.28); }
+        .case-card .case-client { font-size: 12px; color: #9ab0c7; font-weight: 700; letter-spacing: 1px; }
         .case-card h3 { font-size: 20px; font-weight: 800; color: #fff; margin: 6px 0 18px; }
         .case-card .case-item { margin-bottom: 12px; }
+        .case-card .case-item:last-child { margin-bottom: 0; }
         .case-card .case-item .case-label {
             font-size: 12px; font-weight: 700; color: #f0b429;
             background: rgba(240,180,41,0.12); padding: 4px 12px; border-radius: 999px;
@@ -193,78 +184,82 @@
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .service-card {
             background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 22px;
-            padding: 30px 26px; transition: all 0.3s;
-            min-height: 260px;
+            padding: 30px 28px; transition: all 0.3s;
             display: flex; flex-direction: column;
         }
-        .service-card:hover { transform: translateY(-3px); box-shadow: 0 16px 38px rgba(0,0,0,0.22); }
-        .service-card .service-icon { font-size: 30px; margin-bottom: 14px; }
-        .service-card h3 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
-        .service-card .service-desc { font-size: 14px; color: #c8d1db; margin-bottom: 14px; }
-        .service-card .service-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .service-card .service-tags span {
-            font-size: 11px; background: rgba(0,229,255,0.12); color: #00e5ff;
-            padding: 4px 12px; border-radius: 999px; font-weight: 600;
+        .service-card:hover { transform: translateY(-3px); box-shadow: 0 16px 38px rgba(0,0,0,0.22); border-color: rgba(240,180,41,0.28); }
+        .service-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+        .service-num {
+            font-size: 12px; font-weight: 800; color: #f0b429; letter-spacing: 1px;
+            border: 1px solid rgba(240,180,41,0.35); padding: 3px 9px; border-radius: 8px;
+            flex-shrink: 0;
         }
-        .service-card .service-tags span[style] {
-            background: rgba(240,180,41,0.12); color: #f0b429;
+        .service-head h3 { font-size: 18px; font-weight: 800; color: #fff; margin: 0; }
+        .service-block { margin-bottom: 14px; }
+        .service-block-label {
+            display: block; font-size: 11px; font-weight: 700; color: #f0b429;
+            letter-spacing: 2px; margin-bottom: 7px;
+        }
+        .service-block p { font-size: 13px; color: #c8d1db; line-height: 1.75; margin: 0; }
+        .service-fit {
+            font-size: 12px; color: #8a9ca7; line-height: 1.7;
+            border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; margin-top: auto;
+        }
+        .service-note {
+            margin-top: 28px; padding: 20px 26px; border-radius: 16px;
+            background: rgba(240,180,41,0.08); border: 1px solid rgba(240,180,41,0.2);
+            color: #d6dce3; font-size: 14px; text-align: center;
         }
 
         .hobby-section { text-align: center; }
-        .hobby-tagline {
-            font-size: clamp(18px, 2.5vw, 24px);
-            color: #d6dce3; font-style: italic; font-weight: 500;
-            margin-bottom: 36px; line-height: 1.5;
+        .hobby-text {
+            font-size: 16px; color: #c8d1db; line-height: 1.9;
+            max-width: 720px; margin: 0 auto;
         }
-        .hobby-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .hobby-card {
-            background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
-            padding: 28px 22px;
-        }
-        .hobby-card .hobby-icon { font-size: 42px; margin-bottom: 12px; }
-        .hobby-card h3 { font-size: 16px; font-weight: 800; color: #fff; }
-        .hobby-card p { font-size: 13px; color: #b8c2cc; margin-top: 6px; line-height: 1.75; }
-        .hobby-quote {
-            margin-top: 40px;
-            padding: 30px 26px; border-radius: 18px;
-            background: rgba(240,180,41,0.12);
-            font-size: 17px; color: #f0b429; font-weight: 600;
-            max-width: 620px; margin-left: auto; margin-right: auto;
-        }
+        .hobby-text strong { color: #f0b429; font-weight: 700; }
 
-        .coop-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .coop-mode { display: flex; flex-direction: column; gap: 16px; }
-        .coop-mode-item {
-            background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
-            padding: 24px 26px; display: flex; gap: 16px; align-items: flex-start;
+        .process-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 48px; }
+        .process-step {
+            display: flex; gap: 18px; align-items: flex-start;
+            padding: 22px 26px; background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
         }
-        .coop-mode-item .icon { font-size: 26px; flex-shrink: 0; }
-        .coop-mode-item h4 { font-size: 16px; font-weight: 800; color: #fff; }
-        .coop-mode-item p { font-size: 13px; color: #c4ccd4; margin-top: 2px; }
-        .coop-process { counter-reset: step; }
-        .coop-step {
-            display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px;
-            padding: 18px 22px; background: #080808; border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        .coop-step .num {
+        .process-num {
             width: 34px; height: 34px; border-radius: 50%; background: #f0b429;
             color: #111; display: flex; align-items: center; justify-content: center;
             font-size: 14px; font-weight: 800; flex-shrink: 0;
         }
-        .coop-step h4 { font-size: 15px; font-weight: 700; color: #fff; }
-        .coop-step p { font-size: 13px; color: #c4ccd4; }
+        .process-body { flex: 1; min-width: 0; }
+        .process-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+        .process-top h4 { font-size: 16px; font-weight: 700; color: #fff; margin: 0; }
+        .process-period { font-size: 12px; font-weight: 600; color: #f0b429; white-space: nowrap; }
+        .process-body p { font-size: 13px; color: #c4ccd4; margin: 0 0 10px; }
+        .process-deliverable {
+            font-size: 12px; color: #9ab0c7;
+            background: rgba(255,255,255,0.04);
+            border-left: 2px solid rgba(240,180,41,0.45);
+            padding: 8px 12px; border-radius: 0 8px 8px 0;
+        }
+        .coop-subtitle { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 18px; }
+        .coop-mode { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .coop-mode-item {
+            background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+            padding: 24px;
+        }
+        .coop-mode-item h4 { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+        .coop-mode-item p { font-size: 13px; color: #c4ccd4; }
+        .coop-mode-item small { display: block; font-size: 12px; color: #8a9ca7; margin-top: 10px; }
 
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
         .contact-info-list { display: flex; flex-direction: column; gap: 16px; }
         .contact-item {
-            display: flex; align-items: center; gap: 16px;
             padding: 18px 22px; background: #0a0a0a; border-radius: 16px;
             border: 1px solid rgba(255,255,255,0.08);
         }
-        .contact-item .icon { font-size: 24px; }
+        .contact-item .label { font-size: 12px; color: #f0b429; font-weight: 700; letter-spacing: 1px; margin-bottom: 5px; }
         .contact-item .value { font-size: 15px; font-weight: 700; color: #fff; }
-        .contact-item .sub { font-size: 12px; color: #8a9ca7; }
+        .contact-item a.value:hover { color: #f0b429; }
+        .contact-item .sub { font-size: 12px; color: #8a9ca7; margin-top: 2px; }
 
         .contact-form input, .contact-form textarea {
             width: 100%; padding: 14px 18px; border: 1px solid rgba(255,255,255,0.12);
@@ -272,13 +267,13 @@
             margin-bottom: 14px; transition: border-color 0.2s, box-shadow 0.2s;
         }
         .contact-form input::placeholder, .contact-form textarea::placeholder { color: #7a8a9d; }
-        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #00e5ff; box-shadow: 0 0 0 4px rgba(0,229,255,0.14); }
+        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #f0b429; box-shadow: 0 0 0 4px rgba(240,180,41,0.16); }
         .contact-form textarea { min-height: 120px; resize: vertical; }
         .message-status { min-height: 20px; margin-top: 10px; color: #b8c2cc; font-size: 12px; text-align: center; }
         .message-status.error { color: #ff8a80; }
         .message-list { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
         .message-item { padding: 14px 16px; background: #101010; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; }
-        .message-meta { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 4px; color: #00e5ff; font-size: 12px; font-weight: 700; }
+        .message-meta { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 4px; color: #f0b429; font-size: 12px; font-weight: 700; }
         .message-time { color: #8a9ca7; font-weight: 400; }
         .message-content { color: #c8d1db; font-size: 13px; white-space: pre-wrap; word-break: break-word; }
 
@@ -286,14 +281,14 @@
             background: #020202; color: rgba(255,255,255,0.68);
             text-align: center; padding: 34px 24px 28px; font-size: 13px;
         }
-        .footer a { color: #4fc3f7; text-decoration: none; }
+        .footer a { color: #f0b429; text-decoration: none; }
         .footer .back-top {
             display: inline-block; margin-bottom: 16px;
             width: 40px; height: 40px; border-radius: 50%;
             background: rgba(255,255,255,0.08); color: #fff;
             line-height: 40px; font-size: 18px; transition: 0.2s; text-decoration: none;
         }
-        .footer .back-top:hover { background: #1565c0; }
+        .footer .back-top:hover { background: rgba(240,180,41,0.28); }
 
         .fade-in {
             opacity: 0; transform: translateY(20px);
@@ -304,23 +299,31 @@
         @media (max-width: 768px) {
             .navbar { padding: 0 16px; }
             .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0;
-                background: rgba(26,35,126,0.98); flex-direction: column; padding: 16px 24px; gap: 16px; }
+                background: rgba(8,8,8,0.98); backdrop-filter: blur(16px);
+                flex-direction: column; padding: 16px 24px; gap: 16px; }
             .nav-links.active { display: flex; }
             .nav-toggle { display: flex; }
             .about-grid { grid-template-columns: 1fr; }
-            .hero-stats { grid-template-columns: repeat(2, minmax(140px, 1fr)); }
+            .trust-inner { gap: 12px 28px; font-size: 12px; }
             .ability-grid { grid-template-columns: 1fr 1fr; }
             .cases-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
-            .hobby-grid { grid-template-columns: repeat(2, 1fr); }
-            .coop-layout { grid-template-columns: 1fr; }
+            .coop-mode { grid-template-columns: 1fr; }
             .contact-grid { grid-template-columns: 1fr; }
             .section { padding: 48px 16px; }
         }
         @media (max-width: 480px) {
             .ability-grid { grid-template-columns: 1fr; }
-            .hobby-grid { grid-template-columns: 1fr 1fr; }
             .about-info { grid-template-columns: 1fr; }
+            .hero-capability span { font-size: 13px; padding: 8px 16px; }
+            .process-top { flex-direction: column; gap: 4px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .fade-in { opacity: 1; transform: none; transition: none; }
+            .ability-card, .case-card, .service-card { transition: none; }
+            .ability-card:hover, .case-card:hover, .service-card:hover { transform: none; }
+            .btn-primary:hover, .btn-outline:hover, .nav-cta:hover { transform: none; }
         }
     </style>
 </head>
@@ -332,14 +335,13 @@
         <span>元毅数智</span>
     </div>
     <ul class="nav-links" id="navLinks">
-        <li><a href="#hero">首页</a></li>
-        <li><a href="#about">关于我</a></li>
-        <li><a href="#cases">案例</a></li>
         <li><a href="#services">服务</a></li>
-        <li><a href="#hobby">兴趣爱好</a></li>
+        <li><a href="#cases">案例</a></li>
+        <li><a href="#process">流程</a></li>
+        <li><a href="#about">关于我</a></li>
         <li><a href="#contact">联系</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">1对1咨询</a>
+    <a href="#contact" class="nav-cta">预约诊断</a>
     <button class="nav-toggle" id="navToggle" aria-label="菜单">
         <span></span><span></span><span></span>
     </button>
@@ -347,30 +349,354 @@
 
 <section class="hero" id="hero">
     <div class="hero-content">
-        <div class="hero-badge">✨ 个人品牌 · 数字化咨询</div>
-        <h1>我是吴永毅<br>打造企业<span class="highlight">数字化品牌势能</span></h1>
-        <p class="hero-subtitle">前华为实战顾问 · 24年企业转型与AI落地经验</p>
-        <p class="hero-position">吴永毅 | 个人场景咨询顾问</p>
-        <div class="hero-highlights">
-            <span class="hero-highlight">🏆 <strong>6家</strong> 行业龙头经历</span>
-            <span class="hero-highlight">🏆 <strong>6项</strong> 软件发明专利</span>
-            <span class="hero-highlight">🏆 <strong>4个</strong> 亿级项目实战</span>
-            <span class="hero-highlight">📜 TOGAF · PMP · APICS CPIM</span>
+        <div class="hero-badge">独立顾问 · 面向国央企与集团企业</div>
+        <h1>企业数据资产与<br><span class="highlight">业财融合顾问</span></h1>
+        <div class="hero-capability">
+            <span>数据资产入表</span>
+            <span>业财融合</span>
+            <span>数据治理</span>
+            <span>内控合规</span>
+            <span>REITs 数字化</span>
         </div>
-        <div class="hero-stats">
-            <div class="hero-stat"><strong>24 年</strong><span>完整 IT 职业履历</span></div>
-            <div class="hero-stat"><strong>100+ 人</strong><span>项目团队协同经验</span></div>
-            <div class="hero-stat"><strong>8+ 行业</strong><span>涵盖制造、能源、通信、国企</span></div>
-            <div class="hero-stat"><strong>300+ 天</strong><span>持续一对一咨询陪跑</span></div>
-        </div>
+        <p class="hero-subtitle">24 年 ERP / BI / 数据治理实战 · 从诊断到落地的一站式顾问服务</p>
         <div class="hero-cta">
-            <a href="#cases" class="btn-primary">查看案例 ↓</a>
-            <a href="#contact" class="btn-outline">立即咨询 →</a>
+            <a href="#contact" class="btn-primary">预约 30 分钟诊断</a>
+            <a href="#services" class="btn-outline">查看服务方向 ↓</a>
         </div>
     </div>
 </section>
 
-<section class="section" id="about">
+<section class="trust-bar">
+    <div class="trust-inner">
+        <span><strong>24 年</strong> 企业数字化实战</span>
+        <span><strong>6 家</strong> 行业龙头经历</span>
+        <span><strong>6 项</strong> 软件发明专利</span>
+        <span>TOGAF · PMP · APICS CPIM</span>
+        <span>制造 / 能源 / 通信 / 国企集团</span>
+    </div>
+</section>
+
+<section class="section" id="services">
+    <div class="section-inner fade-in">
+        <span class="section-label">SERVICES</span>
+        <h2 class="section-title">咨询服务</h2>
+        <p class="section-desc">面向国央企与集团企业，围绕数据资产、业财融合、数据治理与项目落地，提供从诊断到实施的顾问服务。</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-head">
+                    <span class="service-num">01</span>
+                    <h3>数据资产入表咨询</h3>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">业务痛点</span>
+                    <p>数据资源散落在各业务系统中，难以确认为资产、无法体现在报表；政策窗口已开，但缺少可落地的判断依据。</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">我的服务</span>
+                    <p>数据资源盘点与分类 → 权属与合规性梳理 → 成本归集与计量口径设计 → 入表路径与可行性评估 → 财务与审计口径衔接</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">交付物</span>
+                    <p>数据资源盘点清单 / 入表可行性评估报告 / 入表路径设计方案</p>
+                </div>
+                <div class="service-fit">适合：拟评估数据资源入表可行性的国企、集团企业</div>
+            </div>
+            <div class="service-card">
+                <div class="service-head">
+                    <span class="service-num">02</span>
+                    <h3>供应链与计划优化</h3>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">业务痛点</span>
+                    <p>需求预测靠经验，库存积压与缺料并存；计划与采购、生产脱节，交付周期不可控。</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">我的服务</span>
+                    <p>供应链现状诊断 → 需求与计划体系梳理 → 库存与采购策略优化 → 供应链指标体系落地</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">交付物</span>
+                    <p>供应链诊断报告 / 计划与库存优化方案 / 供应链绩效指标体系</p>
+                </div>
+                <div class="service-fit">适合：制造、零售、分销等供应链复杂度高的企业</div>
+            </div>
+            <div class="service-card">
+                <div class="service-head">
+                    <span class="service-num">03</span>
+                    <h3>业财融合与财务数字化</h3>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">业务痛点</span>
+                    <p>业务与财务各一套数据，月底对不上账；管理报表滞后，经营决策靠经验判断。</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">我的服务</span>
+                    <p>业财流程梳理与主数据治理 → 一体化方案设计 → 管理报表体系搭建 → 系统落地陪跑</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">交付物</span>
+                    <p>业财流程诊断报告 / 业财一体化方案 / 管理报表指标体系</p>
+                </div>
+                <div class="service-fit">适合：多组织多业态集团、正在建设财务共享中心的企业</div>
+            </div>
+            <div class="service-card">
+                <div class="service-head">
+                    <span class="service-num">04</span>
+                    <h3>数据治理与数据标准</h3>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">业务痛点</span>
+                    <p>同一指标多个口径、报表互相打架；数据质量不达标，AI 项目建在流沙上。</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">我的服务</span>
+                    <p>数据标准与主数据体系 → 数据血缘梳理与质量评估 → 治理组织与机制设计 → 数据平台方案</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">交付物</span>
+                    <p>数据标准规范 / 数据质量评估报告 / 数据治理体系设计</p>
+                </div>
+                <div class="service-fit">适合：多系统并存的集团企业、准备上数据中台或 AI 应用的企业</div>
+            </div>
+            <div class="service-card">
+                <div class="service-head">
+                    <span class="service-num">05</span>
+                    <h3>内控与合规数字化</h3>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">业务痛点</span>
+                    <p>内控依赖人工执行、过程留痕不全，审计追责困难；集团管控要求落不到系统中。</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">我的服务</span>
+                    <p>内控流程数字化梳理 → 权限与审批矩阵设计 → 留痕与审计追踪机制 → 风险预警规则配置</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">交付物</span>
+                    <p>内控流程数字化方案 / 权限审批矩阵 / 风险监控指标</p>
+                </div>
+                <div class="service-fit">适合：国企集团、上市公司的内控合规体系建设</div>
+            </div>
+            <div class="service-card">
+                <div class="service-head">
+                    <span class="service-num">06</span>
+                    <h3>REITs 与资产数字化咨询</h3>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">业务痛点</span>
+                    <p>底层资产台账分散、运营与收益数据不透明；发行申报与存续期信息披露缺少数据支撑。</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">我的服务</span>
+                    <p>底层资产台账梳理 → 资产数据口径统一 → 资产运营数据平台方案设计 → 信息披露数据支撑</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">交付物</span>
+                    <p>资产数据梳理报告 / 数据口径规范 / 运营数据平台方案</p>
+                </div>
+                <div class="service-fit">适合：拟发行或已发行 REITs 的基础设施资产持有方</div>
+            </div>
+            <div class="service-card">
+                <div class="service-head">
+                    <span class="service-num">07</span>
+                    <h3>ERP 选型评估与实施落地</h3>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">业务痛点</span>
+                    <p>选型被厂商话术左右，上线后业务不愿用；二次开发失控，投入与效果不成正比。</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">我的服务</span>
+                    <p>业务需求梳理与选型评估 → 实施范围与路线设计 → 主数据与流程准备 → 上线保障与效果复盘</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">交付物</span>
+                    <p>选型评估报告 / 实施范围与路线规划 / 上线保障方案</p>
+                </div>
+                <div class="service-fit">适合：正在选型或已上线但效果不佳的企业</div>
+            </div>
+            <div class="service-card">
+                <div class="service-head">
+                    <span class="service-num">08</span>
+                    <h3>数字化项目 PMO 与落地陪跑</h3>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">业务痛点</span>
+                    <p>系统上线反复延期、多供应商协调失控、方案停留在纸面落不了地。</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">我的服务</span>
+                    <p>项目治理机制设计 → 里程碑与交付物管控 → 供应商协调 → 上线与复盘</p>
+                </div>
+                <div class="service-block">
+                    <span class="service-block-label">交付物</span>
+                    <p>项目管控机制 / 阶段交付物评审 / 上线复盘报告</p>
+                </div>
+                <div class="service-fit">适合：正在推进大型 ERP、智能制造或数据平台项目的企业</div>
+            </div>
+        </div>
+        <p class="service-note">以上服务由本人牵头，可根据项目需要组建专项团队或联合合作伙伴共同交付。</p>
+    </div>
+</section>
+
+<section class="section section-alt" id="cases">
+    <div class="section-inner fade-in">
+        <span class="section-label">CASE STUDIES</span>
+        <h2 class="section-title">重点项目案例</h2>
+        <p class="section-desc">精选 4 个跨行业核心项目。案例均已脱敏，隐去客户名称与敏感信息。</p>
+        <div class="cases-grid">
+            <div class="case-card">
+                <div class="case-client">某大型制造企业 · 数字化转型</div>
+                <h3>端到端业务流程数字化建设</h3>
+                <div class="case-item">
+                    <span class="case-label">项目背景</span>
+                    <p>业务流程环节多，数字化工具分散在不同部门，系统之间数据不通，难以形成统一的管理视图。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">关键动作</span>
+                    <p>梳理端到端业务流程，设计数字化工具组合方案，打通各环节数据链路。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">项目结果</span>
+                    <p>建成覆盖全流程的数字化运营体系，沉淀可复用的流程规范与工具标准。</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-client">某能源央企集团 · 智能工厂</div>
+                <h3>智能工厂建设项目（PMO 统筹）</h3>
+                <div class="case-item">
+                    <span class="case-label">项目背景</span>
+                    <p>工厂数据分散，生产调度依赖人工经验，缺少统一的管控手段。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">关键动作</span>
+                    <p>担任 PMO 负责人，统筹 100+ 人跨部门团队，建立项目管控机制与里程碑体系。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">项目结果</span>
+                    <p>完成智能工厂项目交付，形成可复制的项目管控机制。</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-client">某新能源上市企业 · 税务数字化</div>
+                <h3>电子专票全流程管理建设</h3>
+                <div class="case-item">
+                    <span class="case-label">项目背景</span>
+                    <p>月均发票处理量巨大，人工查验效率低，税务合规压力持续上升。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">关键动作</span>
+                    <p>设计电子专票全流程管理方案，对接税务局接口，实现开票、查验、认证环节自动化。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">项目结果</span>
+                    <p>发票处理效率提升数倍，税务合规流程实现自动闭环。</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-client">某全球通信设备企业 · 财经 BI</div>
+                <h3>全球财经 BI 平台建设</h3>
+                <div class="case-item">
+                    <span class="case-label">项目背景</span>
+                    <p>业务覆盖全球 50+ 国家，财务数据分散在各地系统，报表依赖人工合并，时效与准确性难以保证。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">关键动作</span>
+                    <p>主导财经 BI 系统建设，搭建全球统一数据平台，统一财务数据口径。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">项目结果</span>
+                    <p>财务数据实现 T+0 实时可视，取代原先的人工报表合并。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="process">
+    <div class="section-inner fade-in">
+        <span class="section-label">PROCESS</span>
+        <h2 class="section-title">服务交付流程</h2>
+        <p class="section-desc">从需求对接到复盘移交，五个阶段，每个阶段都有明确的交付物与时间预期。</p>
+        <div class="process-list">
+            <div class="process-step">
+                <div class="process-num">1</div>
+                <div class="process-body">
+                    <div class="process-top">
+                        <h4>需求对接</h4>
+                        <span class="process-period">1–3 天 · 免费</span>
+                    </div>
+                    <p>了解业务背景、当前痛点与目标，判断是否具备合作基础。</p>
+                    <div class="process-deliverable">交付物：沟通纪要 + 初步问题判断</div>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-num">2</div>
+                <div class="process-body">
+                    <div class="process-top">
+                        <h4>现状诊断</h4>
+                        <span class="process-period">1–2 周</span>
+                    </div>
+                    <p>访谈关键干系人，梳理现有流程、系统与数据现状，定位核心问题。</p>
+                    <div class="process-deliverable">交付物：现状诊断报告 + 问题清单与优先级</div>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-num">3</div>
+                <div class="process-body">
+                    <div class="process-top">
+                        <h4>方案设计</h4>
+                        <span class="process-period">2–4 周</span>
+                    </div>
+                    <p>设计解决方案，明确实施范围、推进路径与资源需求。</p>
+                    <div class="process-deliverable">交付物：解决方案书 + 实施路线图 + 工期估算</div>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-num">4</div>
+                <div class="process-body">
+                    <div class="process-top">
+                        <h4>落地陪跑</h4>
+                        <span class="process-period">按项目周期</span>
+                    </div>
+                    <p>牵头推进实施，管控进度、质量与风险，协调各方资源。</p>
+                    <div class="process-deliverable">交付物：阶段交付物评审 + 项目周报</div>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-num">5</div>
+                <div class="process-body">
+                    <div class="process-top">
+                        <h4>复盘移交</h4>
+                        <span class="process-period">1–2 周</span>
+                    </div>
+                    <p>项目复盘，沉淀方法论与文档，移交企业内部团队。</p>
+                    <div class="process-deliverable">交付物：复盘报告 + 标准化文档 + 优化建议</div>
+                </div>
+            </div>
+        </div>
+        <h3 class="coop-subtitle">合作模式</h3>
+        <div class="coop-mode">
+            <div class="coop-mode-item">
+                <h4>单次诊断咨询</h4>
+                <p>针对具体问题提供一次性方案输出。</p>
+                <small>适合：IT 痛点诊断、方案选型评估</small>
+            </div>
+            <div class="coop-mode-item">
+                <h4>长期顾问合作</h4>
+                <p>按季度或年度提供持续咨询支撑。</p>
+                <small>适合：数字化转型长期陪跑、PMO 咨询</small>
+            </div>
+            <div class="coop-mode-item">
+                <h4>项目全流程</h4>
+                <p>从需求对接到落地指导，全程跟进。</p>
+                <small>适合：ERP 上线、智能制造等大型实施</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt" id="about">
     <div class="section-inner fade-in">
         <span class="section-label">ABOUT</span>
         <h2 class="section-title">关于我</h2>
@@ -378,10 +704,12 @@
         <div class="about-grid">
             <div class="about-left">
                 <h2>吴永毅 <span style="font-size:16px;font-weight:400;color:#b8c2cc;">（毅力的毅）</span></h2>
-                <p>祖籍，四川.成都，中南大学管理信息系统，现居广东.深圳。</p>
-                <p>曾任金蝶供应链产品规划、华为财经BI顾问，具备扎实的ERP与企业数字化理论基础，擅长供应链、生产制造、MES、WMS、CRM等模块方案设计与交付。</p>
-                <p>近期参与中海油、招商蛇口、中粮集团等大型国央企的数字化售前咨询与项目管理，兼具方案咨询与实施交付的实战能力。</p>
-                <p>我的方法论：从业务出发、从流程出发、从组织出发，提供可操作的数字化落地方案，避免“只有纸上方案、没有执行力”的风险。</p>
+                <p>曾任金蝶供应链产品规划、华为财经 BI 顾问，具备扎实的 ERP 与企业数字化理论基础，擅长供应链、生产制造、MES、WMS、CRM 等模块的方案设计与交付。</p>
+                <p>近期参与能源、地产、粮食等领域的国央企数字化售前咨询与项目管理，兼具方案咨询与实施交付的实战能力。</p>
+                <div class="about-method">
+                    <strong>我的方法论</strong>
+                    <p>从业务出发、从流程出发、从组织出发，提供可操作的数字化落地方案，避免“只有纸上方案、没有执行力”的风险。</p>
+                </div>
                 <div class="about-info">
                     <div class="about-info-item"><div class="label">教育</div><div class="value">中南大学 · 管理信息系统</div></div>
                     <div class="about-info-item"><div class="label">现居</div><div class="value">深圳市龙华区</div></div>
@@ -437,44 +765,44 @@
     </div>
 </section>
 
-<section class="section section-alt" id="skills">
+<section class="section" id="skills">
     <div class="section-inner fade-in">
         <span class="section-label">CAPABILITIES</span>
         <h2 class="section-title">能力图谱</h2>
         <p class="section-desc">按领域×经验年限×代表项目呈现，一眼匹配你的需求。</p>
         <div class="ability-grid">
             <div class="ability-card">
-                <div class="ability-icon">⚙️</div>
+                <span class="ability-num">01</span>
                 <h3>ERP / 供应链</h3>
                 <div class="ability-skills">金蝶EAS/星瀚 · 鼎捷 · SAP<br>ISC流程优化 · 供应链规划</div>
-                <div class="ability-meta">经验：<strong>15+年</strong> · ITES数字化转型项目</div>
+                <div class="ability-meta">经验：<strong>15+年</strong> · 制造企业数字化转型项目</div>
             </div>
             <div class="ability-card">
-                <div class="ability-icon">💰</div>
+                <span class="ability-num">02</span>
                 <h3>财务税务</h3>
                 <div class="ability-skills">电子专票 · 进项认证<br>业财税一体化方案</div>
-                <div class="ability-meta">经验：<strong>10+年</strong> · 比亚迪专票</div>
+                <div class="ability-meta">经验：<strong>10+年</strong> · 新能源企业电子专票项目</div>
             </div>
             <div class="ability-card">
-                <div class="ability-icon">🧠</div>
+                <span class="ability-num">03</span>
                 <h3>数据治理 / BI</h3>
                 <div class="ability-skills">数据血缘 · 数据标准 · BI方案<br>Hadoop大数据平台</div>
-                <div class="ability-meta">经验：<strong>10+年</strong> · 华为IFS BI</div>
+                <div class="ability-meta">经验：<strong>10+年</strong> · 通信企业财经 BI 项目</div>
             </div>
             <div class="ability-card">
-                <div class="ability-icon">🏙️</div>
+                <span class="ability-num">04</span>
                 <h3>智慧城市</h3>
                 <div class="ability-skills">智慧城市架构 · 大数据平台<br>物联网方案设计</div>
-                <div class="ability-meta">经验：<strong>5+年</strong> · 中兴智慧城市</div>
+                <div class="ability-meta">经验：<strong>5+年</strong> · 智慧城市项目</div>
             </div>
             <div class="ability-card">
-                <div class="ability-icon">🏭</div>
+                <span class="ability-num">05</span>
                 <h3>智能制造</h3>
                 <div class="ability-skills">智能工厂规划 · PMO管理<br>AI排产 · MES方案</div>
-                <div class="ability-meta">经验：<strong>3+年</strong> · 中海油智能工厂</div>
+                <div class="ability-meta">经验：<strong>3+年</strong> · 能源央企智能工厂项目</div>
             </div>
             <div class="ability-card">
-                <div class="ability-icon">🤖</div>
+                <span class="ability-num">06</span>
                 <h3>AI + 数字化</h3>
                 <div class="ability-skills">大模型应用 · AI+供应链<br>AI+财务 · 企业知识库</div>
                 <div class="ability-meta">状态：<strong>持续精进</strong> · 前沿探索</div>
@@ -483,216 +811,14 @@
     </div>
 </section>
 
-<section class="section" id="cases">
-    <div class="section-inner fade-in">
-        <span class="section-label">CASE STUDIES</span>
-        <h2 class="section-title">重点项目案例</h2>
-        <p class="section-desc">精选4个覆盖不同行业、不同方向的核心项目，用结果说话。</p>
-        <div class="cases-grid">
-            <div class="case-card">
-                <div class="case-client">制造业 · 数字化转型</div>
-                <h3>ITES数字化转型项目</h3>
-                <div class="case-item">
-                    <span class="case-label">痛点</span>
-                    <p>业务流程复杂、数字化工具分散、数据孤岛严重</p>
-                </div>
-                <div class="case-item">
-                    <span class="case-label">方案</span>
-                    <p>数字化工具设计与流程优化，打通端到端业务链路</p>
-                </div>
-                <div class="case-item">
-                    <span class="case-label">成果</span>
-                    <p>成功构建数字化运营体系，运营效率显著提升</p>
-                </div>
-            </div>
-            <div class="case-card">
-                <div class="case-client">能源央企 · 智能制造</div>
-                <h3>中海油智能工厂项目</h3>
-                <div class="case-item">
-                    <span class="case-label">痛点</span>
-                    <p>工厂数据分散、生产调度依赖人工、缺乏统一管控</p>
-                </div>
-                <div class="case-item">
-                    <span class="case-label">方案</span>
-                    <p>担任PMO负责人，统筹100+人跨部门团队</p>
-                </div>
-                <div class="case-item">
-                    <span class="case-label">成果</span>
-                    <p>成功交付智能工厂标杆项目，获客户高度认可</p>
-                </div>
-            </div>
-            <div class="case-card">
-                <div class="case-client">新能源龙头 · 税务数字化</div>
-                <h3>比亚迪电子专票项目</h3>
-                <div class="case-item">
-                    <span class="case-label">痛点</span>
-                    <p>月均海量发票处理、人工查验效率低、合规压力大</p>
-                </div>
-                <div class="case-item">
-                    <span class="case-label">方案</span>
-                    <p>电子专票全流程管理，对接税务局接口</p>
-                </div>
-                <div class="case-item">
-                    <span class="case-label">成果</span>
-                    <p>发票处理效率提升数倍，税务合规自动闭环</p>
-                </div>
-            </div>
-            <div class="case-card">
-                <div class="case-client">全球通信巨头 · 财经BI</div>
-                <h3>华为IFS集成财经BI</h3>
-                <div class="case-item">
-                    <span class="case-label">痛点</span>
-                    <p>全球50+国家数据分散、报表靠人工合并</p>
-                </div>
-                <div class="case-item">
-                    <span class="case-label">方案</span>
-                    <p>主导财经BI系统建设，搭建全球统一数据平台</p>
-                </div>
-                <div class="case-item">
-                    <span class="case-label">成果</span>
-                    <p>财务数据T+0实时可视，决策效率提升显著</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section section-alt" id="services">
-    <div class="section-inner fade-in">
-        <span class="section-label">SERVICES</span>
-        <h2 class="section-title">咨询服务</h2>
-        <p class="section-desc">标准化咨询方向，按需定制，一对一专属对接。</p>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🔄</div>
-                <h3>数字化转型咨询</h3>
-                <div class="service-desc">现状诊断 → 路径规划 → 方案输出 → 落地指导</div>
-                <div class="service-tags">
-                    <span>制造业</span><span>国企</span><span>民企</span>
-                    <span style="background: rgba(240,180,41,0.12); color: #f0b429;">百万级试错成本省掉</span>
-                </div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">⚡</div>
-                <h3>ERP / 供应链优化</h3>
-                <div class="service-desc">系统选型评估 → 流程重塑 → 数据治理</div>
-                <div class="service-tags">
-                    <span>金蝶</span><span>SAP</span><span>鼎捷</span>
-                    <span style="background: rgba(0,229,255,0.12); color: #00e5ff;">让ERP真正用起来</span>
-                </div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🤖</div>
-                <h3>AI + 数据治理</h3>
-                <div class="service-desc">数据质量评估 → 数据治理 → AI场景匹配</div>
-                <div class="service-tags">
-                    <span>数据血缘</span><span>数据标准</span><span>大模型</span>
-                    <span style="background: rgba(0,229,255,0.12); color: #00e5ff;">先治数再上AI</span>
-                </div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3>项目管理（PMO）</h3>
-                <div class="service-desc">多项目管控 → IPD流程 → 资源协调</div>
-                <div class="service-tags">
-                    <span>IPD</span><span>PMO</span><span>大型项目</span>
-                    <span style="background: rgba(240,180,41,0.12); color: #f0b429;">100+人团队管控经验</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="hobby">
+<section class="section section-alt" id="hobby">
     <div class="section-inner fade-in hobby-section">
         <span class="section-label">BEYOND WORK</span>
         <h2 class="section-title">跑步之外</h2>
-        <p class="section-desc" style="margin: 0 auto 16px;">一个48岁还在坚持跑步的人，对待你的项目也不会半途而废。</p>
-        <div class="hobby-tagline">
-            "咨询不只在会议室。<br>有时候，一个方案是在晨跑时想通的。"
-        </div>
-        <div class="hobby-grid">
-            <div class="hobby-card">
-                <div class="hobby-icon">🏃</div>
-                <h3>跑步 5年+</h3>
-                <p>月跑量约100km<br>有扁平足，但不妨碍热爱<br>目标：完成半程马拉松</p>
-            </div>
-            <div class="hobby-card">
-                <div class="hobby-icon">🚴</div>
-                <h3>骑行</h3>
-                <p>深圳周边<br>用两个轮子感受<br>城市之外的节奏</p>
-            </div>
-            <div class="hobby-card">
-                <div class="hobby-icon">🥾</div>
-                <h3>徒步 · 重装露营</h3>
-                <p>在山野中思考<br>回程时往往带着<br>方案的灵感</p>
-            </div>
-            <div class="hobby-card">
-                <div class="hobby-icon">🏄</div>
-                <h3>桨板</h3>
-                <p>夏天上水<br>换个角度<br>看深圳湾</p>
-            </div>
-        </div>
-        <div class="hobby-quote">
-            训练信条：不看配速看心率，不拼速度拼坚持。
-        </div>
-    </div>
-</section>
-
-<section class="section section-alt" id="cooperation">
-    <div class="section-inner fade-in">
-        <span class="section-label">COOPERATION</span>
-        <h2 class="section-title">合作意向</h2>
-        <p class="section-desc">三种合作模式，灵活适配不同需求。</p>
-        <div class="coop-layout">
-            <div>
-                <h3 style="font-size:18px;font-weight:700;color:#fff;margin-bottom:16px;">合作模式</h3>
-                <div class="coop-mode">
-                    <div class="coop-mode-item">
-                        <div class="icon">🎯</div>
-                        <div>
-                            <h4>单次诊断咨询</h4>
-                            <p>针对具体IT问题，提供一次性方案输出<br><small style="color:#8a9ca7;">适合：企业IT痛点诊断、方案选型评估</small></p>
-                        </div>
-                    </div>
-                    <div class="coop-mode-item">
-                        <div class="icon">🤝</div>
-                        <div>
-                            <h4>长期顾问合作</h4>
-                            <p>按季度/年度为企业提供持续IT咨询支撑<br><small style="color:#8a9ca7;">适合：数字化转型长期陪跑、PMO咨询</small></p>
-                        </div>
-                    </div>
-                    <div class="coop-mode-item">
-                        <div class="icon">📋</div>
-                        <div>
-                            <h4>项目全流程</h4>
-                            <p>从需求对接到落地指导，全流程跟进<br><small style="color:#8a9ca7;">适合：ERP上线、智能制造项目等大型实施</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h3 style="font-size:18px;font-weight:700;color:#fff;margin-bottom:16px;">合作流程</h3>
-                <div class="coop-process">
-                    <div class="coop-step">
-                        <div class="num">1</div>
-                        <div><h4>需求对接</h4><p>免费初步沟通，了解痛点与目标</p></div>
-                    </div>
-                    <div class="coop-step">
-                        <div class="num">2</div>
-                        <div><h4>现状评估</h4><p>出具诊断报告，明确问题和机会</p></div>
-                    </div>
-                    <div class="coop-step">
-                        <div class="num">3</div>
-                        <div><h4>方案输出</h4><p>定制化咨询方案</p></div>
-                    </div>
-                    <div class="coop-step">
-                        <div class="num">4</div>
-                        <div><h4>落地执行</h4><p>方案实施 + 定期复盘</p></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p class="hobby-text">
+            跑步 5 年，月跑量约 100 公里；也骑行深圳周边、徒步重装露营，夏天玩桨板。
+            这些事和做项目是同一个道理——<strong>不看配速看心率，不拼速度拼坚持。</strong>
+        </p>
     </div>
 </section>
 
@@ -705,45 +831,33 @@
             <div>
                 <div class="contact-info-list">
                     <div class="contact-item">
-                        <div class="icon">📱</div>
-                        <div>
-                            <div class="value">136 3252 5397</div>
-                            <div class="sub">电话 · 微信同号</div>
-                        </div>
+                        <div class="label">电话</div>
+                        <a class="value" href="tel:13632525397">136 3252 5397</a>
+                        <div class="sub">微信同号</div>
                     </div>
                     <div class="contact-item">
-                        <div class="icon">✉️</div>
-                        <div>
-                            <div class="value">yongyi_wu@126.com</div>
-                            <div class="sub">邮箱</div>
-                        </div>
+                        <div class="label">邮箱</div>
+                        <a class="value" href="mailto:yongyi_wu@126.com">yongyi_wu@126.com</a>
                     </div>
                     <div class="contact-item">
-                        <div class="icon">🏢</div>
-                        <div>
-                            <div class="value">元毅数智科技</div>
-                            <div class="sub">广东.深圳</div>
-                        </div>
+                        <div class="label">公司</div>
+                        <div class="value">元毅数智科技</div>
+                        <div class="sub">广东 · 深圳</div>
                     </div>
                     <div class="contact-item" style="background: rgba(240,180,41,0.12);">
-                        <div class="icon">⏰</div>
-                        <div>
-                            <div class="value" style="font-weight:400;font-size:13px;color:#fff;">周一至周五 9:00-18:00 · 周末可预约</div>
-                        </div>
+                        <div class="value" style="font-weight:400;font-size:13px;color:#fff;">咨询时间：周一至周五 9:00–18:00 · 周末可预约</div>
                     </div>
                 </div>
             </div>
             <div>
                 <h3 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:12px;">快捷留言</h3>
                 <form class="contact-form" onsubmit="handleForm(event)">
-                    <input type="text" name="name" placeholder="您的姓名" required>
-                    <input type="text" name="company" placeholder="公司名称">
+                    <input type="text" name="company" placeholder="公司名称" required>
                     <input type="tel" name="phone" placeholder="联系电话" required>
-                    <input type="email" name="email" placeholder="邮箱">
                     <textarea name="content" placeholder="请简要描述您的咨询需求…" required></textarea>
                     <button type="submit" class="btn-primary" style="width:100%;border:none;">提交咨询 →</button>
                 </form>
-                <p id="messageStatus" class="message-status" aria-live="polite">提交后我会尽快与您联系</p>
+                <p id="messageStatus" class="message-status" aria-live="polite">提交后 24 小时内回复 · 信息仅用于本次咨询沟通</p>
             </div>
         </div>
     </div>
@@ -752,7 +866,7 @@
 <footer class="footer">
     <a href="#hero" class="back-top">↑</a>
     <p>© 2026  元毅数智· 保留所有权利</p>
-    <p style="margin-top:4px;">本主页所有案例均为真实项目，未经允许不得转载</p>
+    <p style="margin-top:4px;">案例均已脱敏处理，隐去客户名称与敏感信息</p>
 </footer>
 
 <script>
@@ -785,18 +899,12 @@
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
-        const name = String(formData.get('name') || '').trim();
+        const company = String(formData.get('company') || '').trim();
+        const phone = String(formData.get('phone') || '').trim();
         const content = String(formData.get('content') || '').trim();
-        const extra = [
-            ['公司', formData.get('company')],
-            ['电话', formData.get('phone')],
-            ['邮箱', formData.get('email')]
-        ].filter(([, value]) => String(value || '').trim())
-            .map(([label, value]) => `${label}：${String(value).trim()}`)
-            .join('\n');
 
-        if (!name || !content) {
-            setMessageStatus('请填写姓名和留言内容。', true);
+        if (!company || !phone || !content) {
+            setMessageStatus('请填写公司名称、联系电话和咨询需求。', true);
             return;
         }
 
@@ -808,12 +916,12 @@
             const response = await fetch(`${API_BASE_URL}/api/messages`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, content: extra ? `${content}\n${extra}` : content })
+                body: JSON.stringify({ name: company, content: `电话：${phone}\n${content}` })
             });
             const result = await response.json();
             if (!response.ok) throw new Error(result.error || '留言提交失败');
             form.reset();
-            setMessageStatus('留言提交成功，我会尽快联系您。');
+            setMessageStatus('提交成功，我会在 24 小时内与您联系。');
         } catch (error) {
             setMessageStatus(error.message || '留言提交失败，请稍后重试。', true);
         } finally {
