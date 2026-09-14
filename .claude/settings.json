@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -H \"Cache-Control: no-cache\" \"https://michael-wu-git.github.io/?t=$\\(date +%s\\)\")",
+      "Bash(python3)"
+    ]
+  }
+}
