@@ -32,11 +32,11 @@ npm start
 
 - `POST /api/messages`：保存公司名和留言内容（兼容旧版 `name` 字段）
 - `GET /health`：Render 服务健康检查
-- `GET /api/messages`：后台 HTML 表格，需要 Basic Auth
+- `GET /api/messages`：普通访问返回留言板 JSON；带 Basic Auth 时返回后台 HTML 表格
 - `GET /api/mess`：后台 HTML 表格别名，需要 Basic Auth
 - `GET /api/admin/messages`：后台 JSON 数据，需要 Basic Auth
 
-后台留言管理以公司名为展示字段。主页始终保留留言板区域，即使当前没有留言也会显示空状态，不会因留言为空而隐藏。
+后台留言管理以公司名为展示字段。主页始终保留留言板区域，并从数据库加载全部历史留言；即使当前没有留言也会显示空状态，不会因留言为空而隐藏。
 
 停止服务：在终端按 `Ctrl + C`。
 

@@ -72,7 +72,6 @@ async function getMessages() {
             SELECT id, company_name, content, created_at
             FROM messages
             ORDER BY id DESC
-            LIMIT 100
         `);
         return result.rows;
     }
@@ -81,7 +80,6 @@ async function getMessages() {
         SELECT id, company_name, content, created_at
         FROM messages
         ORDER BY id DESC
-        LIMIT 100
     `).all();
 }
 
@@ -234,6 +232,12 @@ async function handleRequest(request, response) {
             'Access-Control-Allow-Headers': 'Content-Type'
         });
         response.end();
+        return;
+    }
+
+    if (request.method === 'GET' && request.url === '/api/messages' &&
+        !(request.headers.authorization || '').startsWith('Basic ')) {
+        sendJson(response, 200, await getMessages());
         return;
     }
 

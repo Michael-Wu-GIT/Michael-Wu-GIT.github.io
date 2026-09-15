@@ -864,6 +864,7 @@
                 <div class="message-board" id="messageBoard" aria-live="polite">
                     <h4 class="message-board-title">留言板</h4>
                     <p class="message-board-empty" id="messageBoardStatus">目前还没有留言，欢迎留下您的咨询需求。</p>
+                    <div id="messageList" class="message-list"></div>
                 </div>
             </div>
         </div>
@@ -902,6 +903,48 @@
         status.classList.toggle('error', isError);
     }
 
+    function formatMessageTime(value) {
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? '' : date.toLocaleString('zh-CN');
+    }
+
+    function renderMessages(messages) {
+        const list = document.getElementById('messageList');
+        const empty = document.getElementById('messageBoardStatus');
+        list.replaceChildren();
+        empty.hidden = messages.length > 0;
+
+        messages.forEach(message => {
+            const item = document.createElement('article');
+            item.className = 'message-item';
+
+            const meta = document.createElement('div');
+            meta.className = 'message-meta';
+            const company = document.createElement('span');
+            company.textContent = message.company_name;
+            const time = document.createElement('span');
+            time.className = 'message-time';
+            time.textContent = formatMessageTime(message.created_at);
+            meta.append(company, time);
+
+            const content = document.createElement('p');
+            content.className = 'message-content';
+            content.textContent = message.content;
+            item.append(meta, content);
+            list.appendChild(item);
+        });
+    }
+
+    async function loadMessages() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/messages`);
+            if (!response.ok) throw new Error('留言加载失败');
+            renderMessages(await response.json());
+        } catch (error) {
+            setMessageStatus('暂时无法加载历史留言，请稍后刷新重试。', true);
+        }
+    }
+
     async function handleForm(e) {
         e.preventDefault();
         const form = e.target;
@@ -929,12 +972,15 @@
             if (!response.ok) throw new Error(result.error || '留言提交失败');
             form.reset();
             setMessageStatus('提交成功，我会在 24 小时内与您联系。');
+            await loadMessages();
         } catch (error) {
             setMessageStatus(error.message || '留言提交失败，请稍后重试。', true);
         } finally {
             button.disabled = false;
         }
     }
+
+    loadMessages();
 </script>
 
 </body>
