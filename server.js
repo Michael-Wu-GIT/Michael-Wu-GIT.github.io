@@ -9,6 +9,11 @@ const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || '*';
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASS = process.env.ADMIN_PASS || '';
 const usePostgres = Boolean(process.env.DATABASE_URL);
+const isRenderEnvironment = Boolean(
+    process.env.RENDER ||
+    process.env.RENDER_SERVICE_ID ||
+    process.env.RENDER_EXTERNAL_URL
+);
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const DATABASE_FILE = path.join(DATA_DIR, 'messages.db');
 
@@ -17,7 +22,7 @@ let pool;
 let legacyNameColumn = false;
 
 async function initializeDatabase() {
-    if (!usePostgres && process.env.RENDER) {
+    if (!usePostgres && isRenderEnvironment) {
         throw new Error('Render 环境必须配置 DATABASE_URL，不能使用临时 SQLite 存储留言');
     }
 
