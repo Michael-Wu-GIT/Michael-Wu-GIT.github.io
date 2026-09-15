@@ -17,6 +17,10 @@ let pool;
 let legacyNameColumn = false;
 
 async function initializeDatabase() {
+    if (!usePostgres && process.env.RENDER) {
+        throw new Error('Render 环境必须配置 DATABASE_URL，不能使用临时 SQLite 存储留言');
+    }
+
     if (usePostgres) {
         pool = new Pool({
             connectionString: process.env.DATABASE_URL,

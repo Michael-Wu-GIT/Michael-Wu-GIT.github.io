@@ -51,6 +51,8 @@ npm start
 - `ADMIN_USER`：后台登录用户名，默认 `admin`
 - `ADMIN_PASS`：后台登录密码，必须在 Render 中设置
 
+`DATABASE_URL` 为必填项。Render 未配置 PostgreSQL 时服务会拒绝启动，避免使用临时磁盘导致重启后留言丢失。
+
 当前 Render API 公开地址：<https://message-api-o8nd.onrender.com>
 
 部署完成后，推送 `index.html` 到 GitHub Pages 即可生效。
