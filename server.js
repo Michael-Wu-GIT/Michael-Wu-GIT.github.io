@@ -14,6 +14,7 @@ const DATABASE_FILE = path.join(DATA_DIR, 'messages.db');
 
 let database;
 let pool;
+let legacyNameColumn = false;
 
 async function initializeDatabase() {
     if (usePostgres) {
@@ -24,11 +25,23 @@ async function initializeDatabase() {
         await pool.query(`
             CREATE TABLE IF NOT EXISTS messages (
                 id SERIAL PRIMARY KEY,
-                name TEXT NOT NULL,
+                company_name TEXT NOT NULL,
                 content TEXT NOT NULL,
                 created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
             )
         `);
+        const columns = await pool.query(`
+            SELECT column_name
+            FROM information_schema.columns
+            WHERE table_name = 'messages' AND column_name IN ('name', 'company_name')
+        `);
+        const columnNames = new Set(columns.rows.map(row => row.column_name));
+        if (columnNames.has('name') && !columnNames.has('company_name')) {
+            await pool.query('ALTER TABLE messages ADD COLUMN company_name TEXT');
+            await pool.query('UPDATE messages SET company_name = name WHERE company_name IS NULL');
+            await pool.query('ALTER TABLE messages ALTER COLUMN company_name SET NOT NULL');
+        }
+        legacyNameColumn = columnNames.has('name');
         return;
     }
 
@@ -38,17 +51,25 @@ async function initializeDatabase() {
     database.exec(`
         CREATE TABLE IF NOT EXISTS messages (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
+            company_name TEXT NOT NULL,
             content TEXT NOT NULL,
             created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
     `);
+    const columns = database.prepare('PRAGMA table_info(messages)').all();
+    const hasCompanyName = columns.some(column => column.name === 'company_name');
+    const hasLegacyName = columns.some(column => column.name === 'name');
+    legacyNameColumn = hasLegacyName;
+    if (hasLegacyName && !hasCompanyName) {
+        database.exec('ALTER TABLE messages ADD COLUMN company_name TEXT');
+        database.exec('UPDATE messages SET company_name = name WHERE company_name IS NULL');
+    }
 }
 
 async function getMessages() {
     if (usePostgres) {
         const result = await pool.query(`
-            SELECT id, name, content, created_at
+            SELECT id, company_name, content, created_at
             FROM messages
             ORDER BY id DESC
             LIMIT 100
@@ -57,25 +78,38 @@ async function getMessages() {
     }
 
     return database.prepare(`
-        SELECT id, name, content, created_at
+        SELECT id, company_name, content, created_at
         FROM messages
         ORDER BY id DESC
         LIMIT 100
     `).all();
 }
 
-async function saveMessage(name, content) {
+async function saveMessage(companyName, content) {
     if (usePostgres) {
+        if (legacyNameColumn) {
+            const result = await pool.query(
+                'INSERT INTO messages (name, company_name, content) VALUES ($1, $1, $2) RETURNING id',
+                [companyName, content]
+            );
+            return result.rows[0].id;
+        }
         const result = await pool.query(
-            'INSERT INTO messages (name, content) VALUES ($1, $2) RETURNING id',
-            [name, content]
+            'INSERT INTO messages (company_name, content) VALUES ($1, $2) RETURNING id',
+            [companyName, content]
         );
         return result.rows[0].id;
     }
 
+    if (legacyNameColumn) {
+        const result = database.prepare(
+            'INSERT INTO messages (name, company_name, content) VALUES (?, ?, ?)'
+        ).run(companyName, companyName, content);
+        return Number(result.lastInsertRowid);
+    }
     const result = database.prepare(
-        'INSERT INTO messages (name, content) VALUES (?, ?)'
-    ).run(name, content);
+        'INSERT INTO messages (company_name, content) VALUES (?, ?)'
+    ).run(companyName, content);
     return Number(result.lastInsertRowid);
 }
 
@@ -116,7 +150,7 @@ function sendMessagesTable(response, messages) {
     const rows = messages.map(message => `
         <tr>
             <td>${escapeHtml(message.id)}</td>
-            <td>${escapeHtml(message.name)}</td>
+            <td>${escapeHtml(message.company_name)}</td>
             <td><pre>${escapeHtml(message.content)}</pre></td>
             <td>${escapeHtml(new Date(message.created_at).toLocaleString('zh-CN'))}</td>
         </tr>
@@ -143,10 +177,10 @@ function sendMessagesTable(response, messages) {
 <body>
     <main>
         <h1>留言管理</h1>
-        <p>最近 ${messages.length} 条留言</p>
+        <p>最近 ${messages.length} 条留言 · 公司名</p>
         <div class="table-wrap">
             <table>
-                <thead><tr><th>ID</th><th>姓名</th><th>留言内容</th><th>提交时间</th></tr></thead>
+                <thead><tr><th>ID</th><th>公司名</th><th>留言内容</th><th>提交时间</th></tr></thead>
                 <tbody>${rows || '<tr><td colspan="4">暂无留言</td></tr>'}</tbody>
             </table>
         </div>
@@ -237,19 +271,19 @@ async function handleRequest(request, response) {
     if (request.method === 'POST' && request.url === '/api/messages') {
         try {
             const body = JSON.parse(await readRequestBody(request));
-            const name = String(body.name || '').trim();
+            const companyName = String(body.companyName || body.company || body.name || '').trim();
             const content = String(body.content || '').trim();
 
-            if (!name || !content) {
-                sendJson(response, 400, { error: '姓名和留言内容不能为空' });
+            if (!companyName || !content) {
+                sendJson(response, 400, { error: '公司名和留言内容不能为空' });
                 return;
             }
-            if (name.length > 50 || content.length > 5000) {
-                sendJson(response, 400, { error: '姓名或留言内容超过长度限制' });
+            if (companyName.length > 100 || content.length > 5000) {
+                sendJson(response, 400, { error: '公司名或留言内容超过长度限制' });
                 return;
             }
 
-            const id = await saveMessage(name, content);
+            const id = await saveMessage(companyName, content);
             sendJson(response, 201, {
                 id,
                 message: '留言提交成功'

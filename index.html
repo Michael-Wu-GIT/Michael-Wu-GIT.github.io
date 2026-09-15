@@ -271,6 +271,9 @@
         .contact-form textarea { min-height: 120px; resize: vertical; }
         .message-status { min-height: 20px; margin-top: 10px; color: #b8c2cc; font-size: 12px; text-align: center; }
         .message-status.error { color: #ff8a80; }
+        .message-board { margin-top: 24px; padding: 18px; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; background: rgba(255,255,255,0.03); }
+        .message-board-title { margin: 0 0 8px; color: #f0b429; font-size: 14px; }
+        .message-board-empty { margin: 0; color: #8a9ca7; font-size: 13px; line-height: 1.7; }
         .message-list { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
         .message-item { padding: 14px 16px; background: #101010; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; }
         .message-meta { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 4px; color: #f0b429; font-size: 12px; font-weight: 700; }
@@ -858,6 +861,10 @@
                     <button type="submit" class="btn-primary" style="width:100%;border:none;">提交咨询 →</button>
                 </form>
                 <p id="messageStatus" class="message-status" aria-live="polite">提交后 24 小时内回复 · 信息仅用于本次咨询沟通</p>
+                <div class="message-board" id="messageBoard" aria-live="polite">
+                    <h4 class="message-board-title">留言板</h4>
+                    <p class="message-board-empty" id="messageBoardStatus">目前还没有留言，欢迎留下您的咨询需求。</p>
+                </div>
             </div>
         </div>
     </div>
@@ -916,7 +923,7 @@
             const response = await fetch(`${API_BASE_URL}/api/messages`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: company, content: `电话：${phone}\n${content}` })
+                body: JSON.stringify({ companyName: company, content: `电话：${phone}\n${content}` })
             });
             const result = await response.json();
             if (!response.ok) throw new Error(result.error || '留言提交失败');
