@@ -20,6 +20,7 @@ const DATABASE_FILE = path.join(DATA_DIR, 'messages.db');
 let database;
 let pool;
 let legacyNameColumn = false;
+let postgresMessageColumns = new Set();
 
 async function initializeDatabase() {
     if (!usePostgres && isRenderEnvironment) {
@@ -50,7 +51,13 @@ async function initializeDatabase() {
             await pool.query('UPDATE messages SET company_name = name WHERE company_name IS NULL');
             await pool.query('ALTER TABLE messages ALTER COLUMN company_name SET NOT NULL');
         }
-        legacyNameColumn = columnNames.has('name');
+        const currentColumns = await pool.query(`
+            SELECT column_name
+            FROM information_schema.columns
+            WHERE table_name = 'messages' AND column_name IN ('name', 'company_name')
+        `);
+        postgresMessageColumns = new Set(currentColumns.rows.map(row => row.column_name));
+        legacyNameColumn = postgresMessageColumns.has('name');
         return;
     }
 
@@ -94,12 +101,15 @@ async function getMessages() {
 
 async function saveMessage(companyName, content) {
     if (usePostgres) {
-        if (legacyNameColumn) {
+        if (postgresMessageColumns.has('name') && postgresMessageColumns.has('company_name')) {
             const result = await pool.query(
                 'INSERT INTO messages (name, company_name, content) VALUES ($1, $1, $2) RETURNING id',
                 [companyName, content]
             );
             return result.rows[0].id;
+        }
+        if (!postgresMessageColumns.has('company_name')) {
+            throw new Error('messages 表缺少 company_name 字段');
         }
         const result = await pool.query(
             'INSERT INTO messages (company_name, content) VALUES ($1, $2) RETURNING id',
