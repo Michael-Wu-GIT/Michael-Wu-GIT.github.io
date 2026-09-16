@@ -320,6 +320,62 @@
             .ability-card:hover, .case-card:hover, .service-card:hover { transform: none; }
             .btn-primary:hover, .btn-outline:hover, .nav-cta:hover { transform: none; }
         }
+        /* ===== AI PRACTICE 板块（新增 V2.0） ===== */
+        .ai-divider { border-top: 1px solid rgba(240,180,41,0.14); }
+        .ai-subhead {
+            font-size: 12px; font-weight: 700; color: #f0b429;
+            letter-spacing: 2px; margin: 54px 0 18px;
+        }
+        .ai-subhead:first-of-type { margin-top: 0; }
+
+        .ai-stack-group {
+            font-size: 11px; font-weight: 700; color: #8a9ca7;
+            letter-spacing: 2px; margin: 24px 0 10px;
+        }
+        .ai-stack-group:first-of-type { margin-top: 4px; }
+        .ai-stack-wrap .hero-capability { justify-content: flex-start; margin: 0; }
+        .ai-stack-wrap .hero-capability span { transition: border-color 0.25s, transform 0.25s; }
+        .ai-stack-wrap .hero-capability span:hover { border-color: rgba(240,180,41,0.62); transform: translateY(-2px); }
+
+        .ai-detail {
+            margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px;
+        }
+        .ai-detail summary {
+            list-style: none; cursor: pointer;
+            font-size: 12px; font-weight: 700; color: #f0b429; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .ai-detail summary::-webkit-details-marker { display: none; }
+        .ai-detail summary::before {
+            content: ''; width: 0; height: 0; flex-shrink: 0;
+            border-left: 5px solid #f0b429;
+            border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+            transition: transform 0.25s;
+        }
+        .ai-detail[open] summary::before { transform: rotate(90deg); }
+        .ai-detail summary:focus-visible { outline: 2px solid rgba(240,180,41,0.7); outline-offset: 3px; border-radius: 4px; }
+        .ai-detail-body {
+            margin-top: 12px; font-size: 12px; color: #8a9ca7; line-height: 1.85;
+        }
+        .ai-detail-body p { margin-bottom: 8px; }
+        .ai-detail-body p:last-child { margin-bottom: 0; }
+        .ai-detail-body strong { color: #c8d1db; font-weight: 700; }
+
+        .ai-cta-wrap { margin-top: 44px; }
+        #ai .case-card { cursor: pointer; }
+        .ai-note {
+            margin-top: 34px; font-size: 12px; color: #8a9ca7;
+            text-align: center; line-height: 1.8;
+        }
+        @media (max-width: 768px) {
+            .ai-subhead { margin: 38px 0 14px; }
+            .ai-cta-wrap { margin-top: 32px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ai-stack-wrap .hero-capability span { transition: none; }
+            .ai-stack-wrap .hero-capability span:hover { transform: none; }
+            .ai-detail summary::before { transition: none; }
+        }
     </style>
 </head>
 <body>
@@ -332,6 +388,7 @@
     <ul class="nav-links" id="navLinks">
         <li><a href="#services">服务</a></li>
         <li><a href="#cases">案例</a></li>
+        <li><a href="#ai">AI 实践</a></li>
         <li><a href="#process">流程</a></li>
         <li><a href="#about">关于我</a></li>
         <li><a href="#contact">联系</a></li>
@@ -605,6 +662,164 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- ===== AI PRACTICE（新增 V2.0） ===== -->
+<section class="section section-alt ai-divider" id="ai">
+    <div class="section-inner fade-in">
+        <span class="section-label">AI PRACTICE</span>
+        <h2 class="section-title">AI 实践</h2>
+        <p class="section-desc">不做通用 AI 科普，只讲企业场景下的可行性判断、落地路径与工程实践。</p>
+
+        <h3 class="ai-subhead">AI 技术栈</h3>
+        <div class="ai-stack-wrap">
+            <div class="ai-stack-group">大模型</div>
+            <div class="hero-capability">
+                <span>Claude</span><span>DeepSeek</span><span>阿里云百炼</span><span>本地模型</span>
+            </div>
+            <div class="ai-stack-group">Agent 工具链</div>
+            <div class="hero-capability">
+                <span>OpenClaw（Lobster）</span><span>多 Agent 协同</span><span>RAG 检索增强</span>
+            </div>
+            <div class="ai-stack-group">数据与后端</div>
+            <div class="hero-capability">
+                <span>PostgreSQL</span><span>Node.js</span>
+            </div>
+            <div class="ai-stack-group">部署工程</div>
+            <div class="hero-capability">
+                <span>GitHub Pages</span><span>静态站点架构</span><span>VS Code 工作流</span>
+            </div>
+        </div>
+
+        <h3 class="ai-subhead">企业落地实践</h3>
+        <div class="cases-grid">
+            <div class="case-card">
+                <div class="case-client">国企数字化 · Agent 任务流</div>
+                <h3>国企数字化任务的 Agent 化改造</h3>
+                <div class="case-item">
+                    <span class="case-label">项目背景</span>
+                    <p>数据资产盘点、业财文档解析、内控材料梳理等工作依赖人工逐份处理，重复度高、口径易漂移。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">关键动作</span>
+                    <p>将任务拆解为可编排的 Agent 步骤链，建立「文档解析 → 结构化提取 → 一致性校验」的处理流水线。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">项目结果</span>
+                    <p>重复性材料处理转为流程化作业，口径统一、过程留痕，人工聚焦于判断与决策环节。</p>
+                </div>
+                <details class="ai-detail">
+                    <summary>技术细节</summary>
+                    <div class="ai-detail-body">
+                        <p><strong>数据资产盘点</strong>：多源清单归集 → 字段级比对 → 权属与口径校验。</p>
+                        <p><strong>业财文档解析</strong>：合同、台账、报表的结构化提取与关键字段抽取。</p>
+                        <p><strong>内控材料梳理</strong>：制度条款与流程节点自动比对，输出差异清单。</p>
+                    </div>
+                </details>
+            </div>
+            <div class="case-card">
+                <div class="case-client">多模型评估 · 成本测算</div>
+                <h3>多模型选型与 Token 成本测算</h3>
+                <div class="case-item">
+                    <span class="case-label">项目背景</span>
+                    <p>不同模型在长文本理解、结构化输出与单价上差异明显，凭感觉选型易导致成本失控。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">关键动作</span>
+                    <p>建立「任务—模型」匹配矩阵，按输入 / 输出 Token 用量与单价建模，测算单任务成本与月度总成本。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">项目结果</span>
+                    <p>输出可比对的选型结论与成本区间，把模型选型从「看榜单」变为「算账」。</p>
+                </div>
+                <details class="ai-detail">
+                    <summary>测算口径</summary>
+                    <div class="ai-detail-body">
+                        <p><strong>计算公式</strong>：任务量 × 平均输入 Token × 输入单价 + 任务量 × 平均输出 Token × 输出单价。</p>
+                        <p><strong>分类建模</strong>：按「轻量任务 / 长文本任务 / 结构化输出任务」三类分别测算。</p>
+                        <p><strong>输出结论</strong>：月度成本区间 + 敏感度说明（用量波动对总成本的影响）。</p>
+                    </div>
+                </details>
+            </div>
+            <div class="case-card">
+                <div class="case-client">本地化部署 · Agent 编排</div>
+                <h3>本地 Agent 编排与工具链打通</h3>
+                <div class="case-item">
+                    <span class="case-label">项目背景</span>
+                    <p>企业数据不便出域，依赖云端 SaaS 的自动化方案难以满足合规要求。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">关键动作</span>
+                    <p>基于 OpenClaw / Lobster 搭建本地 Agent 运行时，通过桥接服务把文件读写、命令执行、代码运行纳入受控委托。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">项目结果</span>
+                    <p>数据留在本地即可完成自动化作业，权限边界清晰、操作全程可追溯。</p>
+                </div>
+                <details class="ai-detail">
+                    <summary>架构要点</summary>
+                    <div class="ai-detail-body">
+                        <p><strong>主控 Agent</strong>：负责任务编排与意图路由。</p>
+                        <p><strong>执行 Agent</strong>：负责具体工具调用与结果回传。</p>
+                        <p><strong>桥接层</strong>：统一处理鉴权、目录白名单与操作留痕；文件操作限制在预设范围内。</p>
+                    </div>
+                </details>
+            </div>
+            <div class="case-card">
+                <div class="case-client">咨询交付 · AI 辅助</div>
+                <h3>AI 辅助的方案与指标体系产出</h3>
+                <div class="case-item">
+                    <span class="case-label">项目背景</span>
+                    <p>咨询交付中方案书、访谈提纲、指标体系的编写耗时长，质量受个人状态影响。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">关键动作</span>
+                    <p>沉淀可复用的提示词与模板库，把访谈提纲、方案框架、指标口径的生成纳入标准化流程。</p>
+                </div>
+                <div class="case-item">
+                    <span class="case-label">项目结果</span>
+                    <p>产出效率提升，文档结构与口径保持稳定，个人经验得以沉淀复用。</p>
+                </div>
+                <details class="ai-detail">
+                    <summary>三个典型产出物</summary>
+                    <div class="ai-detail-body">
+                        <p><strong>项目方案书</strong>：框架搭建与章节要点生成。</p>
+                        <p><strong>客户访谈提纲</strong>：按部门与角色分层设计问题清单。</p>
+                        <p><strong>经营指标体系</strong>：指标定义 + 计算口径 + 数据来源三件套。</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <h3 class="ai-subhead">工具与工程实践</h3>
+        <div class="ability-grid">
+            <div class="ability-card">
+                <span class="ability-num">E1</span>
+                <h3>静态站点架构</h3>
+                <div class="ability-skills">原生 HTML + CSS<br>无框架 · 无打包 · 无构建步骤</div>
+                <div class="ability-meta">交付：<strong>单文件站点</strong> · 加载快、易维护</div>
+            </div>
+            <div class="ability-card">
+                <span class="ability-num">E2</span>
+                <h3>GitHub Pages 发布</h3>
+                <div class="ability-skills">Git 版本管理<br>push 即发布 · 历史可回溯</div>
+                <div class="ability-meta">结果：<strong>托管成本为零</strong> · 交付链路完整</div>
+            </div>
+            <div class="ability-card">
+                <span class="ability-num">E3</span>
+                <h3>本地开发工作流</h3>
+                <div class="ability-skills">VS Code + 本地静态服务预览<br>Git 版本管理</div>
+                <div class="ability-meta">习惯：<strong>本地验证后发布</strong> · 降低线上事故</div>
+            </div>
+        </div>
+
+        <div class="hero-cta ai-cta-wrap">
+            <a href="#contact" class="btn-primary">聊聊我的 AI 落地经验</a>
+            <a href="#services" class="btn-outline">查看全部服务</a>
+        </div>
+
+        <p class="ai-note">以上实践均由本人主导实现，涉及客户的项目已做脱敏处理。</p>
     </div>
 </section>
 
@@ -923,6 +1138,53 @@
             button.disabled = false;
         }
     }
+</script>
+
+<script>
+/* AI 板块交互：整卡点击展开/收起 + 同组互斥 + 轻量入场动画
+   渐进增强 —— 本段不执行时，原生 details 折叠仍可正常展开收起 */
+(function () {
+    var section = document.getElementById('ai');
+    if (!section) return;
+
+    var items = section.querySelectorAll('.ai-detail');
+    if (!items.length) return;
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 同组单开互斥 + 展开入场动画
+    function onToggle(current) {
+        if (!current.open) return;
+        items.forEach(function (other) {
+            if (other !== current && other.open) other.open = false;
+        });
+        var body = current.querySelector('.ai-detail-body');
+        if (reduce || !body || typeof Element.prototype.animate !== 'function') return;
+        body.animate(
+            [{ opacity: 0, transform: 'translateY(-4px)' }, { opacity: 1, transform: 'translateY(0)' }],
+            { duration: 180, easing: 'ease-out' }
+        );
+    }
+
+    items.forEach(function (item) {
+        item.addEventListener('toggle', function () { onToggle(item); });
+    });
+
+    // 整卡点击：委托到卡片，避开 summary / 链接 / 划词选择
+    section.querySelectorAll('.case-card').forEach(function (card) {
+        var box = card.querySelector('.ai-detail');
+        if (!box) return;
+        card.addEventListener('click', function (e) {
+            var t = e.target;
+            if (!t || !t.closest) return;
+            if (t.closest('summary')) return;
+            if (t.closest('a')) return;
+            var sel = window.getSelection();
+            if (sel && String(sel).length > 0) return;
+            box.open = !box.open;
+        });
+    });
+})();
 </script>
 
 </body>
