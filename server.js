@@ -175,6 +175,27 @@ function escapeHtml(value) {
         .replaceAll("'", '&#39;');
 }
 
+function getRequestPath(request) {
+    try {
+        const pathname = new URL(request.url, 'http://localhost').pathname;
+        return pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
+    } catch {
+        return request.url;
+    }
+}
+
+// 浏览器地址栏访问会带 text/html（此时渲染表格页）；前端 fetch / curl 默认是 */*（继续返回 JSON）。
+function wantsHtml(request) {
+    const accept = String(request.headers.accept || '').toLowerCase();
+    return accept.includes('text/html') || accept.includes('application/xhtml+xml');
+}
+
+function formatTimestamp(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value ?? '');
+    return date.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+}
+
 function hasBasicAdminAccess(request) {
     const authorization = request.headers.authorization || '';
     if (!authorization.startsWith('Basic ')) return false;
@@ -188,49 +209,105 @@ function hasBasicAdminAccess(request) {
     return Boolean(ADMIN_PASS) && user === ADMIN_USER && pass === ADMIN_PASS;
 }
 
-function sendMessagesTable(response, messages) {
-    const rows = messages.map(message => `
-        <tr>
-            <td>${escapeHtml(message.id)}</td>
-            <td>${escapeHtml(message.company_name)}</td>
-            <td><pre>${escapeHtml(message.content)}</pre></td>
-            <td>${escapeHtml(new Date(message.created_at).toLocaleString('zh-CN'))}</td>
-        </tr>
-    `).join('');
+const ADMIN_PAGE_STYLE = `
+        :root { color-scheme: light; }
+        body { margin: 0; padding: 32px; color: #222; background: #f4f6f8; font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+        main { max-width: 1200px; margin: 0 auto; }
+        h1 { margin: 0; font-size: 22px; }
+        p { color: #667085; margin: 0; }
+        .toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+        .toolbar .stats { margin-right: auto; color: #475467; }
+        .btn { display: inline-block; padding: 7px 14px; color: #344054; background: #fff; border: 1px solid #d0d5dd; border-radius: 8px; text-decoration: none; font-size: 13px; }
+        .btn:hover { background: #f9fafb; }
+        .table-wrap { overflow-x: auto; background: #fff; border: 1px solid #dfe3e8; border-radius: 10px; box-shadow: 0 4px 16px rgba(16, 24, 40, .06); }
+        table { width: 100%; border-collapse: collapse; min-width: 720px; }
+        th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid #eaecf0; }
+        th { color: #344054; background: #f9fafb; font-weight: 600; white-space: nowrap; }
+        td:nth-child(1) { color: #98a2b3; }
+        td:nth-child(4) { color: #667085; white-space: nowrap; }
+        tbody tr:hover { background: #fcfcfd; }
+        tbody tr:last-child td { border-bottom: 0; }
+        pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: inherit; color: #344054; }
+        .empty { padding: 40px; text-align: center; color: #98a2b3; }
+        .notice { max-width: 680px; padding: 28px 32px; background: #fff; border: 1px solid #dfe3e8; border-radius: 12px; }
+        .notice h1 { margin-bottom: 12px; }
+        .notice p { line-height: 1.8; }
+        .notice.error h1 { color: #b42318; }
+        code { padding: 2px 6px; background: #f2f4f7; border-radius: 6px; font-size: 13px; }
+`;
+
+function sendAdminPage(response, statusCode, title, contentHtml, extraHeaders = {}) {
     const body = `<!doctype html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>留言管理</title>
-    <style>
-        body { margin: 0; padding: 32px; color: #222; background: #f4f6f8; font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-        main { max-width: 1200px; margin: 0 auto; }
-        h1 { margin: 0 0 8px; }
-        p { color: #667085; }
-        .table-wrap { overflow-x: auto; background: #fff; border: 1px solid #dfe3e8; border-radius: 10px; box-shadow: 0 4px 16px rgba(16, 24, 40, .06); }
-        table { width: 100%; border-collapse: collapse; min-width: 720px; }
-        th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid #eaecf0; }
-        th { color: #344054; background: #f9fafb; font-weight: 600; }
-        tr:last-child td { border-bottom: 0; }
-        pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: inherit; color: #344054; }
-    </style>
+    <title>${escapeHtml(title)}</title>
+    <style>${ADMIN_PAGE_STYLE}</style>
 </head>
 <body>
     <main>
-        <h1>留言管理</h1>
-        <p>最近 ${messages.length} 条留言 · 公司名</p>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>ID</th><th>公司名</th><th>留言内容</th><th>提交时间</th></tr></thead>
-                <tbody>${rows || '<tr><td colspan="4">暂无留言</td></tr>'}</tbody>
-            </table>
-        </div>
+${contentHtml}
     </main>
 </body>
 </html>`;
-    response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+    response.writeHead(statusCode, {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-store',
+        ...extraHeaders
+    });
     response.end(body);
+}
+
+function sendMessagesTable(response, messages) {
+    const rows = messages.map(message => `        <tr>
+            <td>${escapeHtml(message.id)}</td>
+            <td>${escapeHtml(message.company_name)}</td>
+            <td><pre>${escapeHtml(message.content)}</pre></td>
+            <td>${escapeHtml(formatTimestamp(message.created_at))}</td>
+        </tr>`).join('\n');
+
+    const content = `        <h1>留言管理</h1>
+        <div class="toolbar">
+            <span class="stats">共 ${messages.length} 条留言 · 按提交时间倒序</span>
+            <a class="btn" href="/admin">刷新</a>
+            <a class="btn" href="/">返回主页</a>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>ID</th><th>公司名</th><th>留言内容</th><th>提交时间</th></tr></thead>
+                <tbody>
+${rows || '            <tr><td class="empty" colspan="4">暂无留言</td></tr>'}
+                </tbody>
+            </table>
+        </div>`;
+
+    sendAdminPage(response, 200, '留言管理 · 个人主页后台', content);
+}
+
+// 未认证时必须给出 HTML 401，浏览器才会弹出登录框并在通过后渲染表格。
+function sendAdminLoginChallenge(response, wrongCredentials = false) {
+    const hint = wrongCredentials
+        ? `用户名默认 <code>${escapeHtml(ADMIN_USER)}</code>，密码为 Render 环境变量 <code>ADMIN_PASS</code> 的值。`
+        : `在弹出的登录框中输入用户名 <code>${escapeHtml(ADMIN_USER)}</code> 和 <code>ADMIN_PASS</code> 密码，即可查看留言表格。`;
+    const notConfigured = ADMIN_PASS
+        ? ''
+        : `<p><strong>注意：</strong>当前服务未检测到 <code>ADMIN_PASS</code> 环境变量，任何密码都无法通过校验。请在 Render 服务的 Environment 中配置 <code>ADMIN_PASS</code> 后重新部署。</p>`;
+
+    const content = `        <div class="notice${wrongCredentials ? ' error' : ''}">
+            <h1>${wrongCredentials ? '账号或密码错误' : '需要登录'}</h1>
+            <p>留言板后台需要 Basic 认证。${hint}</p>
+            ${notConfigured}
+            <p><a class="btn" href="/">返回主页</a></p>
+        </div>`;
+
+    sendAdminPage(
+        response,
+        401,
+        wrongCredentials ? '登录失败' : '留言后台登录',
+        content,
+        wrongCredentials ? {} : { 'WWW-Authenticate': 'Basic realm="message-admin"' }
+    );
 }
 
 function serveIndex(response) {
@@ -263,7 +340,9 @@ function readRequestBody(request) {
 }
 
 async function handleRequest(request, response) {
-    if (request.method === 'GET' && request.url === '/health') {
+    const pathname = getRequestPath(request);
+
+    if (request.method === 'GET' && pathname === '/health') {
         sendJson(response, 200, { ok: true });
         return;
     }
@@ -279,30 +358,13 @@ async function handleRequest(request, response) {
         return;
     }
 
-    if (request.method === 'GET' && request.url === '/api/messages' &&
-        !(request.headers.authorization || '').startsWith('Basic ')) {
-        sendJson(response, 200, await getMessages());
-        return;
-    }
-
-    if (request.method === 'GET' && ['/api/messages', '/api/mess'].includes(request.url)) {
-        const hasBasicHeader = (request.headers.authorization || '').startsWith('Basic ');
-        if (!hasBasicHeader || !hasBasicAdminAccess(request)) {
-            response.writeHead(401, {
-                'Content-Type': 'application/json; charset=utf-8',
-                'WWW-Authenticate': 'Basic realm="message-admin"',
-                'Cache-Control': 'no-store'
-            });
-            response.end(JSON.stringify({ error: hasBasicHeader ? '账号密码错误' : '需要登录' }));
-            return;
-        }
-
-        sendMessagesTable(response, await getMessages());
-        return;
-    }
-
-    if (request.method === 'GET' && request.url === '/api/admin/messages') {
+    // 后台 JSON 数据（供程序调用）
+    if (request.method === 'GET' && pathname === '/api/admin/messages') {
         if (!hasBasicAdminAccess(request)) {
+            if (wantsHtml(request)) {
+                sendAdminLoginChallenge(response, (request.headers.authorization || '').startsWith('Basic '));
+                return;
+            }
             response.writeHead(401, {
                 'Content-Type': 'application/json; charset=utf-8',
                 'WWW-Authenticate': 'Basic realm="message-admin"',
@@ -316,7 +378,39 @@ async function handleRequest(request, response) {
         return;
     }
 
-    if (request.method === 'POST' && request.url === '/api/messages') {
+    // 留言数据入口：带认证或浏览器地址栏访问 → 渲染 HTML 表格页；前端 fetch → JSON
+    if (request.method === 'GET' && ['/admin', '/api/messages', '/api/mess'].includes(pathname)) {
+        const sentCredentials = (request.headers.authorization || '').startsWith('Basic ');
+
+        if (sentCredentials) {
+            if (!hasBasicAdminAccess(request)) {
+                if (wantsHtml(request)) {
+                    sendAdminLoginChallenge(response, true);
+                    return;
+                }
+                response.writeHead(401, {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'WWW-Authenticate': 'Basic realm="message-admin"',
+                    'Cache-Control': 'no-store'
+                });
+                response.end(JSON.stringify({ error: '账号密码错误' }));
+                return;
+            }
+
+            sendMessagesTable(response, await getMessages());
+            return;
+        }
+
+        if (pathname === '/admin' || wantsHtml(request)) {
+            sendAdminLoginChallenge(response, false);
+            return;
+        }
+
+        sendJson(response, 200, await getMessages());
+        return;
+    }
+
+    if (request.method === 'POST' && pathname === '/api/messages') {
         try {
             const body = JSON.parse(await readRequestBody(request));
             const companyName = String(body.companyName || body.company || body.name || '').trim();
@@ -346,7 +440,7 @@ async function handleRequest(request, response) {
         return;
     }
 
-    if (request.method === 'GET' && (request.url === '/' || request.url === '/index.html')) {
+    if (request.method === 'GET' && (pathname === '/' || pathname === '/index.html')) {
         serveIndex(response);
         return;
     }
