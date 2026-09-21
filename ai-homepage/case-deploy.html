@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>云服务器 AI Agent 7×24 部署 | 老吴 · AI 智能体定制</title>
+  <meta name="description" content="Ubuntu 全链路部署：双 Gateway 实例 + Dashboard + 桥接服务，systemd 托管 6 项开机自启；定位并绕开 OpenSSH rexec 阻塞，改用轻量 SSH 入口。">
+
+  <!-- SEO: Open Graph / Twitter Card -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="云服务器 AI Agent 7×24 部署 | 老吴 · AI 智能体定制">
+  <meta property="og:description" content="Ubuntu 全链路部署：双 Gateway 实例 + Dashboard + 桥接服务，systemd 托管开机自启。">
+  <meta property="og:image" content="https://michael-wu-git.github.io/ai-homepage/assets/case-deploy.png">
+  <meta property="og:image:alt" content="云服务器 AI Agent 部署界面示意">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="云服务器 AI Agent 7×24 部署 | 老吴 · AI 智能体定制">
+  <meta name="twitter:description" content="Ubuntu 全链路部署：双 Gateway 实例 + Dashboard + 桥接服务，systemd 托管开机自启。">
+  <meta name="twitter:image" content="https://michael-wu-git.github.io/ai-homepage/assets/case-deploy.png">
+  <link rel="canonical" href="https://michael-wu-git.github.io/ai-homepage/case-deploy.html">
+  <meta name="theme-color" content="#0A0F1E">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"云服务器 AI Agent 7×24 部署","description":"Ubuntu 全链路部署方案，解决 SSH 阻塞、端口暴露、服务自启动等问题。","author":{"@type":"Person","name":"老吴"},"publisher":{"@type":"Organization","name":"老吴 · AI 智能体定制"},"image":"https://michael-wu-git.github.io/ai-homepage/assets/case-deploy.png"}</script>
+
+  <link rel="preload" href="./assets/case-deploy.png" as="image" type="image/png">
+  <link rel="preload" href="./assets/avatar.png" as="image" type="image/png">
+  <link rel="stylesheet" href="./tailwind.css">
+  <style>
+    .card-hover { transition: border-color .2s ease, transform .2s ease; }
+    .card-hover:hover { border-color: #22D3EE66; transform: translateY(-2px); }
+    .consultBtn:active { transform: scale(0.98); }
+    .consultBtn.loading { opacity: 0.7; pointer-events: none; }
+    .consultBtn.loading::after { content: ''; display: inline-block; width: 1em; height: 1em; margin-left: 0.5em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #111827; color: #22D3EE; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: 1px solid #22D3EE66; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 100; opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; font-size: 0.875rem; }
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    :focus-visible { outline: 2px solid #22D3EE; outline-offset: 2px; }
+    #mobileMenu:not(.hidden) *:focus { outline: 2px solid #22D3EE; outline-offset: 2px; }
+    .step-num { width: 32px; height: 32px; border-radius: 50%; background: #22D3EE; color: #0A0F1E; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
+  </style>
+</head>
+
+<body class="bg-night text-slate-300 font-sans antialiased">
+
+<!-- 顶部导航 -->
+<header class="fixed top-0 inset-x-0 z-50 bg-night/80 backdrop-blur border-b border-line">
+  <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="./index.html" class="text-lg font-semibold text-white tracking-wide">
+      老吴<span class="text-accent"> · AI 开发</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm">
+      <a href="./index.html#services" class="hover:text-white">服务</a>
+      <a href="./index.html#work" class="hover:text-white">案例</a>
+      <a href="./index.html#pricing" class="hover:text-white">报价</a>
+      <a href="./index.html#about" class="hover:text-white">关于我</a>
+      <button class="consultBtn px-4 py-2 rounded-lg bg-accent text-night font-medium hover:opacity-90" data-cta="nav">立即咨询项目</button>
+    </div>
+    <button id="menuBtn" class="md:hidden text-slate-300 hover:text-white p-2" aria-label="打开菜单" aria-expanded="false">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
+  </nav>
+  <div id="mobileMenu" class="hidden md:hidden border-t border-line bg-night px-4 py-3 space-y-3 text-sm">
+    <a href="./index.html#services" class="block hover:text-white">服务</a>
+    <a href="./index.html#work" class="block hover:text-white">案例</a>
+    <a href="./index.html#pricing" class="block hover:text-white">报价</a>
+    <a href="./index.html#about" class="block hover:text-white">关于我</a>
+    <a href="./index.html#faq" class="block hover:text-white">常见问题</a>
+    <button class="consultBtn block w-full text-left text-accent font-medium" data-cta="mobile">立即咨询项目 →</button>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="pt-28 pb-16 px-4">
+  <div class="max-w-5xl mx-auto">
+    <nav class="mb-6 text-sm text-slate-600">
+      <a href="./index.html" class="hover:text-accent">首页</a> / <span class="text-slate-400">云服务器 AI Agent 7×24 部署</span>
+    </nav>
+    <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">云服务器 AI Agent 7×24 部署</h1>
+    <p class="text-slate-400 text-lg">Ubuntu 全链路部署方案，解决 SSH 阻塞、端口暴露、服务自启动</p>
+  </div>
+</section>
+
+<!-- OG Image -->
+<section class="pb-12 px-4 border-b border-line">
+  <div class="max-w-5xl mx-auto">
+    <img src="./assets/case-deploy.png" alt="云服务器 AI Agent 部署界面示意" class="w-full rounded-xl border border-line" loading="lazy" width="640" height="360">
+  </div>
+</section>
+
+<!-- Overview -->
+<section class="py-16 px-4">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-[11px] text-accent tracking-widest uppercase mb-2">案例分类</div>
+    <h2 class="text-2xl font-bold text-white mb-6">部署 · 排错 · 技术咨询</h2>
+    <div class="text-sm text-slate-400 leading-relaxed space-y-4">
+      <p>个人开发者想让 AI 助理全天候在线，但云端环境坑多：SSH 阻塞、端口暴露、服务自启。</p>
+      <p>本项目在 Ubuntu 全链路部署，构建「双 Gateway 实例 + Dashboard + 桥接服务」架构，通过 systemd 托管 6 项开机自启。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Problem / Solution / Result -->
+<section class="py-16 px-4">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
+    <div class="bg-panel border border-line rounded-xl p-6">
+      <div class="text-xs text-accent font-bold mb-2">难点</div>
+      <p class="text-sm text-slate-400 leading-relaxed">个人开发者想让 AI 助理全天候在线，但云端环境坑多：SSH 阻塞、端口暴露、服务自启。</p>
+    </div>
+    <div class="bg-panel border border-line rounded-xl p-6">
+      <div class="text-xs text-accent font-bold mb-2">方案</div>
+      <p class="text-sm text-slate-400 leading-relaxed">Ubuntu 全链路部署——双 Gateway 实例 + Dashboard + 桥接服务，systemd 托管 6 项开机自启；定位并绕开 OpenSSH rexec 阻塞，改用轻量 SSH 入口。</p>
+    </div>
+    <div class="bg-panel border border-line rounded-xl p-6">
+      <div class="text-xs text-accent font-bold mb-2">结果</div>
+      <p class="text-sm text-slate-400 leading-relaxed">远程稳定的 AI 工作环境长期运行，排障经验产品化为可复用部署工作流。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section class="py-16 px-4">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl font-bold text-white mb-8">架构设计</h2>
+    <div class="space-y-6">
+      <div class="flex gap-4">
+        <div class="step-num">1</div>
+        <div>
+          <h3 class="text-lg font-semibold text-white">双 Gateway 实例</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">前端 Gateway 负责请求路由与负载均衡；后端 Gateway 负责业务逻辑与工具调用。双实例保障高可用。</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="step-num">2</div>
+        <div>
+          <h3 class="text-lg font-semibold text-white">Dashboard 监控</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">实时监控 Agent 运行状态、调用次数、Token 消耗与异常告警，便于快速定位问题。</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="step-num">3</div>
+        <div>
+          <h3 class="text-lg font-semibold text-white">桥接服务</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">统一处理鉴权、目录白名单与操作留痕；文件操作限制在预设范围内，确保安全。</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="step-num">4</div>
+        <div>
+          <h3 class="text-lg font-semibold text-white">systemd 自启</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">6 项服务通过 systemd 托管，支持自动重启、崩溃恢复、开机自启动。</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="step-num">5</div>
+        <div>
+          <h3 class="text-lg font-semibold text-white">SSH 优化</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">定位并绕开 OpenSSH rexec 阻塞，改用轻量 SSH 入口，保证远程连接稳定。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Key Tech -->
+<section class="py-16 px-4 bg-panel border border-line rounded-xl">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl font-bold text-white mb-6">关键技术</h2>
+    <div class="grid sm:grid-cols-2 gap-4 text-sm">
+      <div class="flex items-start gap-3">
+        <span class="text-accent">·</span>
+        <span class="text-slate-400"><strong class="text-slate-300">Ubuntu 全链路部署</strong> 从零到生产的完整部署方案</span>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-accent">·</span>
+        <span class="text-slate-400"><strong class="text-slate-300">双 Gateway 架构</strong> 前后端分离 + 负载均衡</span>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-accent">·</span>
+        <span class="text-slate-400"><strong class="text-slate-300">systemd 服务管理</strong> 6 项开机自启 + 自动重启</span>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-accent">·</span>
+        <span class="text-slate-400"><strong class="text-slate-300">SSH 阻塞优化</strong> OpenSSH rexec 绕开 + 轻量入口</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="mt-16 py-12 px-4 text-center">
+  <button class="consultBtn px-8 py-3 rounded-lg bg-accent text-night font-semibold hover:opacity-90" data-tier="enterprise">聊聊我的 AI 落地经验</button>
+</section>
+
+<!-- Toast -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- Consult Modal -->
+<div id="consultModal" class="hidden fixed inset-0 z-[60] flex items-center justify-center">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-modal></div>
+  <div class="relative bg-panel border border-line rounded-2xl w-full max-w-md mx-4 p-6 md:p-8">
+    <div class="flex items-center justify-between">
+      <h3 class="text-lg font-semibold text-white">项目咨询</h3>
+      <button id="modalClose" class="text-slate-500 hover:text-white text-xl leading-none px-1" aria-label="关闭">✕</button>
+    </div>
+    <p class="mt-1 text-xs text-slate-500">填写后选择发送方式，无需注册登录</p>
+    <form id="consultForm" class="mt-6 space-y-4" action="https://formspree.io/f/your-form-id" method="POST">
+      <div>
+        <label for="fName" class="block text-xs text-slate-400 mb-1.5">怎么称呼你</label>
+        <input id="fName" name="name" type="text" maxlength="30" placeholder="例如：王总 / 小李"
+          class="w-full px-3.5 py-2.5 rounded-lg bg-night border border-line text-sm text-white placeholder-slate-600 focus:outline-none focus:border-accent/60">
+      </div>
+      <div>
+        <label for="fWay" class="block text-xs text-slate-400 mb-1.5">联系方式（微信/手机/邮箱）</label>
+        <input id="fWay" name="contact" type="text" maxlength="40" placeholder="方便回访的联系方式"
+          class="w-full px-3.5 py-2.5 rounded-lg bg-night border border-line text-sm text-white placeholder-slate-600 focus:outline-none focus:border-accent/60">
+      </div>
+      <div>
+        <label for="fNeed" class="block text-xs text-slate-400 mb-1.5">需求描述 <span class="text-accent">*</span></label>
+        <textarea id="fNeed" name="message" rows="4" required placeholder="想解决什么问题？预算范围？期望工期？"
+          class="w-full px-3.5 py-2.5 rounded-lg bg-night border border-line text-sm text-white placeholder-slate-600 focus:outline-none focus:border-accent/60 resize-none"></textarea>
+      </div>
+      <input type="hidden" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="grid grid-cols-2 gap-3 pt-1">
+        <button id="submitBtn" type="submit" class="py-2.5 rounded-lg bg-accent text-night text-sm font-semibold hover:opacity-90">提交咨询</button>
+        <button id="wxBtn" type="button" class="py-2.5 rounded-lg border border-line text-sm text-slate-200 hover:border-accent/50">复制去微信粘贴</button>
+      </div>
+      <p id="wxDone" class="hidden text-xs text-accent text-center pt-1">已复制 ✓ 微信 13632525397，粘贴发送即可</p>
+      <p class="text-[11px] text-slate-600 text-center leading-relaxed">
+        提交后将发送邮件通知我；「微信粘贴」仅复制到你的剪贴板。
+      </p>
+    </form>
+  </div>
+</div>
+
+<script>
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); }
+    catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); ta.remove();
+    }
+  }
+  function showToast(msg, isError = false) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.style.background = isError ? '#7f1d1d' : '#111827';
+    toast.style.borderColor = isError ? '#ef444466' : '#22D3EE66';
+    toast.style.color = isError ? '#fca5a5' : '#22D3EE';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  let lastFocused = null;
+  menuBtn.addEventListener('click', () => {
+    const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', !expanded);
+    mobileMenu.classList.toggle('hidden');
+    if (!expanded) { lastFocused = document.activeElement; mobileMenu.querySelector('a, button')?.focus(); }
+    else { lastFocused?.focus(); }
+  });
+  mobileMenu.querySelectorAll('a, button').forEach(el =>
+    el.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      lastFocused?.focus();
+    }));
+  mobileMenu.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || mobileMenu.classList.contains('hidden')) return;
+    const focusable = mobileMenu.querySelectorAll('a, button');
+    const first = focusable[0]; const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+  const modal = document.getElementById('consultModal');
+  const openModal = () => { modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; document.getElementById('fNeed').focus(); };
+  const closeModal = () => { modal.classList.add('hidden'); document.body.style.overflow = ''; };
+  document.querySelectorAll('.consultBtn').forEach(b =>
+    b.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuBtn.setAttribute('aria-expanded', 'false'); openModal(); }));
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.querySelector('[data-close-modal]').addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
+  const form = document.getElementById('consultForm');
+  const submitBtn = document.getElementById('submitBtn');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const need = document.getElementById('fNeed').value.trim();
+    if (!need) { document.getElementById('fNeed').focus(); return; }
+    submitBtn.classList.add('loading'); submitBtn.textContent = '提交中…';
+    try {
+      const formData = new FormData(form);
+      const resp = await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+      if (resp.ok) { showToast('✅ 咨询已发送，我会尽快回复您'); form.reset(); closeModal(); }
+      else { const data = await resp.json().catch(() => ({})); showToast(`❌ 提交失败：${data.error || '请稍后重试'}`, true); }
+    } catch (err) { showToast('❌ 网络错误，请检查连接或改用微信联系', true); }
+    finally { submitBtn.classList.remove('loading'); submitBtn.textContent = '提交咨询'; }
+  });
+  document.getElementById('wxBtn').addEventListener('click', async () => {
+    const name = document.getElementById('fName').value.trim() || '（未填写）';
+    const way  = document.getElementById('fWay').value.trim()  || '（未填写）';
+    const need = document.getElementById('fNeed').value.trim();
+    if (!need) { document.getElementById('fNeed').focus(); return; }
+    const msg = `【项目咨询】\n称呼：${name}\n联系方式：${way}\n需求描述：${need}`;
+    await copyText(msg);
+    document.getElementById('wxDone').classList.remove('hidden');
+    setTimeout(() => document.getElementById('wxDone').classList.add('hidden'), 4000);
+  });
+  document.querySelectorAll('.consultBtn').forEach(btn => {
+    btn.addEventListener('mousedown', () => btn.style.transform = 'scale(0.98)');
+    btn.addEventListener('mouseup', () => btn.style.transform = '');
+    btn.addEventListener('mouseleave', () => btn.style.transform = '');
+  });
+</script>
+
+</body>
+</html>
