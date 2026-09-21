@@ -164,7 +164,12 @@
        <!-- 案例 1：AI 数字分身 -->
        <a href="case-agent.html" class="card-hover rounded-xl bg-panel border border-line overflow-hidden flex flex-col text-left relative">
           <span class="absolute top-3 right-3 text-xs bg-accent/10 text-accent border border-accent/20 rounded-full px-2 py-0.5">远程实机演示</span>
-          <div class="h-36 m-4 mb-0 rounded-lg bg-gradient-to-br from-accent/15 to-night border border-line flex items-center justify-center text-4xl">🧬</div>
+          <div class="m-4 mb-0 h-36 rounded-lg overflow-hidden border border-line">
+            <picture class="block h-full w-full">
+              <source srcset="assets/case-agent.webp" type="image/webp">
+              <img src="assets/case-agent.png" alt="个人 AI 数字分身系统界面" class="h-full w-full object-cover" loading="lazy">
+            </picture>
+          </div>
          <div class="p-5 pt-4 flex-1 flex flex-col">
            <div class="text-[11px] text-accent tracking-widest uppercase mb-1.5">AI 智能体 / Agent 开发</div>
            <h3 class="font-semibold text-white">个人 AI 数字分身系统</h3>
@@ -180,7 +185,12 @@
        <!-- 案例 2：Prompt 库 + 交付自动化 -->
        <a href="case-prompt.html" class="card-hover rounded-xl bg-panel border border-line overflow-hidden flex flex-col text-left relative">
           <span class="absolute top-3 right-3 text-xs bg-accent/10 text-accent border border-accent/20 rounded-full px-2 py-0.5">远程实机演示</span>
-          <div class="h-36 m-4 mb-0 rounded-lg bg-gradient-to-br from-accent/15 to-night border border-line flex items-center justify-center text-4xl">📚</div>
+          <div class="m-4 mb-0 h-36 rounded-lg overflow-hidden border border-line">
+            <picture class="block h-full w-full">
+              <source srcset="assets/case-prompt.webp" type="image/webp">
+              <img src="assets/case-prompt.png" alt="咨询提示词模板库界面" class="h-full w-full object-cover" loading="lazy">
+            </picture>
+          </div>
          <div class="p-5 pt-4 flex-1 flex flex-col">
            <div class="text-[11px] text-accent tracking-widest uppercase mb-1.5">AI 应用定制</div>
            <h3 class="font-semibold text-white">咨询提示词模板库 + 交付物自动化</h3>
@@ -196,7 +206,12 @@
        <!-- 案例 3：云端部署 -->
        <a href="case-deploy.html" class="card-hover rounded-xl bg-panel border border-line overflow-hidden flex flex-col text-left relative">
           <span class="absolute top-3 right-3 text-xs bg-accent/10 text-accent border border-accent/20 rounded-full px-2 py-0.5">远程实机演示</span>
-          <div class="h-36 m-4 mb-0 rounded-lg bg-gradient-to-br from-accent/15 to-night border border-line flex items-center justify-center text-4xl">☁️</div>
+          <div class="m-4 mb-0 h-36 rounded-lg overflow-hidden border border-line">
+            <picture class="block h-full w-full">
+              <source srcset="assets/case-deploy.webp" type="image/webp">
+              <img src="assets/case-deploy.png" alt="云服务器 AI Agent 部署架构图" class="h-full w-full object-cover" loading="lazy">
+            </picture>
+          </div>
          <div class="p-5 pt-4 flex-1 flex flex-col">
            <div class="text-[11px] text-accent tracking-widest uppercase mb-1.5">部署 · 排错 · 技术咨询</div>
            <h3 class="font-semibold text-white">云服务器 AI Agent 7×24 部署</h3>
@@ -506,139 +521,10 @@
   </div>
 </div>
 
-<!-- ========== 全站交互 JS（零依赖） ========== -->
-<script>
-  // 通用复制函数：Clipboard API + execCommand 兜底
-  async function copyText(text) {
-    try { await navigator.clipboard.writeText(text); }
-    catch (e) {
-      const ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy'); ta.remove();
-    }
-  }
-
-  // Toast 提示
-  function showToast(msg, isError = false) {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    toast.textContent = msg;
-    toast.style.background = isError ? '#7f1d1d' : '#111827';
-    toast.style.borderColor = isError ? '#ef444466' : '#22D3EE66';
-    toast.style.color = isError ? '#fca5a5' : '#22D3EE';
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
-  }
-
-  // 1) 移动端菜单：开合 + 点链接后收起 + 焦点陷阱
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  let lastFocused = null;
-  menuBtn.addEventListener('click', () => {
-    const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-    menuBtn.setAttribute('aria-expanded', !expanded);
-    mobileMenu.classList.toggle('hidden');
-    if (!expanded) {
-      lastFocused = document.activeElement;
-      mobileMenu.querySelector('a, button')?.focus();
-    } else {
-      lastFocused?.focus();
-    }
-  });
-  mobileMenu.querySelectorAll('a, button').forEach(el =>
-    el.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      menuBtn.setAttribute('aria-expanded', 'false');
-      lastFocused?.focus();
-    }));
-
-  // 焦点陷阱
-  mobileMenu.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab' || mobileMenu.classList.contains('hidden')) return;
-    const focusable = mobileMenu.querySelectorAll('a, button');
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  });
-
-  // 2) 联系方式复制按钮 + aria-label
-  document.querySelectorAll('.copyBtn').forEach(btn => {
-    const label = btn.dataset.copy.includes('@') ? '复制邮箱' : '复制电话/微信';
-    btn.setAttribute('aria-label', label);
-    btn.addEventListener('click', async () => {
-      await copyText(btn.dataset.copy);
-      btn.textContent = '已复制 ✓';
-      setTimeout(() => (btn.textContent = '点击复制'), 1500);
-    });
-  });
-
-  // 3) 咨询弹窗：所有 .consultBtn 打开；✕ / 点遮罩 / ESC 关闭
-  const modal = document.getElementById('consultModal');
-  const openModal = () => { modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; document.getElementById('fNeed').focus(); };
-  const closeModal = () => { modal.classList.add('hidden'); document.body.style.overflow = ''; };
-  document.querySelectorAll('.consultBtn').forEach(b =>
-    b.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuBtn.setAttribute('aria-expanded', 'false'); openModal(); }));
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-  modal.querySelector('[data-close-modal]').addEventListener('click', closeModal);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
-
-  // 4) 表单提交：Formspree 真实后端 + loading 态 + Toast
-  const form = document.getElementById('consultForm');
-  const submitBtn = document.getElementById('submitBtn');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const need = document.getElementById('fNeed').value.trim();
-    if (!need) { document.getElementById('fNeed').focus(); return; }
-
-    submitBtn.classList.add('loading');
-    submitBtn.textContent = '提交中…';
-
-    try {
-      const formData = new FormData(form);
-      const resp = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-      if (resp.ok) {
-        showToast('✅ 咨询已发送，我会尽快回复您');
-        form.reset();
-        closeModal();
-      } else {
-        const data = await resp.json().catch(() => ({}));
-        showToast(`❌ 提交失败：${data.error || '请稍后重试'}`, true);
-      }
-    } catch (err) {
-      showToast('❌ 网络错误，请检查连接或改用微信联系', true);
-    } finally {
-      submitBtn.classList.remove('loading');
-      submitBtn.textContent = '提交咨询';
-    }
-  });
-
-  // 5) 微信复制按钮（保留原逻辑）
-  document.getElementById('wxBtn').addEventListener('click', async () => {
-    const name = document.getElementById('fName').value.trim() || '（未填写）';
-    const way  = document.getElementById('fWay').value.trim()  || '（未填写）';
-    const need = document.getElementById('fNeed').value.trim();
-    if (!need) { document.getElementById('fNeed').focus(); return; }
-    const msg = `【项目咨询】\n称呼：${name}\n联系方式：${way}\n需求描述：${need}`;
-    await copyText(msg);
-    document.getElementById('wxDone').classList.remove('hidden');
-    setTimeout(() => document.getElementById('wxDone').classList.add('hidden'), 4000);
-  });
-
-  // 6) 所有咨询按钮点击态反馈
-  document.querySelectorAll('.consultBtn').forEach(btn => {
-    btn.addEventListener('mousedown', () => btn.style.transform = 'scale(0.98)');
-    btn.addEventListener('mouseup', () => btn.style.transform = '');
-    btn.addEventListener('mouseleave', () => btn.style.transform = '');
-  });
-</script>
-
 <!-- Toast 容器 -->
 <div id="toast" role="status" aria-live="polite"></div>
+
+<script src="./main.js" defer></script>
 
 </body>
 </html>
