@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>老吴 · AI 智能体定制与流程自动化开发</title>
+  <meta name="description" content="数字探索者老吴：AI 智能体 Agent 定制、网站与网页开发、AI 应用定制、代码重构与技术咨询。坐标深圳，线上协作全国。">
+
+  <!-- Tailwind CSS CDN：无需构建，双击即可打开 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // 全局配色：深空蓝底 + 青色强调，深色科技风（换色只改这里）
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            night:  '#0A0F1E',   // 页面底色
+            panel:  '#111827',   // 卡片底色
+            line:   '#1F2937',   // 分割线
+            accent: '#22D3EE',   // 强调青
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* 仅在 Tailwind 不便表达处补充 */
+    .card-hover { transition: border-color .2s ease, transform .2s ease; }
+    .card-hover:hover { border-color: #22D3EE66; transform: translateY(-2px); }
+  </style>
+</head>
+
+<body class="bg-night text-slate-300 font-sans antialiased">
+
+<!-- ========== ① 顶部导航（固定，毛玻璃底） ========== -->
+<header class="fixed top-0 inset-x-0 z-50 bg-night/80 backdrop-blur border-b border-line">
+  <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="#top" class="text-lg font-semibold text-white tracking-wide">
+      老吴<span class="text-accent"> · AI 开发</span>
+    </a>
+
+    <!-- 桌面菜单 -->
+    <div class="hidden md:flex items-center gap-6 text-sm">
+      <a href="#services" class="hover:text-white">服务</a>
+      <a href="#work" class="hover:text-white">案例</a>
+      <a href="#pricing" class="hover:text-white">报价</a>
+      <a href="#about" class="hover:text-white">关于我</a>
+      <button class="consultBtn px-4 py-2 rounded-lg bg-accent text-night font-medium hover:opacity-90">立即咨询项目</button>
+    </div>
+
+    <!-- 移动端汉堡按钮 -->
+    <button id="menuBtn" class="md:hidden text-slate-300 hover:text-white p-2" aria-label="打开菜单">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- 移动端下拉菜单 -->
+  <div id="mobileMenu" class="hidden md:hidden border-t border-line bg-night px-4 py-3 space-y-3 text-sm">
+    <a href="#services" class="block hover:text-white">服务</a>
+    <a href="#work" class="block hover:text-white">案例</a>
+    <a href="#pricing" class="block hover:text-white">报价</a>
+    <a href="#about" class="block hover:text-white">关于我</a>
+    <a href="#faq" class="block hover:text-white">常见问题</a>
+    <button class="consultBtn block w-full text-left text-accent font-medium">立即咨询项目 →</button>
+  </div>
+</header>
+
+<!-- ========== ② Hero 首屏 ========== -->
+<section id="top" class="pt-36 pb-24 px-4">
+  <div class="max-w-6xl mx-auto text-center">
+    <p class="text-xs text-slate-500 mb-6 tracking-widest">📍 深圳 · 线上协作全国 · 1 个工作日内响应</p>
+
+    <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">
+      AI 智能体定制<br class="md:hidden">
+      <span class="text-accent">· 流程自动化落地</span>
+    </h1>
+
+    <p class="mt-6 max-w-2xl mx-auto text-base md:text-lg text-slate-400 leading-relaxed">
+      我是数字探索者老吴，一个专注把 AI 能力变成可落地业务工具的独立应用者。<br class="hidden md:block">
+      从需求到上线，一个人也能交付一支团队的产出。
+    </p>
+
+    <div class="mt-8 flex flex-wrap justify-center gap-3 text-sm">
+      <span class="px-4 py-1.5 rounded-full border border-line bg-panel text-slate-300">智能体 Agent 开发</span>
+      <span class="px-4 py-1.5 rounded-full border border-line bg-panel text-slate-300">企业官网 / 落地页</span>
+      <span class="px-4 py-1.5 rounded-full border border-line bg-panel text-slate-300">业务自动化系统</span>
+    </div>
+
+    <div class="mt-10 flex flex-wrap justify-center gap-4">
+      <button class="consultBtn px-7 py-3 rounded-lg bg-accent text-night font-semibold hover:opacity-90">立即咨询项目</button>
+      <a href="#services" class="px-7 py-3 rounded-lg border border-line text-slate-300 hover:border-accent/50 hover:text-white">看看能做什么</a>
+    </div>
+    <p class="mt-5 text-xs text-slate-600">三档价格透明 · 先出方案后报价 · 谈不拢不收费</p>
+  </div>
+</section>
+
+<!-- ========== ③ 服务板块（4 大类） ========== -->
+<section id="services" class="py-20 px-4 border-t border-line">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">我能帮你做什么</h2>
+    <p class="text-center text-slate-500 mt-3 text-sm">四大类业务，覆盖从「一个想法」到「上线可用」</p>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-6">
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line">
+        <div class="text-2xl mb-4">🤖</div>
+        <h3 class="text-lg font-semibold text-white">AI 智能体 Agent 开发</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          基于 Hermes / OpenClaw / Kilo Code 的定制智能体与自动化工作流搭建；接入 GPT、Claude、DeepSeek、通义等主流大模型，按需选型。
+        </p>
+        <p class="mt-4 text-xs text-accent/80">适合：想让 AI 替人干活的企业和团队</p>
+      </div>
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line">
+        <div class="text-2xl mb-4">🌐</div>
+        <h3 class="text-lg font-semibold text-white">网站 &amp; 网页开发</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          个人主页、企业落地页、H5 静态页面。简约现代风格，静态部署成本极低，最快当天上线可访问。
+        </p>
+        <p class="mt-4 text-xs text-accent/80">适合：需要快速建立线上形象的小微企业与个人</p>
+      </div>
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line">
+        <div class="text-2xl mb-4">🧩</div>
+        <h3 class="text-lg font-semibold text-white">AI 应用定制</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          轻量化 AI 小工具、自动化脚本、业务流程 AI 原型。把你的具体场景小步验证、快速落地。
+        </p>
+        <p class="mt-4 text-xs text-accent/80">适合：有具体场景、想低成本验证 AI 价值的客户</p>
+      </div>
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line">
+        <div class="text-2xl mb-4">🔧</div>
+        <h3 class="text-lg font-semibold text-white">代码重构 · 项目排错 · 技术咨询</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          烂代码梳理、Bug 定位修复、技术选型与方案评估。支持单次咨询，按次计费也欢迎先来聊。
+        </p>
+        <p class="mt-4 text-xs text-accent/80">适合：被历史代码卡住、需要外部专家视角的团队</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ④ 案例作品集 ========== -->
+<section id="work" class="py-20 px-4 border-t border-line">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">案例作品集</h2>
+    <p class="text-center text-slate-500 mt-3 text-sm">自己先趟通，再接你的项目。以下为近期真实落地的三类代表作品</p>
+
+    <div class="mt-12 grid lg:grid-cols-3 md:grid-cols-2 gap-6">
+
+      <!-- 案例 1：AI 数字分身 -->
+      <div class="card-hover rounded-xl bg-panel border border-line overflow-hidden flex flex-col">
+        <div class="h-36 m-4 mb-0 rounded-lg bg-gradient-to-br from-accent/15 to-night border border-line flex items-center justify-center text-4xl">🧬</div>
+        <div class="p-5 pt-4 flex-1 flex flex-col">
+          <div class="text-[11px] text-accent tracking-widest uppercase mb-1.5">AI 智能体 / Agent 开发</div>
+          <h3 class="font-semibold text-white">个人 AI 数字分身系统</h3>
+          <div class="mt-3 space-y-2.5 text-sm text-slate-400 leading-relaxed flex-1">
+            <p><span class="text-slate-500 font-medium">难点：</span>日常被微信、邮件、会议纪要切碎时间，通用聊天机器人不懂自己的业务。</p>
+            <p><span class="text-slate-500 font-medium">方案：</span>基于 Hermes / OpenClaw 双引擎搭建常驻 Mac 数字分身：微信 + 邮箱双通道接入、中文语音输入、私有知识库随问随答、定时任务自动出周报简报。</p>
+            <p><span class="text-slate-500 font-medium">结果：</span>从 0 到 1 上线并稳定运行，日常消息处理与资料检索明显提效；同款架构可为客户定制。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 案例 2：Prompt 库 + 交付自动化 -->
+      <div class="card-hover rounded-xl bg-panel border border-line overflow-hidden flex flex-col">
+        <div class="h-36 m-4 mb-0 rounded-lg bg-gradient-to-br from-accent/15 to-night border border-line flex items-center justify-center text-4xl">📚</div>
+        <div class="p-5 pt-4 flex-1 flex flex-col">
+          <div class="text-[11px] text-accent tracking-widest uppercase mb-1.5">AI 应用定制</div>
+          <h3 class="font-semibold text-white">咨询提示词模板库 + 交付物自动化</h3>
+          <div class="mt-3 space-y-2.5 text-sm text-slate-400 leading-relaxed flex-1">
+            <p><span class="text-slate-500 font-medium">难点：</span>报告、纪要、方案重复劳动量大，AI 直出质量不稳定、不可控。</p>
+            <p><span class="text-slate-500 font-medium">方案：</span>按"版本化四条铁律"管理的 11 场景 Prompt 库（报告写作 / 深度分析 / 需求分析等），配套 Word / PPT 自动生成脚本，每场景留档失败案例持续迭代。</p>
+            <p><span class="text-slate-500 font-medium">结果：</span>标准化交付物产出效率显著提升，模板体系已沉淀为可复用资产。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 案例 3：云端部署 -->
+      <div class="card-hover rounded-xl bg-panel border border-line overflow-hidden flex flex-col">
+        <div class="h-36 m-4 mb-0 rounded-lg bg-gradient-to-br from-accent/15 to-night border border-line flex items-center justify-center text-4xl">☁️</div>
+        <div class="p-5 pt-4 flex-1 flex flex-col">
+          <div class="text-[11px] text-accent tracking-widest uppercase mb-1.5">部署 · 排错 · 技术咨询</div>
+          <h3 class="font-semibold text-white">云服务器 AI Agent 7×24 部署</h3>
+          <div class="mt-3 space-y-2.5 text-sm text-slate-400 leading-relaxed flex-1">
+            <p><span class="text-slate-500 font-medium">难点：</span>个人开发者想让 AI 助理全天候在线，但云端环境坑多：SSH 阻塞、端口暴露、服务自启。</p>
+            <p><span class="text-slate-500 font-medium">方案：</span>Ubuntu 全链路部署——双 Gateway 实例 + Dashboard + 桥接服务，systemd 托管 6 项开机自启；定位并绕开 OpenSSH rexec 阻塞，改用轻量 SSH 入口。</p>
+            <p><span class="text-slate-500 font-medium">结果：</span>远程稳定的 AI 工作环境长期运行，排障经验产品化为可复用部署工作流。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-8 text-center text-xs text-slate-600">更多项目进行中，欢迎索取演示：点「立即咨询项目」，可远程实机演示数字分身系统。</p>
+  </div>
+</section>
+
+<!-- ========== ⑤ 交付优势（4 项） ========== -->
+<section id="advantages" class="py-20 px-4 border-t border-line">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">为什么选我</h2>
+    <p class="text-center text-slate-500 mt-3 text-sm">独立开发者的交付方式，和大公司不一样</p>
+
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line text-center">
+        <div class="text-2xl mb-3">💰</div>
+        <h3 class="font-semibold text-white">免费模型降本方案</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">熟练运用 Kilo Gateway 等免费开源模型路线，把 AI 应用的长期运行成本压到最低。</p>
+      </div>
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line text-center">
+        <div class="text-2xl mb-3">⚡</div>
+        <h3 class="font-semibold text-white">快速原型交付</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">小步快跑，先出能看能用的第一版，最快 1-3 天见到可体验成果。</p>
+      </div>
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line text-center">
+        <div class="text-2xl mb-3">🔄</div>
+        <h3 class="font-semibold text-white">支持迭代调整</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">交付不是终点，合理范围内的调整随叫随到，上线后 7 天免费修 bug。</p>
+      </div>
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line text-center">
+        <div class="text-2xl mb-3">💬</div>
+        <h3 class="font-semibold text-white">全程同步沟通</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">一个人对接到底，没有中间传话人；进度主动同步，不失联、不黑箱。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ⑥ 报价区间（三档明码标价） ========== -->
+<section id="pricing" class="py-20 px-4 border-t border-line">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">报价区间</h2>
+    <p class="text-center text-slate-500 mt-3 text-sm">按常见需求分档，先出方案后精报价</p>
+
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      <!-- 入门档 -->
+      <div class="card-hover p-7 rounded-xl bg-panel border border-line flex flex-col">
+        <h3 class="font-semibold text-white">入门项目</h3>
+        <div class="mt-3 text-2xl font-bold text-accent">¥100<span class="text-base font-normal text-slate-500"> – 500</span></div>
+        <ul class="mt-5 space-y-2 text-sm text-slate-400 flex-1">
+          <li>· 单页落地页 / 个人主页</li>
+          <li>· 小型自动化脚本</li>
+          <li>· 单次技术咨询 / 排错</li>
+        </ul>
+        <div class="mt-4 text-xs text-slate-600">交付周期：1–3 天</div>
+        <button class="consultBtn mt-5 py-2.5 rounded-lg border border-line text-sm text-slate-300 hover:border-accent/50 hover:text-white">咨询这一档</button>
+      </div>
+
+      <!-- 标准档（推荐，高亮） -->
+      <div class="card-hover p-7 rounded-xl bg-panel border border-accent/60 flex flex-col relative md:-translate-y-2">
+        <span class="absolute -top-3 right-5 text-xs px-3 py-1 rounded-full bg-accent text-night font-medium">最受欢迎</span>
+        <h3 class="font-semibold text-white">标准项目</h3>
+        <div class="mt-3 text-2xl font-bold text-accent">¥500<span class="text-base font-normal text-slate-500"> – 1000</span></div>
+        <ul class="mt-5 space-y-2 text-sm text-slate-400 flex-1">
+          <li>· 企业官网 / 多页网站</li>
+          <li>· 轻量 AI 工具 / 小应用</li>
+          <li>· 简单智能体搭建</li>
+        </ul>
+        <div class="mt-4 text-xs text-slate-600">交付周期：3–7 天</div>
+        <button class="consultBtn mt-5 py-2.5 rounded-lg bg-accent text-night text-sm font-semibold hover:opacity-90">咨询这一档</button>
+      </div>
+
+      <!-- 深度定制档 -->
+      <div class="card-hover p-7 rounded-xl bg-panel border border-line flex flex-col">
+        <h3 class="font-semibold text-white">深度定制项目</h3>
+        <div class="mt-3 text-2xl font-bold text-accent">¥1000<span class="text-base font-normal text-slate-500"> – 5万</span></div>
+        <ul class="mt-5 space-y-2 text-sm text-slate-400 flex-1">
+          <li>· 定制 Agent 系统 / 工作流</li>
+          <li>· 业务流程自动化整体方案</li>
+          <li>· 小型全栈应用原型</li>
+        </ul>
+        <div class="mt-4 text-xs text-slate-600">交付周期：1–4 周起</div>
+        <button class="consultBtn mt-5 py-2.5 rounded-lg border border-line text-sm text-slate-300 hover:border-accent/50 hover:text-white">咨询这一档</button>
+      </div>
+    </div>
+    <p class="mt-8 text-center text-xs text-slate-600">区间为常见需求参考价；特殊需求先提，精报价后再动手，谈不拢不收费。</p>
+  </div>
+</section>
+
+<!-- ========== ⑦ 合作流程（4 步） ========== -->
+<section id="process" class="py-20 px-4 border-t border-line">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">合作流程</h2>
+    <p class="text-center text-slate-500 mt-3 text-sm">四步闭环，从第一次沟通到上线交付</p>
+
+    <div class="mt-12 grid md:grid-cols-4 gap-6">
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line">
+        <div class="text-accent font-bold text-sm tracking-widest">STEP 01</div>
+        <h3 class="mt-2 font-semibold text-white">需求沟通</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">微信或邮件聊清楚你要解决什么问题，1 个工作日内响应。</p>
+      </div>
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line">
+        <div class="text-accent font-bold text-sm tracking-widest">STEP 02</div>
+        <h3 class="mt-2 font-semibold text-white">方案报价</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">输出实现方案 + 工期 + 一口价，明码标价，无隐藏收费。</p>
+      </div>
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line">
+        <div class="text-accent font-bold text-sm tracking-widest">STEP 03</div>
+        <h3 class="mt-2 font-semibold text-white">开发交付</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">期间同步进度，交付即可访问的成品，支持源码移交。</p>
+      </div>
+      <div class="card-hover p-6 rounded-xl bg-panel border border-line">
+        <div class="text-accent font-bold text-sm tracking-widest">STEP 04</div>
+        <h3 class="mt-2 font-semibold text-white">售后保障</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">上线后 7 天免费修 bug，后续迭代另议。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ⑧ 关于我 ========== -->
+<section id="about" class="py-20 px-4 border-t border-line">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">关于我</h2>
+
+    <div class="mt-10 p-8 rounded-xl bg-panel border border-line">
+      <p class="text-sm text-slate-300 leading-relaxed">
+        我是<span class="text-white font-medium">数字探索者老吴</span>，坐标深圳，专注把 AI 能力变成可落地业务工具的独立应用者。
+        不做框架空谈，只交付能跑起来、能解决具体问题的东西。
+      </p>
+
+      <h3 class="mt-7 text-xs tracking-widest text-slate-500 uppercase">从业背景</h3>
+      <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+        20+ 年企业数字化老兵，先后任职金蝶、华为、中兴等，覆盖 ERP、BI、数据仓库、大数据、供应链与财务数字化、AI 等领域。
+        持有 PMP、TOGAF、APICS CPIM 认证，拥有 6 项软件专利。近年深度投入 AI 智能体与自动化落地，兼具大厂规范与独立交付的灵活。
+      </p>
+
+      <h3 class="mt-7 text-xs tracking-widest text-slate-500 uppercase">政企咨询经历（脱敏）</h3>
+      <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+        曾为华中地区某国有水务投资公司（168 人规模）提供驻场数字化咨询：完成业务调研诊断、业财融合专项实施方案（多版本迭代交付）与标准化交付文档体系。
+        <span class="text-slate-600">—— 懂企业流程的人做 AI 开发，交付物天然更贴近业务。</span>
+      </p>
+
+      <h3 class="mt-7 text-xs tracking-widest text-slate-500 uppercase">开发能力</h3>
+      <ul class="mt-3 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-400">
+        <li>· 定制智能体（Hermes / OpenClaw / Kilo Code）</li>
+        <li>· 前端静态开发（HTML / Tailwind / JS）</li>
+        <li>· 业务流程自动化搭建</li>
+        <li>· 大模型选型与降本方案</li>
+      </ul>
+
+      <h3 class="mt-7 text-xs tracking-widest text-slate-500 uppercase">日常武器</h3>
+      <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+        大模型：<span class="text-slate-200">GPT · Claude · Gemini · DeepSeek · 通义千问 · 豆包</span>
+        <span class="text-slate-600">（含 Kilo Gateway 免费开源模型）</span><br>
+        开发工具：<span class="text-slate-200">Kilo Code · OpenClaw · Hermes</span>
+      </p>
+      <p class="mt-6 text-xs text-slate-600 text-center">不为模型而模型，只按你的场景选最合适的方案。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ⑨ 常见问题（原生 details 手风琴） ========== -->
+<section id="faq" class="py-20 px-4 border-t border-line">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">常见问题</h2>
+
+    <div class="mt-10 space-y-3">
+      <details class="group rounded-xl bg-panel border border-line open:border-accent/40">
+        <summary class="cursor-pointer list-none flex items-center justify-between p-5 text-white font-medium">
+          怎么收费？
+          <span class="text-accent transition-transform group-open:rotate-45">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-sm text-slate-400 leading-relaxed">按上方报价区间分档：入门 ¥100–500、标准 ¥500–1000、深度定制 ¥1000–5万。特殊需求先提，出方案后精报价，谈不拢不收费。</p>
+      </details>
+
+      <details class="group rounded-xl bg-panel border border-line open:border-accent/40">
+        <summary class="cursor-pointer list-none flex items-center justify-between p-5 text-white font-medium">
+          多久能交付？
+          <span class="text-accent transition-transform group-open:rotate-45">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-sm text-slate-400 leading-relaxed">落地页类 1-3 天，AI 应用 / 自动化类 1-2 周，具体以方案为准。</p>
+      </details>
+
+      <details class="group rounded-xl bg-panel border border-line open:border-accent/40">
+        <summary class="cursor-pointer list-none flex items-center justify-between p-5 text-white font-medium">
+          源码归谁？
+          <span class="text-accent transition-transform group-open:rotate-45">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-sm text-slate-400 leading-relaxed">项目结款后源码和部署归属客户；我保留作为作品集展示的权利（可要求保密）。</p>
+      </details>
+
+      <details class="group rounded-xl bg-panel border border-line open:border-accent/40">
+        <summary class="cursor-pointer list-none flex items-center justify-between p-5 text-white font-medium">
+          异地 / 线上能合作吗？
+          <span class="text-accent transition-transform group-open:rotate-45">＋</span>
+        </summary>
+        <p class="px-5 pb-5 text-sm text-slate-400 leading-relaxed">全程线上协作，坐标深圳，全国客户均可。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ⑩ 联系咨询板块 ========== -->
+<section id="contact" class="py-20 px-4 border-t border-line">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-2xl md:text-3xl font-bold text-white">说说你的想法，当天回复</h2>
+    <p class="mt-3 text-slate-500 text-sm">不确定能不能做？先把需求扔过来。</p>
+
+    <button class="consultBtn mt-8 px-8 py-3.5 rounded-lg bg-accent text-night font-semibold hover:opacity-90">立即咨询项目</button>
+
+    <div class="mt-10 grid sm:grid-cols-3 gap-4 text-left">
+      <div class="p-5 rounded-xl bg-panel border border-line">
+        <div class="text-xs text-slate-500 mb-1">微信（同号）</div>
+        <div class="text-white font-medium">13632525397</div>
+        <button class="copyBtn mt-3 text-xs text-accent hover:underline" data-copy="13632525397">点击复制</button>
+      </div>
+      <div class="p-5 rounded-xl bg-panel border border-line">
+        <div class="text-xs text-slate-500 mb-1">邮箱</div>
+        <div class="text-white font-medium break-all">yongyi_wu@126.com</div>
+        <button class="copyBtn mt-3 text-xs text-accent hover:underline" data-copy="yongyi_wu@126.com">点击复制</button>
+      </div>
+      <div class="p-5 rounded-xl bg-panel border border-line">
+        <div class="text-xs text-slate-500 mb-1">手机</div>
+        <div class="text-white font-medium">13632525397</div>
+        <a href="tel:13632525397" class="mt-3 inline-block text-xs text-accent hover:underline">拨打电话</a>
+      </div>
+    </div>
+
+    <!-- 接单平台占位：链接提供后填入 <a> 并删除 hidden -->
+    <div id="platforms" class="hidden mt-8 text-sm text-slate-500">
+      接单平台：闲鱼 · 淘宝 · 电鸭 · 猪八戒
+    </div>
+  </div>
+</section>
+
+<!-- ========== ⑪ 页脚 ========== -->
+<footer class="py-8 px-4 border-t border-line text-center text-xs text-slate-600">
+  © 2026 数字探索者老吴 · 深圳 ｜ AI 智能体定制 · 网页开发 · 流程自动化 · 技术咨询
+</footer>
+
+<!-- ========== ⑫ 咨询弹窗（纯前端，无后端） ========== -->
+<div id="consultModal" class="hidden fixed inset-0 z-[60] flex items-center justify-center">
+  <!-- 半透明遮罩，点击空白处关闭 -->
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-modal></div>
+
+  <div class="relative bg-panel border border-line rounded-2xl w-full max-w-md mx-4 p-6 md:p-8">
+    <div class="flex items-center justify-between">
+      <h3 class="text-lg font-semibold text-white">项目咨询</h3>
+      <button id="modalClose" class="text-slate-500 hover:text-white text-xl leading-none px-1" aria-label="关闭">✕</button>
+    </div>
+    <p class="mt-1 text-xs text-slate-500">填写后选择发送方式，无需注册登录</p>
+
+    <form id="consultForm" class="mt-6 space-y-4" onsubmit="return false">
+      <div>
+        <label for="fName" class="block text-xs text-slate-400 mb-1.5">怎么称呼你</label>
+        <input id="fName" type="text" maxlength="30" placeholder="例如：王总 / 小李"
+          class="w-full px-3.5 py-2.5 rounded-lg bg-night border border-line text-sm text-white placeholder-slate-600 focus:outline-none focus:border-accent/60">
+      </div>
+      <div>
+        <label for="fWay" class="block text-xs text-slate-400 mb-1.5">联系方式（微信/手机）</label>
+        <input id="fWay" type="text" maxlength="40" placeholder="方便回访的联系方式"
+          class="w-full px-3.5 py-2.5 rounded-lg bg-night border border-line text-sm text-white placeholder-slate-600 focus:outline-none focus:border-accent/60">
+      </div>
+      <div>
+        <label for="fNeed" class="block text-xs text-slate-400 mb-1.5">需求描述 <span class="text-accent">*</span></label>
+        <textarea id="fNeed" rows="4" required placeholder="想解决什么问题？预算范围？期望工期？"
+          class="w-full px-3.5 py-2.5 rounded-lg bg-night border border-line text-sm text-white placeholder-slate-600 focus:outline-none focus:border-accent/60 resize-none"></textarea>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 pt-1">
+        <button id="mailBtn" type="button" class="py-2.5 rounded-lg bg-accent text-night text-sm font-semibold hover:opacity-90">邮件发送咨询</button>
+        <button id="wxBtn" type="button" class="py-2.5 rounded-lg border border-line text-sm text-slate-200 hover:border-accent/50">复制去微信粘贴</button>
+      </div>
+      <p id="wxDone" class="hidden text-xs text-accent text-center pt-1">已复制 ✓ 微信 13632525397，粘贴发送即可</p>
+      <p class="text-[11px] text-slate-600 text-center leading-relaxed">
+        本表单为纯前端演示：不收集、不上传任何数据；「邮件发送」唤起你的邮件客户端，「微信粘贴」仅复制到你的剪贴板。
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- ========== 全站交互 JS（约 60 行，零依赖） ========== -->
+<script>
+  // 通用复制函数：Clipboard API + execCommand 兜底（file:// 本地打开也可用）
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); }
+    catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); ta.remove();
+    }
+  }
+
+  // 1) 移动端菜单：开合 + 点链接后收起
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  mobileMenu.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+  // 2) 联系方式复制按钮
+  document.querySelectorAll('.copyBtn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      await copyText(btn.dataset.copy);
+      btn.textContent = '已复制 ✓';
+      setTimeout(() => (btn.textContent = '点击复制'), 1500);
+    });
+  });
+
+  // 3) 咨询弹窗：所有 .consultBtn 打开；✕ / 点遮罩 / ESC 关闭
+  const modal = document.getElementById('consultModal');
+  const openModal = () => { modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; document.getElementById('fNeed').focus(); };
+  const closeModal = () => { modal.classList.add('hidden'); document.body.style.overflow = ''; };
+  document.querySelectorAll('.consultBtn').forEach(b =>
+    b.addEventListener('click', () => { mobileMenu.classList.add('hidden'); openModal(); }));
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.querySelector('[data-close-modal]').addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
+
+  // 4) 表单提交（无后端）：组装文本 → mailto 唤起邮件 或 复制到剪贴板去微信
+  function buildMessage() {
+    const name = document.getElementById('fName').value.trim() || '（未填写）';
+    const way  = document.getElementById('fWay').value.trim()  || '（未填写）';
+    const need = document.getElementById('fNeed').value.trim();
+    if (!need) { document.getElementById('fNeed').focus(); return null; }
+    return `【项目咨询】\n称呼：${name}\n联系方式：${way}\n需求描述：${need}`;
+  }
+  document.getElementById('mailBtn').addEventListener('click', () => {
+    const msg = buildMessage();
+    if (!msg) return;
+    const subject = encodeURIComponent('项目咨询 - ' + (document.getElementById('fName').value.trim() || '来自官网'));
+    location.href = `mailto:yongyi_wu@126.com?subject=${subject}&body=${encodeURIComponent(msg)}`;
+  });
+  document.getElementById('wxBtn').addEventListener('click', async () => {
+    const msg = buildMessage();
+    if (!msg) return;
+    await copyText(msg);
+    document.getElementById('wxDone').classList.remove('hidden');
+    setTimeout(() => document.getElementById('wxDone').classList.add('hidden'), 4000);
+  });
+</script>
+
+</body>
+</html>
