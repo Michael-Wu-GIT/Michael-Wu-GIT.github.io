@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'none';">
+  <meta name="build-time" content="2026-09-22T05:00:00Z">
   <title>个人 AI 数字分身系统 | 老吴 · AI 智能体定制</title>
   <meta name="description" content="基于 Hermes / OpenClaw 双引擎搭建的常驻 Mac 数字分身：微信 + 邮箱双通道接入、中文语音输入、私有知识库随问随答、定时任务自动出周报简报。">
 
@@ -25,21 +27,28 @@
   <link rel="preload" href="./assets/avatar.png" as="image" type="image/png">
   <link rel="stylesheet" href="./tailwind.css">
   <style>
+    :root {
+      --night:  #0A0F1E;
+      --panel:  #111827;
+      --line:   #1F2937;
+      --accent: #22D3EE;
+      --accent-66: rgba(34, 211, 238, 0.4);
+    }
     .card-hover { transition: border-color .2s ease, transform .2s ease; }
-    .card-hover:hover { border-color: #22D3EE66; transform: translateY(-2px); }
+    .card-hover:hover { border-color: var(--accent-66); transform: translateY(-2px); }
     .consultBtn:active { transform: scale(0.98); }
     .consultBtn.loading { opacity: 0.7; pointer-events: none; }
     .consultBtn.loading::after { content: ''; display: inline-block; width: 1em; height: 1em; margin-left: 0.5em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #111827; color: #22D3EE; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: 1px solid #22D3EE66; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 100; opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; font-size: 0.875rem; }
+    #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--panel); color: var(--accent); padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: 1px solid var(--accent-66); box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 100; opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; font-size: 0.875rem; }
     #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-    :focus-visible { outline: 2px solid #22D3EE; outline-offset: 2px; }
-    #mobileMenu:not(.hidden) *:focus { outline: 2px solid #22D3EE; outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    #mobileMenu:not(.hidden) *:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
     .prose p { margin-bottom: 1rem; }
     .prose h3 { margin-top: 1.5rem; margin-bottom: 0.75rem; }
     .prose ul { margin-bottom: 1rem; padding-left: 1.25rem; }
     .prose li { margin-bottom: 0.35rem; }
-    .step-num { width: 32px; height: 32px; border-radius: 50%; background: #22D3EE; color: #0A0F1E; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
+    .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--night); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
   </style>
 </head>
 
@@ -52,11 +61,11 @@
       老吴<span class="text-accent"> · AI 开发</span>
     </a>
     <div class="hidden md:flex items-center gap-6 text-sm">
-      <a href="./index.html#services" class="hover:text-white">服务</a>
-      <a href="./index.html#work" class="hover:text-white">案例</a>
-      <a href="./index.html#pricing" class="hover:text-white">报价</a>
-      <a href="./index.html#about" class="hover:text-white">关于我</a>
-      <button class="consultBtn px-4 py-2 rounded-lg bg-accent text-night font-medium hover:opacity-90" data-cta="nav">立即咨询项目</button>
+      <a href="./index.html#services" class="hover:text-white" data-i18n-key="nav.services">服务</a>
+      <a href="./index.html#work" class="hover:text-white" data-i18n-key="nav.cases">案例</a>
+      <a href="./index.html#pricing" class="hover:text-white" data-i18n-key="nav.pricing">报价</a>
+      <a href="./index.html#about" class="hover:text-white" data-i18n-key="nav.about">关于我</a>
+      <button class="consultBtn px-4 py-2 rounded-lg bg-accent text-night font-medium hover:opacity-90" data-cta="nav" data-i18n-key="nav.consult">立即咨询项目</button>
     </div>
     <button id="menuBtn" class="md:hidden text-slate-300 hover:text-white p-2" aria-label="打开菜单" aria-expanded="false">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -65,12 +74,12 @@
     </button>
   </nav>
   <div id="mobileMenu" class="hidden md:hidden border-t border-line bg-night px-4 py-3 space-y-3 text-sm">
-    <a href="./index.html#services" class="block hover:text-white">服务</a>
-    <a href="./index.html#work" class="block hover:text-white">案例</a>
-    <a href="./index.html#pricing" class="block hover:text-white">报价</a>
-    <a href="./index.html#about" class="block hover:text-white">关于我</a>
-    <a href="./index.html#faq" class="block hover:text-white">常见问题</a>
-    <button class="consultBtn block w-full text-left text-accent font-medium" data-cta="mobile">立即咨询项目 →</button>
+    <a href="./index.html#services" class="block hover:text-white" data-i18n-key="nav.services">服务</a>
+    <a href="./index.html#work" class="block hover:text-white" data-i18n-key="nav.cases">案例</a>
+    <a href="./index.html#pricing" class="block hover:text-white" data-i18n-key="nav.pricing">报价</a>
+    <a href="./index.html#about" class="block hover:text-white" data-i18n-key="nav.about">关于我</a>
+    <a href="./index.html#faq" class="block hover:text-white" data-i18n-key="nav.faq">常见问题</a>
+    <button class="consultBtn block w-full text-left text-accent font-medium" data-cta="mobile" data-i18n-key="nav.consult">立即咨询项目 →</button>
   </div>
 </header>
 
@@ -80,8 +89,8 @@
     <nav class="mb-6 text-sm text-slate-600">
       <a href="./index.html" class="hover:text-accent">首页</a> / <span class="text-slate-400">个人 AI 数字分身系统</a>
     </nav>
-    <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">个人 AI 数字分身系统</h1>
-    <p class="text-slate-400 text-lg">基于 Hermes / OpenClaw 双引擎搭建的常驻 Mac 数字分身</p>
+    <h1 class="text-3xl md:text-4xl font-bold text-white mb-4" data-i18n-key="case.agent.title">个人 AI 数字分身系统</h1>
+    <p class="text-slate-400 text-lg" data-i18n-key="case.agent.subtitle">基于 Hermes / OpenClaw 双引擎搭建的常驻 Mac 数字分身</p>
   </div>
 </section>
 
@@ -232,6 +241,11 @@
 </div>
 
 <script src="./main.js" defer></script>
+
+<footer class="py-8 px-4 border-t border-line text-center text-xs text-slate-600">
+  © 2026 数字探索者老吴
+</footer>
+<div id="buildInfo" class="text-center text-xs text-slate-700 pb-4"></div>
 
 </body>
 </html>
