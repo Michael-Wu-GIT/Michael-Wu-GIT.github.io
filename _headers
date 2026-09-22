@@ -1,0 +1,55 @@
+# Content Security Policy — restrict inline scripts, allow self-hosted assets
+# Works on Netlify, Cloudflare Pages, Vercel (via adapter)
+# For GitHub Pages, also add CSP meta tag in each HTML file
+
+/*
+  CSP 说明：
+  - default-src 'self': 仅允许同源资源
+  - script-src 'self': 禁止内联脚本 (所有 JS 已提取到 main.js)
+  - style-src 'self' 'unsafe-inline': 允许 Tailwind CSS + 内联样式块
+  - img-src 'self' data: https:; 允许同源图片、data URI、HTTPS 图片
+  - connect-src 'self' https://formspree.io: 允许 Formspree 表单提交
+  - form-action 'self' https://formspree.io: 限制表单提交目标
+  - frame-ancestors 'none': 防止点击劫持
+*/
+/ai-homepage/index.html
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'none';
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer-when-downgrade
+  X-XSS-Protection: 1; mode=block
+
+/ai-homepage/case-agent.html
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'none';
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer-when-downgrade
+  X-XSS-Protection: 1; mode=block
+
+/ai-homepage/case-prompt.html
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'none';
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer-when-downgrade
+  X-XSS-Protection: 1; mode=block
+
+/ai-homepage/case-deploy.html
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'none';
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer-when-downgrade
+  X-XSS-Protection: 1; mode=block
+
+/ai-homepage/main.js
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'none';
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer-when-downgrade
+  X-XSS-Protection: 1; mode=block
+
+/ai-homepage/assets/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'none';
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer-when-downgrade
+  X-XSS-Protection: 1; mode=block

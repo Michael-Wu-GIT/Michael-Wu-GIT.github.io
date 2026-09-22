@@ -8,14 +8,19 @@
     }
   }
 
+  // 埋点函数：发布自定义事件，等待 analytics 加载器接管
+  function track(eventName, props = {}) {
+    document.dispatchEvent(new CustomEvent('ga-event', { detail: { event: eventName, ...props } }));
+  }
+
   // Toast 提示
   function showToast(msg, isError = false) {
     const toast = document.getElementById('toast');
     if (!toast) return;
     toast.textContent = msg;
-    toast.style.background = isError ? '#7f1d1d' : '#111827';
-    toast.style.borderColor = isError ? '#ef444466' : '#22D3EE66';
-    toast.style.color = isError ? '#fca5a5' : '#22D3EE';
+    toast.style.background = isError ? '#7f1d1d' : 'var(--panel)';
+    toast.style.borderColor = isError ? '#ef444466' : 'var(--accent-66)';
+    toast.style.color = isError ? '#fca5a5' : 'var(--accent)';
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
   }
@@ -68,7 +73,7 @@
   const openModal = () => { modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; document.getElementById('fNeed').focus(); };
   const closeModal = () => { modal.classList.add('hidden'); document.body.style.overflow = ''; };
   document.querySelectorAll('.consultBtn').forEach(b =>
-    b.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuBtn.setAttribute('aria-expanded', 'false'); openModal(); }));
+    b.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuBtn.setAttribute('aria-expanded', 'false'); openModal(); track('consult_open', { cta: b.dataset.cta || 'unknown' }); }));
   document.getElementById('modalClose').addEventListener('click', closeModal);
   modal.querySelector('[data-close-modal]').addEventListener('click', closeModal);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
@@ -93,11 +98,13 @@
       });
       if (resp.ok) {
         showToast('✅ 咨询已发送，我会尽快回复您');
+        track('form_submit', { result: 'success' });
         form.reset();
         closeModal();
       } else {
         const data = await resp.json().catch(() => ({}));
         showToast(`❌ 提交失败：${data.error || '请稍后重试'}`, true);
+        track('form_submit', { result: 'error' });
       }
     } catch (err) {
       showToast('❌ 网络错误，请检查连接或改用微信联系', true);
@@ -114,8 +121,9 @@
     const need = document.getElementById('fNeed').value.trim();
     if (!need) { document.getElementById('fNeed').focus(); return; }
     const msg = `【项目咨询】\n称呼：${name}\n联系方式：${way}\n需求描述：${need}`;
-    await copyText(msg);
+       await copyText(msg);
     document.getElementById('wxDone').classList.remove('hidden');
+    track('copy_wechat');
     setTimeout(() => document.getElementById('wxDone').classList.add('hidden'), 4000);
   });
 
@@ -125,3 +133,14 @@
     btn.addEventListener('mouseup', () => btn.style.transform = '');
     btn.addEventListener('mouseleave', () => btn.style.transform = '');
   });
+
+  // 7) 显示构建时间
+  const buildMeta = document.querySelector('meta[name="build-time"]');
+  if (buildMeta) {
+    const buildEl = document.getElementById('buildInfo');
+    if (buildEl) {
+      const ts = buildMeta.content;
+      buildEl.textContent = `Build ${ts}`;
+      buildEl.title = `构建时间：${ts}`;
+    }
+  }
